@@ -1,7 +1,7 @@
 # SWAP GROUP 4 
 
 ## Group members 
-1. Hao Wen
+1. Haowen
 
 2. Jeric 
 
