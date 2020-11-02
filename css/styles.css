@@ -27,4 +27,6 @@ hr {
 :root{
     --primaryColor: #e66f0e;
     --accentColor: #e3a97b;
+    --backgroundColor: #f8f8f8;
+    --grey: #313131;
   }
