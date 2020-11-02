@@ -12,8 +12,10 @@ function checkActive() {
     else if (window.location.href.indexOf("search") > -1) {
         document.getElementById("searchTab").className=("active");
     }
-    else {
+    else if (window.location.href.indexOf("about") > -1) {
         document.getElementById("aboutTab").className=("active");
+    }
+    else{
     }
 }
 

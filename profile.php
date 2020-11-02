@@ -10,6 +10,7 @@
     <style>
         <?php include 'css/styles.css'; ?><?php include 'css/about.css' ?><?php include 'css/userProfile.css' ?>
     </style>
+    <script type="text/javascript" src="js/userProfile.js"></script>
     <title>Grabify - Profile</title>
 </head>
 

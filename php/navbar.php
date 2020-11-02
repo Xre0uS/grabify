@@ -81,8 +81,8 @@
                 </div>
             </div>
             <div class="userdropdown">
-                <a href="userinfo.html">Profile</a>
-                <a href="userreviews.html">My reviews</a>
+                <a href="profile.php">Profile</a>
+                <a href="reviews.php">My reviews</a>
                 <a href="#" onclick="logout()">Logout</a>
             </div>
         </div>

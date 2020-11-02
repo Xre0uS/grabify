@@ -14,6 +14,7 @@ nav{
     position: fixed;
     width: 100%;
     z-index: 2;
+    margin-bottom: 100px;
 }
 
 .logo{
@@ -216,3 +217,7 @@ nav{
 .userdropdown a:hover {background-color: var(--accentColor);}
   
 .userbtncontainer:hover .userdropdown {display: block;}
+
+.navSpace{
+    padding-bottom: 100px;
+}
