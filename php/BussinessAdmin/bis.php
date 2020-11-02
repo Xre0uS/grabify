@@ -6,7 +6,7 @@
 </style>
 
 <body>
-<?php include 'navbar.php'; ?>
+<?php include 'php/navbar.php'; ?>
 
     <h2>Bussiness Page </h2>
     <h2> Welcome XXX User </h2>
