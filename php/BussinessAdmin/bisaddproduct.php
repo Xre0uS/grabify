@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<?php include 'navbar.php'; ?>
+<?php include 'php/navbar.php'; ?>
 <h2>Bussiness Page </h2>
 <h3> Fill Out the below form to add new product </h3>
 
