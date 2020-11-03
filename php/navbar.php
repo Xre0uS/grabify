@@ -13,7 +13,7 @@
     <script type="text/javascript" src="js/w3.js"></script>
 </head>
 
-<body onload="checkforlogin(), checkActive()">
+<body onload="checkLogin(), checkActive()">
     <nav>
         <div class="nav-links" id="tabnav">
             <li><a id="homeTab" href="home.php">Home</a></li>
@@ -37,7 +37,7 @@
             </a>
         </div>
 
-        <div id="loginfncontainer" class="loginfncontainer">
+        <div id="loginContainer" class="loginContainer" style="display: none;">
             <div id="loginbtncontainer" class="loginbtncontainer" onclick="shloginmodel()">
                 <button id="login-btn" class="login-btn">
                     <div class="login-txt">
@@ -45,8 +45,9 @@
                     </div>
                 </button>
             </div>
-            <div id="logincontainer" class="logincontainer" style="display: none;">
-                <div id="login-modal" class="login-modal animate">
+
+            <div id="loginModalContainer" class="loginModalContainer" style="display: none;">
+                <div id="loginModal" class="loginModal animate">
                     <form class="login">
                         <h1>LOGIN</h1>
                         <div class="space"></div>
@@ -60,7 +61,7 @@
                         <div class="bigspace"></div>
                         <div id="wrongpassword" class="warningtext" style="display: none">Incorrect password</div>
                         <div id="wronguser" class="warningtext" style="display: none">User not found</div>
-                        <input type="button" name="" value="LOGIN" onclick="staticLogin()">
+                        <input type="button" name="" value="LOGIN" onclick="staticUserLogin()">
                     </form>
 
                     <div>
@@ -74,7 +75,7 @@
             </div>
         </div>
 
-        <div id="userbtncontainer" class="userbtncontainer">
+        <div id="userbtncontainer" class="userbtncontainer" style="display: none;">
             <div class="btncontainer">
                 <div class="userbtn">
                     <div id="usergreet" class="userwelcome"></div>
@@ -100,7 +101,7 @@
         </form>
     </div>
 
-    <div id="signupcontainer" class="signupcontainer" style="display: none;">
+    <div id="userSignupContainer" class="userSignupContainer" style="display: none;">
         <div id="signupmodal" class="signupmodal animate">
             <form class="signup">
                 <h1>SIGN UP</h1>
@@ -157,15 +158,14 @@
 </body>
 
 <script>
-    function staticLogin() {
+    function staticUserLogin() {
         sessionStorage.setItem("loginstatus", true);
         sessionStorage.setItem("loggedinid", "");
-        sessionStorage.setItem("loggedusername", "test user");
+        sessionStorage.setItem("loggedusername", "User");
         location.reload();
     }
 
     function staticReload() {
         location.reload();
     }
-
 </script>
