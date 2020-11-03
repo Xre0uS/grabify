@@ -55,7 +55,7 @@ margin-right:auto;
     <td><a href="View_Item.php">Product Name 1</a></td>
     <td><a href="View_Business.php">Business Name</a></td>
 	<td>Product Price 1</td>
-	<td><a href="delete_favourite.php">Delete</a></td>
+	<button>Delete</button>
     </tr>
 </table>
 <br>
@@ -66,7 +66,7 @@ margin-right:auto;
     <td><a href="View_Item.php">Product Name 2</a></td>
     <td><a href="View_Business.php">Business Name</a></td>
 	<td>Product Price 2</td>
-	<td><a href="delete_favourite.php">Delete</a></td>
+	<button>Delete</button>
     </tr>
 </table>
 <br>
@@ -77,7 +77,7 @@ margin-right:auto;
     <td><a href="View_Item.php">Product Name 3</a></td>
     <td><a href="View_Business.php">Business Name</a></td>
 	<td>Product Price 3</td>
-	<td><a href="delete_favourite.php">Delete</a></td>
+	<button>Delete</button>
     </tr>
 </table>
 <br>
@@ -88,7 +88,7 @@ margin-right:auto;
     <td><a href="View_Item.php">Product Name 4</a></td>
     <td><a href="View_Business.php">Business Name</a></td>
 	<td>Product Price 4</td>
-	<td><a href="delete_favourite.php">Delete</a></td>
+	<button>Delete</button>
     </tr>
 </table>
 <br>
