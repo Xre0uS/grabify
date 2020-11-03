@@ -3,25 +3,37 @@ var user_array = [];
 var ueser_array_reset = [];
 
 function checkActive() {
-    if (window.location.href.indexOf("home") > -1) {
-        document.getElementById("homeTab").className=("active");
+    if (window.location.href.includes("home")) {
+        document.getElementById("homeTab").className = ("active");
     }
-    else if (window.location.href.indexOf("browse") > -1) {
-        document.getElementById("browseTab").className=("active");
+    else if (window.location.href.includes("browse.php")) {
+        document.getElementById("browseTab").className = ("active");
     }
-    else if (window.location.href.indexOf("search") > -1) {
-        document.getElementById("searchTab").className=("active");
+    else if (window.location.href.includes("search.php")) {
+        document.getElementById("searchTab").className = ("active");
     }
-    else if (window.location.href.indexOf("about") > -1) {
-        document.getElementById("aboutTab").className=("active");
+    else if (window.location.href.includes("about.php")) {
+        document.getElementById("aboutTab").className = ("active");
     }
-    else{
+    else {
     }
 }
 
-function checkforlogin() {
+function checkLogin() {
+    if (window.location.href.includes("admin")) {
+        adminLogin();
+    }
+    else if (window.location.href.includes("business")) {
+        bussinessLogin();
+    }
+    else {
+        userLogin();
+    }
+}
+
+function userLogin() {
     if (localStorage.getItem("loginstatus") == "true" || sessionStorage.getItem("loginstatus") == "true") {
-        shloginbtn();
+        shuserbtn();
         if (sessionStorage.getItem("loggedusername") == "null" || sessionStorage.getItem("loggedusername") == "" || sessionStorage.getItem("loggedusername") == null) {
             document.getElementById("usergreet").innerHTML = "Welcome, " + localStorage.getItem("loggedusername");
 
@@ -40,7 +52,7 @@ function checkforlogin() {
         }
     }
     else {
-        shuserbtn();
+        shloginbtn();
     }
 }
 
@@ -97,7 +109,7 @@ function usersignup() {
     else {
         sessionStorage.setItem("loginstatus", true);
         sessionStorage.setItem("loggedinid", "1");
-        sessionStorage.setItem("loggedusername", "test user");
+        sessionStorage.setItem("loggedusername", "User");
         location.reload();
         /* var usernameinput = document.getElementById("usernamesignupbox").value;
 
@@ -256,7 +268,7 @@ function rand(length) {
 }
 
 /* show and hide models */
-var modal = document.getElementById('logincontainer');
+var modal = document.getElementById('loginModalContainer');
 window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
@@ -265,7 +277,7 @@ window.onclick = function (event) {
 
 function shloginmodel() {
     console.log("here")
-    var x = document.getElementById("logincontainer");
+    var x = document.getElementById("loginModalContainer");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
@@ -274,25 +286,7 @@ function shloginmodel() {
 }
 
 function shloginbtn() {
-    var x = document.getElementById("loginbtncontainer");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function shuserbtn() {
-    var x = document.getElementById("userbtncontainer");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function shlogincontainer() {
-    var x = document.getElementById("logincontainer");
+    var x = document.getElementById("loginContainer");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
@@ -310,7 +304,16 @@ function shfpswmodal() {
 }
 
 function shsignupmodal() {
-    var x = document.getElementById("signupcontainer");
+    var x = document.getElementById("userSignupContainer");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+function shuserbtn() {
+    var x = document.getElementById("userbtncontainer");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
