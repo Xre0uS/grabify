@@ -55,8 +55,4 @@
   </form>
 </body>
 </html>
-<footer>
-  CopyRight Temasek Polytechnic
-</footer>
-
 
