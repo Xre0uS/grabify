@@ -88,14 +88,10 @@ function verifyuser() {
 function usersignup() {
     var usernamesignup = document.getElementById("usernamesignupbox").value;
     var emailsignup = document.getElementById("emailsignupbox").value;
-    var numsignup = document.getElementById("numsignupbox").value;
-    var adsignup = document.getElementById("adsignupbox").value;
     var tpwsignup = document.getElementById("tpwsignupbox").value;
     var pwsignup = document.getElementById("pwsignupbox").value;
-    var gendersignup = document.querySelector('input[name="gender"]:checked').value;
 
-
-    if (usernamesignup == "" || emailsignup == "" || numsignup == "" || adsignup == "" || tpwsignup == "" || pwsignup == "" || gendersignup == "") {
+    if (usernamesignup == "" || emailsignup == "" || tpwsignup == "" || pwsignup == "") {
         document.getElementById("warninginfotext").style.display = "block";
         document.getElementById("warningpwtext").style.display = "none";
     }
