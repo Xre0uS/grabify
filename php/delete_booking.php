@@ -36,6 +36,7 @@ margin-right:auto;
 <?php include 'css/styles.css'; ?>
 
 
+
 </style>
 </head>
 <body>
@@ -65,10 +66,13 @@ margin-right:auto;
     <td>13Dec2020</td>
     <td>14Dec2020</td>
     <td>1pm</td>
+
     <td><a href="view_booking.php">View</a></td>
     <td><a href="delete_booking.php" onclick='alert("Delete")'>Delete</a></td>
-    <td><a href="edit_booking.php">Edit</a></td>
-    </tr>
+
+    <td><a href=view_booking.php">View</a></td>
+    <td><a href="delete_booking.php" onclick=alert("Delete")>Delete</a></td>
+
 
   
 </table>
