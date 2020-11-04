@@ -13,7 +13,7 @@
     <script type="text/javascript" src="js/w3.js"></script>
 </head>
 
-<body onload="checkforlogin(), checkActive()">
+<body onload="checkLogin(), checkActive()">
     <nav>
         <div class="nav-links" id="tabnav">
             <li><a id="homeTab" href="home.php">Home</a></li>
@@ -37,16 +37,17 @@
             </a>
         </div>
 
-        <div id="loginfncontainer" class="loginfncontainer">
-            <div id="loginbtncontainer" class="loginbtncontainer" onclick="shloginmodel()">
+        <div id="loginContainer" class="loginContainer">
+            <div id="loginbtncontainer" class="loginbtncontainer" style="display: none;" onclick="shloginmodel()">
                 <button id="login-btn" class="login-btn">
                     <div class="login-txt">
                         LOGIN
                     </div>
                 </button>
             </div>
-            <div id="logincontainer" class="logincontainer" style="display: none;">
-                <div id="login-modal" class="login-modal animate">
+
+            <div id="loginModalContainer" class="loginModalContainer" style="display: none;">
+                <div id="loginModal" class="loginModal animate">
                     <form class="login">
                         <h1>LOGIN</h1>
                         <div class="space"></div>
@@ -60,7 +61,7 @@
                         <div class="bigspace"></div>
                         <div id="wrongpassword" class="warningtext" style="display: none">Incorrect password</div>
                         <div id="wronguser" class="warningtext" style="display: none">User not found</div>
-                        <input type="button" name="" value="LOGIN" onclick="staticLogin()">
+                        <input type="button" name="" value="LOGIN" onclick="staticUserLogin()">
                     </form>
 
                     <div>
@@ -74,7 +75,7 @@
             </div>
         </div>
 
-        <div id="userbtncontainer" class="userbtncontainer">
+        <div id="userbtncontainer" class="userbtncontainer" style="display: none;">
             <div class="btncontainer">
                 <div class="userbtn">
                     <div id="usergreet" class="userwelcome"></div>
@@ -82,7 +83,8 @@
             </div>
             <div class="userdropdown">
                 <a href="profile.php">Profile</a>
-                <a href="reviews.php">My reviews</a>
+                <a href="listReview.php">My reviews</a>
+                <a href="favourites.php">Favourites</a>
                 <a href="#" onclick="logout()">Logout</a>
             </div>
         </div>
@@ -100,7 +102,7 @@
         </form>
     </div>
 
-    <div id="signupcontainer" class="signupcontainer" style="display: none;">
+    <div id="userSignupContainer" class="userSignupContainer" style="display: none;">
         <div id="signupmodal" class="signupmodal animate">
             <form class="signup">
                 <h1>SIGN UP</h1>
@@ -108,17 +110,8 @@
                 <hr />
                 <div class="space"></div>
 
-                <div class="radiocontainer">
-                    <input type="radio" id="male" name="gender" value="M">
-                    <label class="radio" for="male">Male</label>
-                    <input type="radio" id="female" name="gender" value="F">
-                    <label class="radio" for="female">Female</label>
-                </div>
-
                 <input id="usernamesignupbox" type="text" name="" placeholder="Username">
                 <input id="emailsignupbox" type="text" name="" placeholder="Email">
-                <input id="numsignupbox" type="text" name="" placeholder="Mobile number">
-                <input id="adsignupbox" type="text" name="" placeholder="Address">
                 <input id="tpwsignupbox" type="password" name="" placeholder="Password">
                 <input id="pwsignupbox" type="password" name="" placeholder="Confirm password">
                 <div class="space"></div>
@@ -157,15 +150,14 @@
 </body>
 
 <script>
-    function staticLogin() {
+    function staticUserLogin() {
         sessionStorage.setItem("loginstatus", true);
         sessionStorage.setItem("loggedinid", "");
-        sessionStorage.setItem("loggedusername", "test user");
+        sessionStorage.setItem("loggedusername", "User");
         location.reload();
     }
 
     function staticReload() {
         location.reload();
     }
-
 </script>
