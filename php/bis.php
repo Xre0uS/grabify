@@ -27,56 +27,56 @@
 
     <section class="sec-boxes" role="section">
     <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
         <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
         <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
         <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
         <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
         <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
         <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
         <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px;" onclick=MyDelete()>Delete</button>
@@ -89,19 +89,19 @@
     <br>
     <section class="sec-boxes" role="section">
     <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1>Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyApprove()>Approve</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1>Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px" onclick=MyApprove()>Approve</button>
       </adrticle>
       <adrticle class="box">
-        <h1 onclick="window.location.href='test.php'">Product X</h1>
+        <h1>Product X</h1>
         Image
         <p>Basic Description</p>
         <button style="float: right;font-size:20px;" onclick=MyApprove()>Approve</button>

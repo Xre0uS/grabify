@@ -45,7 +45,10 @@ margin-right:auto;
 <button onclick="goBack()">Return</button>
 
 
-<h2 style="text-align:center">View Booking</h2>
+
+
+
+<h2 style="text-align:center">Delete Bookings</h2>
 
 <table border="1" class="center">
   <tr>
@@ -63,21 +66,11 @@ margin-right:auto;
     <td>13Dec2020</td>
     <td>14Dec2020</td>
     <td>1pm</td>
-    <td><a href="www.google.com">Delete</a></td>
-    <td><a href="www.google.com">Edit</a></td>
-    <tr>
-    <td colspan="6" style="height:100px" >Test Image</td>
-	</tr>
-	<tr>
-		<td>2</td>
-    <td>Product Nam2</td>
-    <td>12sa3cda45</td>
-    <td>13Dec2020</td>
-    <td>14Dec2020</td>
-    <td>1pm</td>
-    <td><a href="View_Booking.php">View</a></td>
-    <td><a href="www.google.com">Delete</a></td>
-    <td><a href="www.google.com">Edit</a></td>
+    <td><a href=view_booking.php">View</a></td>
+    <td><a href="delete_booking.php" onclick=alert("Delete")>Delete</a></td>
+    <td><a href="edit_booking.php">Edit</a></td>
+    </tr>
+
   
 </table>
 
