@@ -125,6 +125,3 @@ function MyApprove() {
 </script>
 
 </body>
-<footer>
-  CopyRight Temasek Polytechnic
-</footer>
