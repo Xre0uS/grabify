@@ -37,8 +37,8 @@
             </a>
         </div>
 
-        <div id="loginContainer" class="loginContainer" style="display: none;">
-            <div id="loginbtncontainer" class="loginbtncontainer" onclick="shloginmodel()">
+        <div id="loginContainer" class="loginContainer">
+            <div id="loginbtncontainer" class="loginbtncontainer" style="display: none;" onclick="shloginmodel()">
                 <button id="login-btn" class="login-btn">
                     <div class="login-txt">
                         LOGIN
