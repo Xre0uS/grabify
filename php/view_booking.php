@@ -75,7 +75,7 @@ margin-right:auto;
     <td>13Dec2020</td>
     <td>14Dec2020</td>
     <td>1pm</td>
-    <td><a href="View_Booking.php">View</a></td>
+    <td><a href="view_booking.php">View</a></td>
     <td><a href="www.google.com">Delete</a></td>
     <td><a href="www.google.com">Edit</a></td>
   
