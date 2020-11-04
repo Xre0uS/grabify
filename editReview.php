@@ -1,13 +1,11 @@
 <html>
 
 <head>
-    <title>Review </title>
+    <title> Edit Review </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,40 +21,15 @@
 
 <body>
 <h2 style="text-align: center">
-            Ratings and Review
+            Edit Review
         </h2>
-    <div class="row container" style="position:absolute; left:500px">
+    <br>
+    <div class="row container" style="position:absolute; left:700px">
         <div class="col-md-6">
-            <div class="row">
-
-                <div class="col-md-6">
-                    <h3 align="center"><b>4.5</b> <i class="fa fa-star" data-rating="2" style="font-size:20px;color:#ff9f00"></i></h3>
-                    <p style="position:absolute;left:50px">24 ratings and 24 reviews</p>
-                </div>
-                <div class="col-md-6">
-
-                    <h4 align="center">5 <i class="fa fa-star" data-rating="5" style="font-size:20px;color:green;"></i> Total 13</h4>
-                    <h4 align="center">4 <i class="fa fa-star" data-rating="4" style="font-size:20px;color:green;"></i> Total 11</h4>
-                    <h4 align="center">3 <i class="fa fa-star" data-rating="3" style="font-size:20px;color:green;"></i> Total 10</h4>
-                    <h4 align="center">2 <i class="fa fa-star" data-rating="2" style="font-size:20px;color:green;"></i> Total 5</h4>
-                    <h4 align="center">1 <i class="fa fa-star" data-rating="1" style="font-size:20px;color:green;"></i> Total 5</h4>
-
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-
-                    <h4>5 <i class="fa fa-star" data-rating="5" style="font-size:20px;color:green;"></i> by John</span></h4>
-                    <p>Great Service</p>
-                    <a href="editReview.php">Edit</a>
-
-                </div>
-            </div>
 
 
 
-            <form action="createReview.php" method="post">
+            <form action="edit.php" method="post">
                 Ratings <select id="star-rating" name="ratings" required>
     <option value="">Select a rating</option>
   <option value="5">Excellent</option>
@@ -132,14 +105,41 @@
 
 
 
-</table><br>
+</table><!--<input type="text" class="form-control" name="DateVisit" id="date" placeholder="Date format: dd/mm/yy">--><br>
         Review:<textarea class="form-control" rows="5" placeholder="Write your review here..." name="remark" id="remark" required></textarea><br>
-                <button type="submit" class="btn btn-primary button" style="position:absolute; left:250px">
-                submit
+        <button type="submit" name="Update" class="btn btn-primary button" style="position:absolute; left:10px">
+                Updates
               </button>
-        
+              <button type="Submit" name="Delete" class="btn btn-primary button" style="position:absolute; right:10px">
+                Delete
+              </button>
         </form>
 
-</body>
 
+
+<?php
+if (isset($_POST['Delete'])) {
+
+    echo "<script type='text/javascript'>alert('hi');</script>";
+
+    /*$itemID=$_GET['ITEM_ID'];
+
+    $query = $con->prepare("Delete from item where item_id = ?");
+    $query->bind_param('i', $itemID);
+
+    if($query->execute()){
+        echo "Query executed.";
+        header("Location: index.php");
+    }
+    else{
+        echo "Error executing query.";
+    }*/
+
+}
+elseif (isset($_POST['Update'])) {
+    echo "<script type='text/javascript'>alert('update');</script>";
+}
+
+?>
+</body>
 </html>

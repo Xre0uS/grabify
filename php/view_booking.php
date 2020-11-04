@@ -35,7 +35,6 @@ margin-right:auto;
 
 <?php include 'css/styles.css'; ?>
 
-//color:var():
 
 </style>
 </head>
