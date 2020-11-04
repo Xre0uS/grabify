@@ -109,17 +109,8 @@
                 <hr />
                 <div class="space"></div>
 
-                <div class="radiocontainer">
-                    <input type="radio" id="male" name="gender" value="M">
-                    <label class="radio" for="male">Male</label>
-                    <input type="radio" id="female" name="gender" value="F">
-                    <label class="radio" for="female">Female</label>
-                </div>
-
                 <input id="usernamesignupbox" type="text" name="" placeholder="Username">
                 <input id="emailsignupbox" type="text" name="" placeholder="Email">
-                <input id="numsignupbox" type="text" name="" placeholder="Mobile number">
-                <input id="adsignupbox" type="text" name="" placeholder="Address">
                 <input id="tpwsignupbox" type="password" name="" placeholder="Password">
                 <input id="pwsignupbox" type="password" name="" placeholder="Confirm password">
                 <div class="space"></div>
