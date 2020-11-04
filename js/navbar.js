@@ -15,8 +15,6 @@ function checkActive() {
     else if (window.location.href.includes("about.php")) {
         document.getElementById("aboutTab").className = ("active");
     }
-    else {
-    }
 }
 
 function checkLogin() {
@@ -286,7 +284,7 @@ function shloginmodel() {
 }
 
 function shloginbtn() {
-    var x = document.getElementById("loginContainer");
+    var x = document.getElementById("loginbtncontainer");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
