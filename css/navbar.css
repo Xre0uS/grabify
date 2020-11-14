@@ -103,7 +103,7 @@ nav{
 }
 
 /* login button styles */
-.login-btn {
+.login-btn{
     border: 2px solid;
     display: flex;
     margin-left: auto;
@@ -118,12 +118,14 @@ nav{
     transition: 0.2s ease;
 }
 
-.loginbtncontainer {
+.loginBtn {
     margin-right: 30px;
+    float: right;
 }
 
-.loginbtncontainer :hover {
+.loginBtn :hover {
     background-color: var(--primaryColor);
+    border-color: var(--primaryColor);
     color: white;
 }
 
@@ -133,10 +135,6 @@ nav{
     font-size: 14px;
 }
 
-
-.login-icon :hover  + .loginbtncontainer{ 
-    fill: white;
-}
 
 .login {
     position: relative;
