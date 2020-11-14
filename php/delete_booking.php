@@ -35,7 +35,7 @@ margin-right:auto;
 
 <?php include 'css/styles.css'; ?>
 
-//color:var():
+
 
 </style>
 </head>
@@ -66,10 +66,13 @@ margin-right:auto;
     <td>13Dec2020</td>
     <td>14Dec2020</td>
     <td>1pm</td>
+
+    <td><a href="view_booking.php">View</a></td>
+    <td><a href="delete_booking.php" onclick='alert("Delete")'>Delete</a></td>
+
     <td><a href=view_booking.php">View</a></td>
     <td><a href="delete_booking.php" onclick=alert("Delete")>Delete</a></td>
-    <td><a href="edit_booking.php">Edit</a></td>
-    </tr>
+
 
   
 </table>

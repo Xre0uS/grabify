@@ -83,7 +83,8 @@
             </div>
             <div class="userdropdown">
                 <a href="profile.php">Profile</a>
-                <a href="reviews.php">My reviews</a>
+                <a href="listReview.php">My reviews</a>
+                <a href="favourites.php">Favourites</a>
                 <a href="#" onclick="logout()">Logout</a>
             </div>
         </div>
