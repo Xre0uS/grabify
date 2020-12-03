@@ -1,6 +1,13 @@
+//assigning variables 
 var response = "";
 var user_array = [];
 var ueser_array_reset = [];
+
+/***
+  * @description changing it to the appropriate tab when the user clicked on it
+  * @param  null
+  * @return  null           
+*/
 
 function checkActive() {
     if (window.location.href.includes("home")) {
@@ -17,43 +24,60 @@ function checkActive() {
     }
 }
 
+/***
+  * @description Displaying the appropriate tabs for different users
+  * @param  null
+  * @return  null           
+*/
+
 function checkLogin() {
     if (window.location.href.includes("admin")) {
         adminLogin();
     }
-    else if (window.location.href.includes("business")) {
-        bussinessLogin();
+    else if (window.location.href.includes("bis")) {
+        businessLogin();
     }
     else {
         userLogin();
     }
 }
+/***
+  * @description Displaying the appropriate tabs for normal users 
+  * @param  null
+  * @return  null           
+*/
 
 function userLogin() {
-    if (localStorage.getItem("loginstatus") == "true" || sessionStorage.getItem("loginstatus") == "true") {
-        shuserbtn();
-        if (sessionStorage.getItem("loggedusername") == "null" || sessionStorage.getItem("loggedusername") == "" || sessionStorage.getItem("loggedusername") == null) {
-            document.getElementById("usergreet").innerHTML = "Welcome, " + localStorage.getItem("loggedusername");
-
-            var update = new XMLHttpRequest();
-            update.open("GET", "/user/activate/" + localStorage.getItem("loggedinid"), true);
-            update.setRequestHeader("Content-Type", "application/json");
-            update.send();
-        }
-        else {
-            document.getElementById("usergreet").innerHTML = "Welcome, " + sessionStorage.getItem("loggedusername");
-
-            var update = new XMLHttpRequest();
-            update.open("GET", "/user/activate/" + sessionStorage.getItem("loggedinid"), true);
-            update.setRequestHeader("Content-Type", "application/json");
-            update.send();
-        }
-    }
-    else {
-        shloginbtn();
-    }
+    $(document).ready(function () {
+        $("#loginBtnContainer").load('php/userloginfn.php');
+    });
 }
 
+/***
+  * @description Displaying the appropriate tabs for business accounts 
+  * @param  null
+  * @return  null           
+*/
+
+function adminLogin() {
+    $(document).ready(function () {
+        $("#loginBtnContainer").load('php/adminloginfn.php');
+    });
+}
+
+/***
+  * @description Displaying the appropriate tabs for administrators
+  * @param  null
+  * @return  null           
+*/
+
+function businessLogin() {
+    $(document).ready(function () {
+        $("#loginBtnContainer").load('php/bisloginfn.php');
+    });
+}
+
+/*
 function verifyuser() {
     var usernameinput = document.getElementById("usernamebox").value;
     var passowrdinput = document.getElementById("passwordbox").value;
@@ -83,234 +107,4 @@ function verifyuser() {
         }
     }
     login.send(JSON.stringify(credentials));
-}
-
-function usersignup() {
-    var usernamesignup = document.getElementById("usernamesignupbox").value;
-    var emailsignup = document.getElementById("emailsignupbox").value;
-    var tpwsignup = document.getElementById("tpwsignupbox").value;
-    var pwsignup = document.getElementById("pwsignupbox").value;
-
-    if (usernamesignup == "" || emailsignup == "" || tpwsignup == "" || pwsignup == "") {
-        document.getElementById("warninginfotext").style.display = "block";
-        document.getElementById("warningpwtext").style.display = "none";
-    }
-
-    else if (tpwsignup !== pwsignup) {
-        document.getElementById("warninginfotext").style.display = "none";
-        document.getElementById("warningpwtext").style.display = "block";
-    }
-    else {
-        sessionStorage.setItem("loginstatus", true);
-        sessionStorage.setItem("loggedinid", "1");
-        sessionStorage.setItem("loggedusername", "User");
-        location.reload();
-        /* var usernameinput = document.getElementById("usernamesignupbox").value;
-
-        var credentials = new Object();
-        credentials.username = usernameinput;
-
-        var login = new XMLHttpRequest();
-        login.open("POST", "/user/login", true);
-        login.setRequestHeader("Content-Type", "application/json");
-
-        login.onload = function () {
-            response = JSON.parse(login.responseText);
-
-            if (response.message == "2") {
-                document.getElementById("warningpwtext").style.display = "none";
-                document.getElementById("wronguser").style.display = "none";
-                document.getElementById("warningusernametext").style.display = "block";
-            }
-            else {
-                var usersignup = new Object();
-                usersignup.username = usernamesignup;
-                usersignup.user_email = emailsignup;
-                usersignup.user_number = numsignup;
-                usersignup.user_address = adsignup;
-                usersignup.user_password = pwsignup;
-                usersignup.user_gender = gendersignup;
-
-                var addUser = new XMLHttpRequest();
-                addUser.open("POST", "/user", true);
-                addUser.setRequestHeader("Content-Type", "application/json");
-                addUser.send(JSON.stringify(usersignup));
-                sessionStorage.setItem("loggedusername", usernamesignup);
-                sessionStorage.setItem("loginstatus", true);
-                shsignupmodal();
-                document.getElementById("confirmmodal").style.display = "block"
-            }
-        }
-        login.send(JSON.stringify(credentials)); */
-    }
-}
-
-function checkloggedinuser() {
-    if (sessionStorage.getItem("loginstatus") == "true") {
-        if (sessionStorage.getItem("loggedusername") !== "null" || sessionStorage.getItem("loggedusername") !== "" || sessionStorage.getItem("loggedusername") !== null) {
-            if (sessionStorage.getItem("loggedinid") == "null" || sessionStorage.getItem("loggedinid") == "" || sessionStorage.getItem("loggedinid") == null) {
-                checkuser(sessionStorage.getItem("loggedusername"))
-                console.log("found user")
-            }
-        }
-    }
-}
-
-function checkuser(username) {
-    var check = new XMLHttpRequest();
-    check.open("GET", "/user/check/" + username, true);
-    check.setRequestHeader("Content-Type", "application/json");
-
-    check.onload = function () {
-        user_array = JSON.parse(check.responseText);
-        loginuser();
-    };
-    check.send();
-}
-
-function loginuser() {
-    var userid = user_array[0].user_id;
-    var username = user_array[0].username;
-
-    var update = new XMLHttpRequest();
-    update.open("GET", "/user/activate/" + userid, true);
-    update.setRequestHeader("Content-Type", "application/json");
-    update.send();
-
-    if (document.getElementById("usercheckbox").checked == true) {
-        localStorage.setItem("loginstatus", true);
-        localStorage.setItem("loggedinid", userid);
-        localStorage.setItem("loggedusername", username);
-    }
-
-    else {
-        sessionStorage.setItem("loginstatus", true);
-        sessionStorage.setItem("loggedinid", userid);
-        sessionStorage.setItem("loggedusername", username);
-    }
-    location.reload();
-}
-
-function logout() {
-    localStorage.setItem("loginstatus", false);
-    localStorage.setItem("loggedinid", "");
-    localStorage.setItem("loggedusername", "");
-    sessionStorage.setItem("loginstatus", false);
-    sessionStorage.setItem("loggedinid", "");
-    sessionStorage.setItem("loggedusername", "");
-    window.location.href = "home.php";
-}
-
-function resetpassword() {
-    resetname = document.getElementById("resetpwname").value;
-
-    if (resetname == "") {
-        document.getElementById("resetinfotext").style.display = "block";
-    }
-    else {
-        var credentials = new Object();
-        credentials.username = resetname;
-
-        var login = new XMLHttpRequest();
-        login.open("POST", "/user/login", true);
-        login.setRequestHeader("Content-Type", "application/json");
-
-        login.onload = function () {
-            response = JSON.parse(login.responseText);
-
-            if (response.message == "3") {
-                document.getElementById("resetinfotext").style.display = "block";
-            }
-            else {
-                var check = new XMLHttpRequest();
-                check.open("GET", "/user/check/" + resetname, true);
-                check.setRequestHeader("Content-Type", "application/json");
-
-                check.onload = function () {
-                    ueser_array_reset = JSON.parse(check.responseText);
-                    changepassword();
-                };
-                check.send();
-            }
-        }
-    }
-}
-
-function changepassword() {
-    userid = ueser_array_reset[0].user_id;
-    newps = rand(8);
-
-    var userinfo = new Object;
-    userinfo.user_password = newps;
-
-    var update = new XMLHttpRequest();
-    update.open("PUT", "/user/updatepassword/" + userid, true)
-    update.setRequestHeader("Content-Type", "application/json");
-    update.send(JSON.stringify(userinfo));
-    document.getElementById("resetconfirmmodal").style.display = "block";
-    document.getElementById("resettext").innerHTML = 'Your password has been reset to: ' + newps;
-}
-
-function rand(length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-}
-
-/* show and hide models */
-var modal = document.getElementById('loginModalContainer');
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-function shloginmodel() {
-    console.log("here")
-    var x = document.getElementById("loginModalContainer");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function shloginbtn() {
-    var x = document.getElementById("loginbtncontainer");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function shfpswmodal() {
-    var x = document.getElementById("fpswmodal");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function shsignupmodal() {
-    var x = document.getElementById("userSignupContainer");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function shuserbtn() {
-    var x = document.getElementById("userbtncontainer");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
+} */

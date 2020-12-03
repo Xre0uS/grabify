@@ -1,13 +1,14 @@
+<!DOCTYPE html>
 <head>
-
   <style>
     <?php include 'css/bispage.css'; ?><?php include 'css/bistable.css'; ?><?php include 'css/style.css'; ?>
   </style>
 
 </head>
 
-<body>
 
+<body>
+<?php include 'php/navbar.php'; ?>
   <h2>Business Login to Grabify </h2>
   <a href="bisregister.php"><input style="float:right" type="submit" value="Register"></a>
   <br>
@@ -35,9 +36,5 @@
   </div>
   </div>
   </form>
-  
-</body>
 
-<footer>
-  CopyRight Temasek Polytechnic
-</footer>
+</body>

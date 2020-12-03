@@ -9,15 +9,15 @@
         <?php include 'css/styles.css'; ?><?php include 'css/navbar.css'; ?><?php include 'css/login.css'; ?>
     </style>
     <script type="text/javascript" src="js/navbar.js"></script>
-    <script type="text/javascript" src="js/jquery-3.3.1.slim.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="js/w3.js"></script>
 </head>
 
-<body onload="checkLogin(), checkActive()">
-    <nav>
+<body onload="checkActive(), checkLogin()">
+    <nav id="navbar">
         <div class="nav-links" id="tabnav">
             <li><a id="homeTab" href="home.php">Home</a></li>
-            <li><a id="browseTab" href="browse.php">Browse</a></li>
+            <li><a id="browseTab" href="products.php">Browse</a></li>
             <li><a id="searchTab" href="search.php">Search</a></li>
             <li><a id="aboutTab" href="about.php">About</a></li>
         </div>
@@ -37,111 +37,9 @@
             </a>
         </div>
 
-        <div id="loginContainer" class="loginContainer">
-            <div id="loginbtncontainer" class="loginbtncontainer" style="display: none;" onclick="shloginmodel()">
-                <button id="login-btn" class="login-btn">
-                    <div class="login-txt">
-                        LOGIN
-                    </div>
-                </button>
-            </div>
+        <div class="loginBtnContainer" id="loginBtnContainer">
 
-            <div id="loginModalContainer" class="loginModalContainer" style="display: none;">
-                <div id="loginModal" class="loginModal animate">
-                    <form class="login">
-                        <h1>LOGIN</h1>
-                        <div class="space"></div>
-                        <hr />
-                        <div class="space"></div>
-                        <input type="text" id="usernamebox" name="" placeholder="Username" value="">
-                        <input type="password" id="passwordbox" name="" placeholder="Password" value="">
-                        <input type="checkbox" class="usercheckbox" id="usercheckbox" name="">
-                        <label for="usercheckbox" class="staylogged">Stay logged in</label>
-                        <div class="bigspace"></div>
-                        <div class="bigspace"></div>
-                        <div id="wrongpassword" class="warningtext" style="display: none">Incorrect password</div>
-                        <div id="wronguser" class="warningtext" style="display: none">User not found</div>
-                        <input type="button" name="" value="LOGIN" onclick="staticUserLogin()">
-                    </form>
-
-                    <div>
-                        <a id="forgotpsw" class="psw" onclick="shloginmodel(), shfpswmodal()">Forgot
-                            password?</a>
-                        <div class="space"></div>
-                        <p class="signup">New user?<a class="signuplink" onclick="shloginmodel(), shsignupmodal()">
-                                Sign up here.</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="userbtncontainer" class="userbtncontainer" style="display: none;">
-            <div class="btncontainer">
-                <div class="userbtn">
-                    <div id="usergreet" class="userwelcome"></div>
-                </div>
-            </div>
-            <div class="userdropdown">
-                <a href="profile.php">Profile</a>
-                <a href="listReview.php">My reviews</a>
-                <a href="favourites.php">Favourites</a>
-                <a href="#" onclick="logout()">Logout</a>
-            </div>
-        </div>
     </nav>
-
-    <div id="fpswmodal" class="fpswmodal animate" style="display: none;">
-        <form class="fpsemail">
-            <h1>Enter your username to reset password</h1>
-            <div class="space"></div>
-            <hr />
-            <div class="space"></div>
-            <input type="text" name="" placeholder="Username">
-            <div id="resetinfotext" class="warningtext" style="display: none;">No user found</div>
-            <input id="resetpwname" type="button" name="" value="SUBMIT" onclick="staticReload()">
-        </form>
-    </div>
-
-    <div id="userSignupContainer" class="userSignupContainer" style="display: none;">
-        <div id="signupmodal" class="signupmodal animate">
-            <form class="signup">
-                <h1>SIGN UP</h1>
-                <div class="space"></div>
-                <hr />
-                <div class="space"></div>
-
-                <input id="usernamesignupbox" type="text" name="" placeholder="Username">
-                <input id="emailsignupbox" type="text" name="" placeholder="Email">
-                <input id="tpwsignupbox" type="password" name="" placeholder="Password">
-                <input id="pwsignupbox" type="password" name="" placeholder="Confirm password">
-                <div class="space"></div>
-                <div id="warninginfotext" class="warningtext" style="display: none;">Please enter all the information</div>
-                <div id="warningpwtext" class="warningtext" style="display: none;">The two passwords do not match</div>
-                <div id="warningusernametext" class="warningtext" style="display: none;">This username is already taken</div>
-                <input type="button" name="" value="SUBMIT" onclick="usersignup()">
-            </form>
-        </div>
-    </div>
-
-    <div id="confirmmodal" class="confirmmodal animate" style="display: none;">
-        <form class="confirmtxt">
-            <h1>Sign up success</h1>
-            <div class="space"></div>
-            <hr />
-            <div class="bigspace"></div>
-            <input type="button" name="" value="OK" onclick="location.reload();">
-        </form>
-    </div>
-
-    <div id="resetconfirmmodal" class="confirmmodal animate" style="display: none;">
-        <form class="confirmtxt">
-            <h1 id="resettext"></h1>
-            <div class="space"></div>
-            <hr />
-            <div class="bigspace"></div>
-            <input type="button" name="" value="OK" onclick="location.reload();">
-        </form>
-    </div>
 
     <div id="navSpace" class="navSpace"></div>
 
@@ -150,12 +48,6 @@
 </body>
 
 <script>
-    function staticUserLogin() {
-        sessionStorage.setItem("loginstatus", true);
-        sessionStorage.setItem("loggedinid", "");
-        sessionStorage.setItem("loggedusername", "User");
-        location.reload();
-    }
 
     function staticReload() {
         location.reload();

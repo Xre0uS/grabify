@@ -72,8 +72,4 @@
   </form>
 </body>
 
-<footer>
-  CopyRight Temasek Polytechnic
-</footer>
-
 
