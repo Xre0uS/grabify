@@ -1,13 +1,6 @@
-//assigning variables 
 var response = "";
 var user_array = [];
 var ueser_array_reset = [];
-
-/***
-  * @description changing it to the appropriate tab when the user clicked on it
-  * @param  null
-  * @return  null           
-*/
 
 function checkActive() {
     if (window.location.href.includes("home")) {
@@ -24,12 +17,6 @@ function checkActive() {
     }
 }
 
-/***
-  * @description Displaying the appropriate tabs for different users
-  * @param  null
-  * @return  null           
-*/
-
 function checkLogin() {
     if (window.location.href.includes("admin")) {
         adminLogin();
@@ -41,11 +28,6 @@ function checkLogin() {
         userLogin();
     }
 }
-/***
-  * @description Displaying the appropriate tabs for normal users 
-  * @param  null
-  * @return  null           
-*/
 
 function userLogin() {
     $(document).ready(function () {
@@ -53,23 +35,11 @@ function userLogin() {
     });
 }
 
-/***
-  * @description Displaying the appropriate tabs for business accounts 
-  * @param  null
-  * @return  null           
-*/
-
 function adminLogin() {
     $(document).ready(function () {
         $("#loginBtnContainer").load('php/adminloginfn.php');
     });
 }
-
-/***
-  * @description Displaying the appropriate tabs for administrators
-  * @param  null
-  * @return  null           
-*/
 
 function businessLogin() {
     $(document).ready(function () {
