@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Log In</title>
+  <title>Grabify Admin</title>
 
   <link rel="stylesheet" href="css/style.css" />
 
