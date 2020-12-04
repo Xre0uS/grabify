@@ -3,7 +3,7 @@ var userid = "";
 var username;
 var user_img_g = "";
 
-if (localStorage.getItem("loginstatus") == "true") {
+/*if (localStorage.getItem("loginstatus") == "true") {
     userid = localStorage.getItem("loggedinid")
     username = localStorage.getItem("loggedusername")
 }
@@ -11,6 +11,7 @@ else {
     userid = sessionStorage.getItem("loggedinid")
     username = sessionStorage.getItem("loggedusername")
 }
+*/
 
 function filluserinfo() {
     var request = new XMLHttpRequest();
