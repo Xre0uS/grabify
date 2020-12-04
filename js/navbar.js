@@ -37,7 +37,7 @@ function userLogin() {
 
 function adminLogin() {
     $(document).ready(function () {
-        $("#loginBtnContainer").load('php/adminloginfn.php');
+        $("#loginBtnContainer").load('php/adminlogin.php');
     });
     setLogoText("Grabify Admin");
 }

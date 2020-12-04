@@ -1,14 +1,14 @@
 function checkLoggedin() {
     //check if bis is logged in
     if (sessionStorage.getItem("loginstatus") == "true") {
-        companyLogin();
+        adminLogin();
     }
     else {
         shloginbtn();
     }
 }
 
-function companyLogin() {
+function adminLogin() {
     //get logged in username and display in welcome text, should be done with $_session in php, remove when necessary
     if (localStorage.getItem("loginstatus") == "true" || sessionStorage.getItem("loginstatus") == "true") {
         shuserbtn();
@@ -24,32 +24,38 @@ function companyLogin() {
     }
 }
 
-function loginAdmin() {
-    //function to login in user and save username in storage, should be done with $_session in php, remove when necessary
-    sessionStorage.setItem("loginstatus", true);
-    sessionStorage.setItem("loggedinid", "");
-    sessionStorage.setItem("loggedusername", "Admin");
-    location.reload();
-    /* var userid = user_array[0].user_id;
-    var username = user_array[0].username;
+function loginRequest() {
+    var username = document.getElementById("unameField").value;
+    var password = document.getElementById("pwField").value;
 
-    var update = new XMLHttpRequest();
-    update.open("GET", "/user/activate/" + userid, true);
-    update.setRequestHeader("Content-Type", "application/json");
-    update.send();
 
-    if (document.getElementById("usercheckbox").checked == true) {
-        localStorage.setItem("loginstatus", true);
-        localStorage.setItem("loggedinid", userid);
-        localStorage.setItem("loggedusername", username);
+    if (username == "" || password == "") {
+        document.getElementById("loginWarn").innerText = "Please enter all the credentials.";
     }
-
+    else if (/^[A-Za-z0-9]+$/.test(username) == false) {
+        document.getElementById("loginWarn").innerText = "Only numbers and letters are allowed in username.";
+    }
     else {
-        sessionStorage.setItem("loginstatus", true);
-        sessionStorage.setItem("loggedinid", userid);
-        sessionStorage.setItem("loggedusername", username);
+        document.body.style.cursor='wait';
+        var creds = { function: "auth", username, password };
+        $.ajax({
+            type: 'POST',
+            url: "php/adminloginfn.php",
+            data: creds,
+
+            success: function (response) {
+                if (/respond0/.test(response)) {
+                    document.getElementById("loginWarn").innerText = "Incorrect username or password";
+                }
+                else if (/respond1/.test(response)) {
+
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
     }
-    location.reload(); */
 }
 
 function logout() {
@@ -57,9 +63,6 @@ function logout() {
     localStorage.setItem("loginstatus", false);
     localStorage.setItem("loggedinid", "");
     localStorage.setItem("loggedusername", "");
-    sessionStorage.setItem("loginstatus", false);
-    sessionStorage.setItem("loggedinid", "");
-    sessionStorage.setItem("loggedusername", "");
     location.reload();
 }
 
@@ -93,15 +96,6 @@ function shloginbtn() {
 
 function shfpswmodal() {
     var x = document.getElementById("fpswmodal");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function shsignupmodal() {
-    var x = document.getElementById("userSignupContainer");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {
