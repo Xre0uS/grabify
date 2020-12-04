@@ -20,6 +20,7 @@ nav{
 .logo{
     position: absolute;
     display: block;
+    cursor: pointer;
 }
 
 .logoIcon{
