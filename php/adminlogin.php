@@ -22,6 +22,7 @@
                 <input type="text" id="unameField" name="" placeholder="Username">
                 <input type="password" id="pwField" name="" placeholder="Password" value="">
                 <div id="loginWarn" class="warningtext"></div>
+                <div class="g-recaptcha" data-sitekey="6LdPuPwZAAAAAEtBPs0jiQe8oRwAar4ApWV3t5z7"></div>
                 <div class="bigspace"></div>
                 <input type="button" name="" value="LOGIN" onclick="loginRequest()">
             </form>
@@ -39,8 +40,8 @@
             </div>
         </div>
         <div class="userdropdown">
-            <a href="profile.php">Profile</a>
-            <a href="listReview.php">Manage</a>
+            <a href="http://localhost/grabify/admin.php">Manage</a>
+            <a href="http://localhost/grabify/adminlogs.php">Logs</a>
             <a href="#" onclick="logout()">Logout</a>
         </div>
     </div>
