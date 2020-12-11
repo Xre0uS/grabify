@@ -1,11 +1,15 @@
 <?php
+include "php/lookup.php";
 // Check if session is not registered, if it is not, the user will be redirected back to the login page.
 session_start();
 if (!isset($_SESSION['loginstatus']) || $_SESSION['loginstatus'] == 'false' || $_SESSION['loginstatus'] == 'temp') {
+    TraversalLogs();
     header("location:home.php");
 } else if ($_SESSION['username'] == null) {
+    TraversalLogs();
     header("location:home.php");
 } else if (!isset($_SESSION['authentication']) || $_SESSION['authentication'] != '2FA') {
+    TraversalLogs();
     header("location:home.php");
 }
 include 'php/userloginfn.php';
@@ -242,6 +246,8 @@ if (isset($_POST["delete"])) {
 
     //calling the php script to connect to the database
     require "php/config.php";
+    include "php/verify.php";
+    include "mail.php";
 
     //assigning variables
     extract($_SESSION);
@@ -249,18 +255,22 @@ if (isset($_POST["delete"])) {
     //print_r($_SESSION);
 
 
-    // echo "Deleting data from the database. <br>";
-    $query = $con->prepare("Delete FROM `users` WHERE username=?");
+    $token = bin2hex(random_bytes(32));
+    $email = getEmail($username, $con);
+    deleteAccount($email, $username, $token);
 
-    $query->bind_param('s', $username);
+    // // echo "Deleting data from the database. <br>";
+    // $query = $con->prepare("Delete FROM `users` WHERE username=?");
 
-    if ($query->execute()) {
-        //echo "Delete Successfully.";
-        echo " <script> delusermodel(); </script>";
-    } else {
-        // echo "Unable to Delete.";
-        echo " <script> alert('Delete Failed'); </script>";
-    }
+    // $query->bind_param('s', $username);
+
+    // if ($query->execute()) {
+    //     //echo "Delete Successfully.";
+    //     echo " <script> delusermodel(); </script>";
+    // } else {
+    //     // echo "Unable to Delete.";
+    //     echo " <script> alert('Delete Failed'); </script>";
+    // }
 }
 
 // displaying output to tell user that the password has been updated successfully 
@@ -278,6 +288,7 @@ if (isset($_SESSION["iUpdateSuccess"])) {
         echo " <script> updateinfomodel(); </script>";
     }
 }
+
 ?>
 
 </html>

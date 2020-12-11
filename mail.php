@@ -93,7 +93,7 @@ function activateAccountMail($email, $username, $token)
 
   $content = '<p>Dear <strong>' . $username . ' </strong>,</p>';
   $content .= '<p>Welcome to Grabify!</p><br>';
-  $content .= '<p>Click on the link belo to activate your Grabify account. <p>';
+  $content .= '<p>Click on the link below to activate your Grabify account. <p>';
   $content .= '<p>-------------------------------------------------------------</p>';
   $content .= '<p><a href="http://localhost/swap-test/activate_login.php?key=' . $token . '&action=activate" target="_blank">
   http://localhost/swap-test/activate_login.php?key=' . $token . '&action=activate</a></p>';
@@ -116,7 +116,7 @@ function activateAccountMail($email, $username, $token)
 
 
 /**
- * Sending an email to inform user that someone has logged into their account or if passwords or personal 
+ * Sending an email to inform user that their passwords or personal 
  * information has been changed or failed login attempts has been detected. 
  * 
  * @param String $email           Retriving the user's email to send password recovery email 
@@ -170,7 +170,7 @@ function infoUserMail($email, $username, $infoChanged)
     $content .= '<p>If you have any questions, feel free to contact our Customer Support team at help@grabify.com. </p>';
   }
 
-  if ($infoChanged < 2){
+  if ($infoChanged < 2) {
     $content .= '<p>If you did not request for this, please contact our Customer Support team at help@grabify.com.</p>';
   }
 
@@ -188,3 +188,129 @@ function infoUserMail($email, $username, $infoChanged)
     return 1;
   }
 }
+
+/**
+ * Sending an email to inform user that someone has logged into their account
+ * 
+ * @param String $email           Retriving the user's email to send password recovery email 
+ * @param String $username        Retriving the username to address the user in the email 
+ * 
+ * @return Boolean If the email is sent successfully, it will return 1 else it will return 0.
+ * 
+ */
+function newLogin($email, $username)
+{
+  $currentTime = date("Y-m-d H:i:s", time());
+  $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+  if ((strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)){
+    $browser = 'Internet Explorer';
+  } else if (((strpos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== FALSE))){
+    $browser = 'Safari';
+  } else if (((strpos($_SERVER['HTTP_USER_AGENT'], 'Windows NT 10.0') !== FALSE))){
+    $browser = 'Chrome on Window';
+  }
+  
+
+  $mail = new PHPMailer();
+  $mail->IsSMTP();
+
+  $mail->SMTPDebug  = 0;
+  $mail->SMTPAuth   = true;
+  $mail->SMTPSecure = "tls";
+  $mail->Port       = 587;
+  $mail->Host       = "smtp.gmail.com";
+  $mail->Username   = "swapcsadm@gmail.com";
+  $mail->Password   = "Verity@3802";
+
+  $mail->IsHTML(true);
+  $mail->AddAddress($email, $username);
+  $mail->SetFrom("swapcsadm@gmail.com", "swapadmin");
+  $mail->AddReplyTo("swapcsadm@gmail.com", "swapadmin");
+  $mail->Subject = "Your Account was accessed from a new device - grabify.com";
+
+
+  $content = '<p>Hi <strong>' . $username . ' </strong>,</p>';
+  $content .= '<p> We noticed an unusual login from a device or location you do not usually use. <p>';
+  $content .= '<p>Was it really you?</p>';
+  $content .= '<p>Time: '. $currentTime . '</p>';
+  $content .= '<p>' .$browser.'</p><br>';
+  $content .= '<p>If you did not request for this, you may want to log into your account and change your password as someone may have guessed it. </p>';
+  $content .= '<p>If you have any questions, feel free to contact our Customer Support team at help@grabify.com. </p>';
+
+  $content .= '<p>Thanks,</p>';
+  $content .= '<p>Grabify Team</p>';
+
+  $body = $content;
+
+  $mail->MsgHTML($body);
+
+  if (!$mail->Send()) {
+    var_dump($mail);
+    return 0;
+  } else {
+    return 1;
+  }
+}
+
+/**
+ * Sending an email to inform user that their account has been deleted or someone else has deleted their account 
+ * 
+ * @param String $email           Retriving the user's email to send password recovery email 
+ * @param String $username        Retriving the username to address the user in the email 
+ * @param String $token           Retriving the token to identify the user
+ * 
+ * @return Boolean If the email is sent successfully, it will return 1 else it will return 0.
+ * 
+ */
+function deleteAccount($email, $username, $token)
+{
+  $mail = new PHPMailer();
+  $mail->IsSMTP();
+
+  $mail->SMTPDebug  = 0;
+  $mail->SMTPAuth   = true;
+  $mail->SMTPSecure = "tls";
+  $mail->Port       = 587;
+  $mail->Host       = "smtp.gmail.com";
+  $mail->Username   = "swapcsadm@gmail.com";
+  $mail->Password   = "Verity@3802";
+
+  $mail->IsHTML(true);
+  $mail->AddAddress($email, $username);
+  $mail->SetFrom("swapcsadm@gmail.com", "swapadmin");
+  $mail->AddReplyTo("swapcsadm@gmail.com", "swapadmin");
+  $mail->Subject = "Account Delete Confirmation - grabify.com";
+
+
+  $content = '<p>Hi <strong>' . $username . ' </strong>,</p>';
+  $content .= '<p> We have received a request to permanently delete your Grabify Account. </p>';
+  $content .= '<p> Once deleted, you will not be able to make any purchase, write any review or add any items to your wishlist. 
+  You will not be able to edit your reviews or access your wishllist. <p>';
+  $content .= '<br><p>Ignore this email if you do not wish to delete your account. Your data will not be lost.</p> <br>';
+  $content .= '<p>However, if you still wish to delete your account, click the link below.  </p> <br>';
+  $content .= '<p>-------------------------------------------------------------</p>';
+  $content .= '<p><a href="http://localhost/swap-mylittlepony/removeuser.php?username='.$username.'&key=' . $token . '&action=remove" target="_blank">
+  http://localhost/swap-mylittlepony/removeuser.php?username='.$username.'&key=' . $token . '&action=remove</a></p>';
+  $content .= '<p>-------------------------------------------------------------</p>';
+  $content .= '<p>Please be sure to copy the entire link into your browser.
+  If you run into any problems, feel free to contact us at support@grabify.com</p>';
+  $content .= '<p>If you have any questions, feel free to contact our Customer Support team at help@grabify.com. </p>';
+  $content .= '<br><p> Thank you for trying Grabify. </p>';
+
+  $content .= '<p>Thanks,</p>';
+  $content .= '<p>Grabify Team</p>';
+
+  $body = $content;
+
+  $mail->MsgHTML($body);
+
+  if (!$mail->Send()) {
+    var_dump($mail);
+    return 0;
+  } else {
+    return 1;
+  }
+}
+
+?>

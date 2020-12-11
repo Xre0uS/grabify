@@ -1,9 +1,12 @@
 <?php
+include "php/lookup.php";
 session_start();
 
 
 require "Authenticator.php";
 if ($_SERVER['REQUEST_METHOD'] != "POST") {
+
+    TraversalLogs();
     header("location: home.php");
     die();
 }
@@ -20,14 +23,12 @@ if (!$checkResult) {
     //header("location: home.php");
     die();
 } else {
-    $_SESSION['authentication'] = "2FA"; 
+    $_SESSION['authentication'] = "2FA";
     $_SESSION['loginstatus'] = 'true';
     echo '<script>
     sessionStorage.setItem("loginstatus", true);
-    sessionStorage.setItem("user","'.$_SESSION['username'].'");
+    sessionStorage.setItem("user","' . $_SESSION['username'] . '");
     window.location.href = "home.php";
     </script>';
 }
-
-
 ?>

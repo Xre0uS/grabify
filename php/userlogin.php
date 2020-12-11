@@ -2,6 +2,7 @@
 session_start();
 include "verify.php";
 include "lookup.php";
+include "../mail.php";
 
 if (isset($_POST['login'])) {
     if (session_status() == PHP_SESSION_NONE) {
@@ -49,6 +50,9 @@ if (isset($_POST['login'])) {
                     $_SESSION['username'] = $username;
                     $_SESSION['timeout'] = time();
 
+                    $email = getEmail($username, $con);
+                    newLogin($email, $username);
+
                     mysqli_close($con);
                     header("location:../2fa.php");
                 } else {
@@ -58,10 +62,6 @@ if (isset($_POST['login'])) {
                     // checking the number of failed attempts
                     if (isset($_SESSION['failAttempts'])) {
                         if ($_SESSION["loginAttempts"] > 2) {
-
-
-
-                            include "../mail.php";
 
                             $email = getEmail($username, $con);
                             // sending email to inform users about the failed login attempts
