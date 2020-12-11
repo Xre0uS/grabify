@@ -140,6 +140,17 @@ CREATE TABLE `users` (
   `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `log_id` int(11) NOT NULL,
+  `log_type` varchar(16) NOT NULL,
+  `log_content` varchar(254) NOT NULL,
+  `log_ip` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+  `log_time` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 --
 -- Indexes for dumped tables
 --
