@@ -1,77 +1,90 @@
 function checkLoggedin() {
-    //check if bis is logged in
-    if (sessionStorage.getItem("loginstatus") == "true") {
-        companyLogin();
-    }
-    else {
-        shloginbtn();
-    }
+    var data = { function: "checkLoggedIn" };
+    $.ajax({
+        type: 'POST',
+        url: "php/adminloginfn.php",
+        data: data,
+
+        success: function (response) {
+            var response = JSON.parse(response);
+            if (response.status == 0) {
+                shloginbtn();
+            }
+            else if (response.status == 1) {
+                shuserbtn();
+                document.getElementById("usergreet").innerHTML = "Welcome, " + response.username;
+            } else if (response.status == 2) {
+                alert(response.err);
+                window.location.href = response.redirect;
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
 }
 
-function companyLogin() {
-    //get logged in username and display in welcome text, should be done with $_session in php, remove when necessary
-    if (localStorage.getItem("loginstatus") == "true" || sessionStorage.getItem("loginstatus") == "true") {
-        shuserbtn();
-        if (sessionStorage.getItem("loggedusername") == "null" || sessionStorage.getItem("loggedusername") == "" || sessionStorage.getItem("loggedusername") == null) {
-            document.getElementById("usergreet").innerHTML = "Welcome, " + localStorage.getItem("loggedusername");
-        }
-        else {
-            document.getElementById("usergreet").innerHTML = "Welcome, " + sessionStorage.getItem("loggedusername");
-        }
+function loginRequest() {
+    var username = document.getElementById("unameField").value;
+    var password = document.getElementById("pwField").value;
+    if (username == "" || password == "") {
+        document.getElementById("loginWarn").innerText = "Please enter all the credentials.";
+    }
+    else if (/^[A-Za-z0-9]+$/.test(username) == false) {
+        document.getElementById("loginWarn").innerText = "Only numbers and letters are allowed in username.";
     }
     else {
-        shloginbtn();
+        var data = { function: "authenticate", username, password};
+        $.ajax({
+            type: 'POST',
+            url: "php/adminloginfn.php",
+            data: data,
+
+            success: function (response) {
+                console.log(response);
+                var response = JSON.parse(response);
+                if (response.status == 0) {
+                    document.getElementById("loginWarn").innerText = "Incorrect username or password";
+                }
+                else if (response.status == 1) {
+                    window.location.href = response.redirect;
+                }
+                else if (response.status = 3) {
+                    alert(response.err);
+                    window.location.href = response.redirect; 
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
     }
-}
-
-function loginAdmin() {
-    //function to login in user and save username in storage, should be done with $_session in php, remove when necessary
-    sessionStorage.setItem("loginstatus", true);
-    sessionStorage.setItem("loggedinid", "");
-    sessionStorage.setItem("loggedusername", "Admin");
-    location.reload();
-    /* var userid = user_array[0].user_id;
-    var username = user_array[0].username;
-
-    var update = new XMLHttpRequest();
-    update.open("GET", "/user/activate/" + userid, true);
-    update.setRequestHeader("Content-Type", "application/json");
-    update.send();
-
-    if (document.getElementById("usercheckbox").checked == true) {
-        localStorage.setItem("loginstatus", true);
-        localStorage.setItem("loggedinid", userid);
-        localStorage.setItem("loggedusername", username);
-    }
-
-    else {
-        sessionStorage.setItem("loginstatus", true);
-        sessionStorage.setItem("loggedinid", userid);
-        sessionStorage.setItem("loggedusername", username);
-    }
-    location.reload(); */
 }
 
 function logout() {
-    //logout the user and remove username in storage, should be done with $_session in php, remove when necessary
-    localStorage.setItem("loginstatus", false);
-    localStorage.setItem("loggedinid", "");
-    localStorage.setItem("loggedusername", "");
-    sessionStorage.setItem("loginstatus", false);
-    sessionStorage.setItem("loggedinid", "");
-    sessionStorage.setItem("loggedusername", "");
-    location.reload();
+    var data = { function: "logout" };
+    $.ajax({
+        type: 'POST',
+        url: "php/adminloginfn.php",
+        data: data,
+
+        success: function (response) {
+            var response = JSON.parse(response);
+            window.location.href = response.redirect;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+        }
+    });
 }
-
-
 
 //functions to show/hide modals
-var modal = document.getElementById('loginModalContainer');
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+$(document).mouseup(function(e){
+    var container = $("#loginModalContainer");
+    if(!container.is(e.target) && container.has(e.target).length === 0){
+        container.hide();
     }
-}
+  });
 
 function shloginmodal() {
     var x = document.getElementById("loginModalContainer");
@@ -93,15 +106,6 @@ function shloginbtn() {
 
 function shfpswmodal() {
     var x = document.getElementById("fpswmodal");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-function shsignupmodal() {
-    var x = document.getElementById("userSignupContainer");
     if (x.style.display === "none") {
         x.style.display = "block";
     } else {

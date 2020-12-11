@@ -40,12 +40,4 @@
 
     <div id="navSpace" class="navSpace"></div>
 
-    <!-- NAVBAR -->
-
 </body>
-
-<script>
-    function staticReload() {
-        location.reload();
-    }
-</script>

@@ -6,42 +6,51 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_POST['function'])) {
     if (limitRequest($response)) {
         echo $response;
+    } else if (checkLoggedIn($response)) {
+        echo $response;
     } else {
-        require("confignoecho.php");
-        if ($_POST['function'] == 'authenticate') {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            $pQuery = $con->prepare("SELECT username, password, role FROM admin where username = ?"); //Prepared statement
-            $pQuery->bind_param('s', $username);
+        if ($_POST['function'] == 'fillBisTable') {
+            require("confignoecho.php");
+            $pQuery = $con->prepare("SELECT business_id, company_name, email, address, contact_number, active FROM business ORDER BY `business`.`active`"); //Prepared statement
             $result = $pQuery->execute(); //execute the prepared statement
             $result = $pQuery->get_result(); //store the result of the query from prepared statement
-            $creds = $result->fetch_assoc();
-
-
-            if (!preg_match("/^[a-zA-Z0-9]+$/", $username)) {
-                echo json_encode([
-                    'status' => 0,
-                ]);
-            } else if (!isset($creds['password'])) {
-                echo json_encode([
-                    'status' => 0,
-                ]);
-            } else {
-                if (password_verify($password, $creds['password'])) {
-                    login($creds['role'], $creds['username'], $response);
-                    echo $response;
-                } else {
-                    echo json_encode([
-                        'status' => 0,
-                    ]);
-                }
+            $rows = array();
+            while ($r = $result->fetch_assoc()) {
+                $rows[] = $r;
             }
-        } else if ($_POST['function'] == 'logout') {
-            logout($redirect);
-            echo $redirect;
-        } else if ($_POST['function'] == 'checkLoggedIn') {
-            checkLoggedIn($response);
-            echo $response;
+            echo json_encode($rows);
+        } else if ($_POST['function'] == 'approveBis') {
+            $id = $_POST['id'];
+            $approveStatus = $_POST['approveStatus'];
+            require("confignoecho.php");
+            $query = $con->prepare("UPDATE business SET active=? WHERE business_id=?"); //Prepared statement
+            $query->bind_param(
+                'ii',
+                $approveStatus,
+                $id
+            ); //bind the parameters
+            if ($query->execute()) {  //execute query
+
+                $logIp = $_SERVER['REMOTE_ADDR'];
+                $url = $_SERVER['REQUEST_URI'];
+                $aUname = $_SESSION['aUsername'];
+                $logContent = "Business edited on {$url} by {$aUname}";
+                require("confignoecho.php");
+                $pQuery = $con->prepare("INSERT INTO `logs`(`log_type`, `log_content`, `log_ip`, `log_time`) VALUES (0,?,?,CURRENT_TIMESTAMP)"); //Prepared statement
+                $pQuery->bind_param('ss', $logContent, $logIp);
+                $pQuery->execute();
+
+                $response = json_encode([
+                    'status' => 1
+                ]);
+                echo $response;
+            } else {
+                $response = json_encode([
+                    'status' => 0,
+                    'err' => "Error."
+                ]);
+                echo $response;
+            }
         }
     }
 } else {
@@ -78,11 +87,12 @@ function limitRequest(&$response)
 
         $logIp = $_SERVER['REMOTE_ADDR'];
         $url = $_SERVER['REQUEST_URI'];
-        $logContent = "Request overload on {$url}";        
+        $logContent = "Request overload on {$url}";
         require("confignoecho.php");
         $pQuery = $con->prepare("INSERT INTO `logs`(`log_type`, `log_content`, `log_ip`, `log_time`) VALUES (0,?,?,CURRENT_TIMESTAMP)"); //Prepared statement
         $pQuery->bind_param('ss', $logContent, $logIp);
         $pQuery->execute();
+
 
         session_unset();
         session_destroy();
@@ -91,45 +101,6 @@ function limitRequest(&$response)
     }
     // Add current request to the log.
     $requests[] = ["time" => time()];
-}
-
-
-function login($role, $username, &$response)
-{
-    
-    $logIp = $_SERVER['REMOTE_ADDR'];
-    $logType = 0;
-    $logContent = "User {$username} logged in";
-    require("confignoecho.php");
-    $pQuery = $con->prepare("INSERT INTO `logs`(`log_type`, `log_content`, `log_ip`, `log_time`) VALUES (?,?,?,CURRENT_TIMESTAMP)"); //Prepared statement
-    $pQuery->bind_param('iss', $logType, $logContent, $logIp);
-    $pQuery->execute();
-
-    session_regenerate_id();
-    $_SESSION["aLoginStatus"] = true;
-    $_SESSION["aUsername"] = $username;
-    $_SESSION["aRole"] = $role;
-    $_SESSION["aTimeout"] = time();
-    if ($role == 0) {
-        return $response = json_encode([
-            'status' => 1,
-            'username' => $username,
-            'redirect' => "http://localhost/grabify/admin.php?master"
-        ]);
-    } else if ($role == 1) {
-        return $response = json_encode([
-            'status' => 1,
-            'username' => $username,
-            'redirect' => "http://localhost/grabify/admin.php?business"
-        ]);
-    } else if ($role == 2) {
-        return $response = json_encode([
-            'status' => 1,
-            'username' => $username,
-            'redirect' => "http://localhost/grabify/admin.php?user"
-        ]);
-    }
-    return $response;
 }
 
 function logout(&$response)
@@ -164,15 +135,12 @@ function checkLoggedIn(&$response)
 {
     if (checkTimeout($response)) {
         return $response;
-    } else if (isset($_SESSION["aLoginStatus"])) {
+    } else if (!isset($_SESSION["aLoginStatus"])) {
         $response = json_encode([
-            'status' => 1,
-            'loginStatus' => $_SESSION['aLoginStatus'],
-            'username' => $_SESSION['aUsername'],
-            'role' => $_SESSION['aRole']
+            'status' => 0
         ]);
         return $response;
-    } else {
+    } else if ($_SESSION['aRole'] != 1) {
         $response = json_encode([
             'status' => 0
         ]);
