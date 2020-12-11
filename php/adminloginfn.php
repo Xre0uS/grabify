@@ -4,8 +4,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if (isset($_POST['function'])) {
-    $logType = 0;
-    global $logType;
     if (limitRequest($response)) {
         echo $response;
     } else {
@@ -79,15 +77,16 @@ function limitRequest(&$response)
         ]);
 
         $logIp = $_SERVER['REMOTE_ADDR'];
-        $logContent = "Request overload on admin.php";
+        $url = $_SERVER['REQUEST_URI'];
+        $logContent = "Request overload on {$url}";        
         require("confignoecho.php");
         $pQuery = $con->prepare("INSERT INTO `logs`(`log_type`, `log_content`, `log_ip`, `log_time`) VALUES (0,?,?,CURRENT_TIMESTAMP)"); //Prepared statement
         $pQuery->bind_param('ss', $logContent, $logIp);
         $pQuery->execute();
 
-        return $response;
         session_unset();
         session_destroy();
+        return $response;
         sleep(30);
     }
     // Add current request to the log.

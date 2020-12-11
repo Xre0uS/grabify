@@ -236,9 +236,9 @@ function limitRequest(&$response)
         $pQuery->bind_param('ss', $logContent, $logIp);
         $pQuery->execute();
 
-        return $response;
         session_unset();
         session_destroy();
+        return $response;
         sleep(30);
     }
     // Add current request to the log.

@@ -12,7 +12,7 @@ if (isset($_POST['function'])) {
         if ($_POST['function'] == 'fillLogTable') {
             if ($_SESSION['aRole'] == 0) {
                 require("confignoecho.php");
-                $pQuery = $con->prepare("SELECT log_content, log_ip, log_time FROM logs WHERE log_type = 0"); //Prepared statement
+                $pQuery = $con->prepare("SELECT log_content, log_ip, log_time FROM logs WHERE log_type = 0 ORDER BY log_time DESC"); //Prepared statement
                 $result = $pQuery->execute(); //execute the prepared statement
                 $result = $pQuery->get_result(); //store the result of the query from prepared statement
                 $rows = array();
@@ -22,7 +22,7 @@ if (isset($_POST['function'])) {
                 echo json_encode($rows);
             } else if ($_SESSION['aRole'] == 1) {
                 require("confignoecho.php");
-                $pQuery = $con->prepare("SELECT log_content, log_ip, log_time FROM logs WHERE log_type = 1"); //Prepared statement
+                $pQuery = $con->prepare("SELECT log_content, log_ip, log_time FROM logs WHERE log_type = 1 ORDER BY log_time DESC"); //Prepared statement
                 $result = $pQuery->execute(); //execute the prepared statement
                 $result = $pQuery->get_result(); //store the result of the query from prepared statement
                 $rows = array();
@@ -32,7 +32,7 @@ if (isset($_POST['function'])) {
                 echo json_encode($rows);
             } else if ($_SESSION['aRole'] == 2) {
                 require("confignoecho.php");
-                $pQuery = $con->prepare("SELECT log_content, log_ip, log_time FROM logs WHERE log_type = 2"); //Prepared statement
+                $pQuery = $con->prepare("SELECT log_content, log_ip, log_time FROM logs WHERE log_type = 2 ORDER BY log_time DESC"); //Prepared statement
                 $result = $pQuery->execute(); //execute the prepared statement
                 $result = $pQuery->get_result(); //store the result of the query from prepared statement
                 $rows = array();
@@ -76,15 +76,16 @@ function limitRequest(&$response)
         ]);
 
         $logIp = $_SERVER['REMOTE_ADDR'];
-        $logContent = "Request overload on adminlogs.php";
+        $url = $_SERVER['REQUEST_URI'];
+        $logContent = "Request overload on {$url}";
         require("confignoecho.php");
         $pQuery = $con->prepare("INSERT INTO `logs`(`log_type`, `log_content`, `log_ip`, `log_time`) VALUES (0,?,?,CURRENT_TIMESTAMP)"); //Prepared statement
         $pQuery->bind_param('ss', $logContent, $logIp);
         $pQuery->execute();
 
-        return $response;
         session_unset();
         session_destroy();
+        return $response;
         sleep(30);
     }
     // Add current request to the log.
