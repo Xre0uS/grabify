@@ -1,164 +1,168 @@
+/** 
+ * flags used to check if the data has been validated and data will only be processed if the validation function is run. 
+ * 
+ * if the function is run, it will return 1, else it will return 0  
+ * where the 0s from left to right represents the following textfields
+ * email
+ * mobile number,
+ * address,
+ * old password,
+ * new password,
+ * confirm password 
+ *  
+ * */
+var FunctionUsed = [0, 0, 0, 0, 0, 0];
+
 var user_array = [];
 var userid = "";
 var username;
 var user_img_g = "";
 
-/*if (localStorage.getItem("loginstatus") == "true") {
-    userid = localStorage.getItem("loggedinid")
-    username = localStorage.getItem("loggedusername")
+
+/**
+ * @description filtering user input to prevent user from entering malicious character into the email field
+ *
+ * @param String $field retriving the name of the field and validate it against user input
+ * 
+ * @return null
+ */
+
+function userInputFilters(textFieldID) {
+    var text = document.getElementById(textFieldID).value;
+    document.getElementById(textFieldID).value = text.replace(/([<&%>()=+""^*/;:''~`]|(phpinfo)?)/g, '');
+
+    //will cause an error if index does not exist
+    var index = 500;
+
+    switch (textFieldID) {
+
+        // for updating user info
+        case "emailbox": index = 0; break;
+        case "numbox": index = 1; break;
+        case "addbox": index = 2; break;
+
+        // for update password   
+        case "oldpwbox": index = 3; break;
+        case "newpwbox": index = 4; break;
+        case "cnewpwbox": index = 5; break;
+
+    }
+    FunctionUsed[index] = 1;
 }
-else {
-    userid = sessionStorage.getItem("loggedinid")
-    username = sessionStorage.getItem("loggedusername")
-}
+
+/***
+  * @description ensure that users entered all the data into the fields before passing the data to PHP for processing 
+  * 
+  * @param  null
+  * 
+  * @return null           
 */
-
-function filluserinfo() {
-    var request = new XMLHttpRequest();
-    request.open("GET", "/user/profile/" + userid, true);
-    request.setRequestHeader("Content-Type", "application/json");
-
-    request.onload = function () {
-        user_array = JSON.parse(request.responseText);
-        autofill();
-    }
-    request.send();
-}
-
-function autofill() {
-    var username = user_array[0].username;
-    var email = user_array[0].user_email;
-    var number = user_array[0].user_number;
-    var address = user_array[0].user_address;
-    var avatar = user_array[0].user_avatar;
-
-    document.getElementById("emailbox").value = email;
-    document.getElementById("numbox").value = number;
-    document.getElementById("addbox").value = address;
-
-    if (avatar !== "" && avatar !== null && avatar !== "null") {
-        document.getElementById("avatarcontainer").innerHTML = '<img class="useravatar" src=' + avatar + '>'
-    }
-
-    if (username == "") {
-        document.getElementById("username").innerHTML = "PASSWORD RESET";
-    }
-    else {
-        document.getElementById("username").innerHTML = username;
-    }
-}
-
-function readImage(input) {
-    if (input.files && input.files[0]) {
-        var FR = new FileReader();
-        FR.onload = function (e) {
-            user_img_g = e.target.result;
-        };
-        FR.readAsDataURL(input.files[0]);
-    }
-}
 
 function updateinfo() {
     var email = document.getElementById("emailbox").value;
     var number = document.getElementById("numbox").value;
     var address = document.getElementById("addbox").value;
 
-    if (email == "" || number == "" || address == "" || user_img_g == "") {
-        document.getElementById("warninginfotext").style.display = "block";
-    }
+        // array used to checked against if all the validation function is run 
+        var allFunctionUsed = [1, 1, 1, 0, 0, 0];
 
-    else {
-        var userinfo = new Object;
-        userinfo.user_email = email;
-        userinfo.user_number = number;
-        userinfo.user_address = address;
-        userinfo.user_avatar = user_img_g;
-        console.log(user_img_g)
-
-        var update = new XMLHttpRequest();
-        update.open("PUT", "/user/" + userid, true)
-        update.setRequestHeader("Content-Type", "application/json");
-        update.send(JSON.stringify(userinfo));
-        document.getElementById("updateinfomodal").style.display = "block"
-    };
-}
-
-function updatepassword() {
-    var oldpw = document.getElementById("oldpwbox").value;
-    var newpw = document.getElementById("newpwbox").value;
-    var cnewpw = document.getElementById("cnewpwbox").value;
-
-    if (oldpw == "" || newpw == "" || cnewpw == "") {
-        document.getElementById("misspwtext").style.display = "block"
-        document.getElementById("diffpwtext").style.display = "none"
-    }
-
-    if (newpw !== cnewpw) {
-        document.getElementById("misspwtext").style.display = "none"
-        document.getElementById("diffpwtext").style.display = "block"
-    }
-
-    else {
-        var credentials = new Object();
-        credentials.username = username;
-        credentials.user_password = oldpw;
-
-        var login = new XMLHttpRequest();
-        login.open("POST", "/user/login", true);
-        login.setRequestHeader("Content-Type", "application/json");
-
-        login.onload = function () {
-            response = JSON.parse(login.responseText);
-
-            if (response.message == "1") {
-                changepassword(newpw);
+        if (matchesArray(FunctionUsed, allFunctionUsed) == 1) {
+    
+            //checking if there is an input in the text field and return 1 or 0 
+            // where 1 = there are missing fields 
+            // and 0 = there are no missing fields 
+            if (email == "" || number == "" || address == "" ) {
+                document.getElementById("updateParseflag").value = "1";
             }
-
-            else if (response.message == "2") {
-                document.getElementById("diffpwtext").style.display = "none"
-                document.getElementById("misspwtext").style.display = "none"
-                document.getElementById("wrongpwtext").style.display = "block";
+    
+            else if ((usernamelogin != "" && passwdlogin != "")) {
+                document.getElementById("updateParseflag").value = "0";
+                // alert("Login Flag: " + document.getElementById("loginParseflag").value);
+    
             }
         }
-        login.send(JSON.stringify(credentials));
-    }
+        else {
+            document.getElementById("updateParseflag").value = "1";
+        }
 }
 
-function changepassword(userpassword) {
-    var userinfo = new Object;
-    userinfo.user_password = userpassword;
+/***
+  * @description ensure that users entered all the data into the fields before passing the data to PHP for processing 
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
 
-    var update = new XMLHttpRequest();
-    update.open("PUT", "/user/updatepassword/" + userid, true)
-    update.setRequestHeader("Content-Type", "application/json");
-    update.send(JSON.stringify(userinfo));
+function updatepasswd() {
+    var oldpass = document.getElementById("oldpwbox").value;
+    var newpass = document.getElementById("newpwbox").value;
+    var cfmpass = document.getElementById("cnewpwbox").value;
+
+        // array used to checked against if all the validation function is run 
+        var allFunctionUsed = [0, 0, 0, 1, 1, 1];
+
+        if (matchesArray(FunctionUsed, allFunctionUsed) == 1) {
+
+            //checking if there is an input in the text field and return 1 or 0 
+            // where 1 = there are missing fields 
+            // and 0 = there are no missing fields 
+            if (oldpass == "" || newpass == "" || cfmpass == "" ) {
+                document.getElementById("pUpdateParseflag").value = "0";
+            }
+    
+            else if (oldpass != "" && newpass != "" && cfmpass != "") {
+                document.getElementById("pUpdateParseflag").value = "0";
+    
+            }
+        }
+        else {
+            document.getElementById("pUpdateParseflag").value = "1";
+        }
+}
+
+/***
+  * @description displaying the model to tell user that their profile has been changed successfully
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
+
+function updateinfomodel() {
+    document.getElementById("updateinfomodal").style.display = "block"
+}
+
+/***
+  * @description displaying the model to tell user that their password has been changed successfully
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
+
+function updatepasswordmodel() {
     document.getElementById("updatepasswordmodal").style.display = "block"
 }
 
-function deactivateuser() {
-    var update = new XMLHttpRequest();
-    update.open("GET", "/user/deactivate/" + userid, true);
-    update.setRequestHeader("Content-Type", "application/json");
-    update.send();
-    document.getElementById("deactivatemodal").style.display = "block"
-}
+/***
+  * @description displaying the model to tell user that their account has been deleted successfully
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
 
-function deluser() {
-    var change = new XMLHttpRequest();
-    change.open("GET", "/user/deactivate/" + userid, true);
-    change.setRequestHeader("Content-Type", "application/json");
-    change.send();
-
-    var userinfo = new Object;
-    userinfo.username = rand(20);
-
-    var update = new XMLHttpRequest();
-    update.open("PUT", "/user/delete/" + userid, true)
-    update.setRequestHeader("Content-Type", "application/json");
-    update.send(JSON.stringify(userinfo));
+function delusermodel() {
     document.getElementById("delmodal").style.display = "block"
 }
 
+/***
+  * @description remove all session set and redirect the user to home page 
+  * @param  null
+  * 
+  * @return null           
+*/
 
 function gohome() {
     localStorage.setItem("loginstatus", false);
