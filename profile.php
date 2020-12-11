@@ -1,3 +1,15 @@
+<?php
+// Check if session is not registered, if it is not, the user will be redirected back to the login page.
+session_start();
+if (!isset($_SESSION['loginstatus']) || $_SESSION['loginstatus'] == 'false' || $_SESSION['loginstatus'] == 'temp') {
+    header("location:home.php");
+} else if ($_SESSION['username'] == null) {
+    header("location:home.php");
+} else if (!isset($_SESSION['authentication']) || $_SESSION['authentication'] != '2FA') {
+    header("location:home.php");
+}
+include 'php/userloginfn.php';
+?>
 <!DOCTYPE html>
 
 <html>
@@ -12,11 +24,10 @@
     </style>
     <script type="text/javascript" src="js/userProfile.js"></script>
     <title>Grabify - Profile</title>
+
 </head>
 
 <body>
-
-    <?php include 'php/navbar.php'; ?>
 
     <div class="userinfocontainer">
         <div id="avatarcontainer" class="avatarcontainer">
@@ -50,19 +61,66 @@
             <hr />
         </div>
         <div class="bigspace"></div>
+        <?php
 
-        <div class="updateinfocontainer">
-            <input id="emailbox" type="text" name="" placeholder="Email">
-            <input id="numbox" type="text" name="" placeholder="Mobile Number">
-            <input id="addbox" type="text" name="" placeholder="Address">
-        </div>
+        require_once "php/config.php";
 
-        <div id="warninginfotext" class="infowarningtext" style="display: none;">Please enter all the information</div>
-        <div class="updatebtncontainer" onclick="updateinfo()">
-            <div class="updatekbtn">
-                UPDATE
+        $query = $con->prepare("SELECT `email`, `mobile_number`, `address` FROM users WHERE username=?");
+        $query->bind_param('s', $_SESSION['username']);
+        $result = $query->execute();
+        $result = $query->get_result();
+
+        $nrows = $result->num_rows;
+        echo "<form action='php/update.php' method='POST'>";
+        echo "<div class='updateinfocontainer'>";
+        while ($row = $result->fetch_assoc()) { //placing the data into its appropriate location in the table
+            $email = $row['email'];
+            $mobile = $row['mobile_number'];
+            $address = $row['address'];
+        }
+        $con->close();
+        ?>
+        <!-- echo "<input id='emailbox' type='email' name='email' placeholder='Email' value='" . $row['email'] . "' onkeypress='userInputFilters('emailbox')' required>";
+            echo "<input id='numbox' type='text' name='mobileNo' placeholder='Mobile Number' value='" . $row['mobile_number'] . "' onkeypress='userInputFilters('numbox')' required>";
+            echo "<input id='addbox' type='text' name='address' placeholder='Address e.g. 123 Pine St' value='" . $row['address'] . "' onkeypress='userInputFilters('addbox')' required>"; -->
+        <form action='php/update.php' method='POST'>
+            <div class='updateinfocontainer'>
+                <input id='emailbox' type='email' name='email' placeholder='Email' value='<?php echo $email; ?>' onkeypress="userInputFilters('emailbox')" required>
+                <?php if (isset($_SESSION["uEmailError"])) { ?>
+                    <p style="padding-left:250px" class="warningtext"><?= $_SESSION["uEmailError"]; ?></p><br>
+                <?php } ?>
+
+                <input id='numbox' type='text' name='mobileNo' placeholder='Mobile Number' value='<?php echo $mobile; ?>' onkeypress="userInputFilters('numbox')" required>
+                <?php if (isset($_SESSION["uMobileError"])) { ?>
+                    <p style="padding-left:250px" class="warningtext"><?= $_SESSION["uMobileError"]; ?></p><br>
+                <?php } ?>
+
+                <input id='addbox' type='text' name='address' placeholder='Address e.g. 123 Pine St' value='<?php echo $address; ?>' onkeypress="userInputFilters('addbox')" required>
+                <?php if (isset($_SESSION["uAddressError"])) { ?>
+                    <p style="padding-left:250px" class="warningtext"><?= $_SESSION["uAddressError"]; ?></p><br>
+                <?php } ?>
+
             </div>
-        </div>
+            <input id='updateParseflag' type='hidden' name='flag'>
+            <?php if (isset($_SESSION["profileFieldEmpty"])) { ?>
+                <p style="padding-left:350px" class="warningtext"><?= $_SESSION["profileFieldEmpty"]; ?></p><br>
+            <?php } ?>
+
+            <div class='updatebtncontainer'>
+                <input type='submit' name='update' class='updatekbtn' onclick='updateinfo()' value='UPDATE'>
+            </div>
+        </form>
+
+
+
+        <?php
+        // }
+        // echo "<input id='updateParseflag' type='hidden' name='flag'>";
+        // echo "<div class='updatebtncontainer'>";
+        // echo "<input type='submit' name='update' class='updatekbtn' onclick='updateinfo()' value='UPDATE'>";
+        // echo "</div></form>";
+        // $con->close();
+        ?>
 
         <div class="bigspace"></div>
         <div class="updatepassword">
@@ -77,20 +135,36 @@
             <div class="bigspace"></div>
         </div>
 
-        <div class="updatepwcontainer">
-            <input id="oldpwbox" type="password" name="" placeholder="Old Password">
-            <input id="newpwbox" type="password" name="" placeholder="New Password">
-            <input id="cnewpwbox" type="password" name="" placeholder="Confirm New Password">
-        </div>
+        <form action='php/update.php' method='POST'>
+            <div class="updatepwcontainer">
+                <input id="oldpwbox" type="password" name="oPasswd" placeholder="Old Password" onkeypress="userInputFilters('oldpwbox')" required>
+                <?php if (isset($_SESSION["wrongOldPass"])) { ?>
+                    <p style="padding-left:350px" class="warningtext"><?= $_SESSION["wrongOldPass"]; ?></p>
+                <?php } ?>
 
-        <div id="misspwtext" class="infowarningtext" style="display: none;">Please enter your passowrd</div>
-        <div id="diffpwtext" class="infowarningtext" style="display: none;">The passwords do not match</div>
-        <div id="wrongpwtext" class="infowarningtext" style="display: none;">Wrong old password</div>
-        <div class="updatebtncontainer" onclick="updatepassword()">
-            <div class="updatekbtn">
-                UPDATE
+                <?php if (isset($_SESSION["samePass"])) { ?>
+                    <p style="padding-left:300px" class="warningtext"><?= $_SESSION["samePass"]; ?></p>
+                <?php } ?>
+
+                <input id="newpwbox" type="password" name="passwd" placeholder="New Password" onkeypress="userInputFilters('newpwbox')" required>
+                <input id="cnewpwbox" type="password" name="cfmpasswd" placeholder="Confirm New Password" onkeypress="userInputFilters('cnewpwbox')" required>
             </div>
-        </div>
+
+            <?php if (isset($_SESSION["passwdFieldEmpty"])) { ?>
+                <p style="padding-left:350px" class="warningtext"><?= $_SESSION["passwdFieldEmpty"]; ?></p>
+            <?php } ?>
+
+            <?php if (isset($_SESSION["notMatch"])) { ?>
+                <p style="padding-left:350px" class="warningtext"><?= $_SESSION["notMatch"]; ?></p>
+            <?php } ?>
+
+
+
+            <input id='pUpdateParseflag' type='hidden' name='flag'>
+            <input type='submit' name='cPasswdBtn' class='updatekbtn' onclick="updatepasswd()" value='UPDATE'>
+
+        </form>
+
 
         <div class="bigspace"></div>
         <div class="bigspace"></div>
@@ -109,12 +183,13 @@
                     DEACTIVATE ACCOUNT
                 </div>
             </div>
+
             <div class="bigspace"></div>
-            <div class="delaccbtncontainer" onclick="deluser()">
-                <div class="delacc">
-                    DELETE ACCOUNT
+            <form action="profile.php" method="POST">
+                <div class="delaccbtncontainer" onclick="return confirm('Are you sure you want to delete?')">
+                    <input type="submit" class="delacc" name="delete" value="DELETE ACCOUNT">
                 </div>
-            </div>
+            </form>
         </div>
 
         <div id="updateinfomodal" class="confirmmodal animate" style="display: none;">
@@ -143,7 +218,7 @@
                 <div class="space"></div>
                 <hr />
                 <div class="bigspace"></div>
-                <input type="button" name="" value="OK" onclick="gohome()">
+                <input type="submit" value="OK" onclick="gohome()">
             </form>
         </div>
 
@@ -153,12 +228,56 @@
                 <div class="space"></div>
                 <hr />
                 <div class="bigspace"></div>
-                <input type="button" name="" value="OK" onclick="gohome()">
+                <input type="button" value="OK" onclick="gohome()">
             </form>
         </div>
 
     </div>
 
 </body>
+<?php
+
+// iff run if the user click on 'yes' in the confirm model showm  
+if (isset($_POST["delete"])) {
+
+    //calling the php script to connect to the database
+    require "php/config.php";
+
+    //assigning variables
+    extract($_SESSION);
+    // $username =  $_SESSION["username"];
+    //print_r($_SESSION);
+
+
+    // echo "Deleting data from the database. <br>";
+    $query = $con->prepare("Delete FROM `users` WHERE username=?");
+
+    $query->bind_param('s', $username);
+
+    if ($query->execute()) {
+        //echo "Delete Successfully.";
+        echo " <script> delusermodel(); </script>";
+    } else {
+        // echo "Unable to Delete.";
+        echo " <script> alert('Delete Failed'); </script>";
+    }
+}
+
+// displaying output to tell user that the password has been updated successfully 
+if (isset($_SESSION["pUpdateSuccess"])) {
+    if ($_SESSION["pUpdateSuccess"] == 1) {
+        unset($_SESSION["pUpdateSuccess"]);
+        echo " <script> updatepasswordmodel(); </script>";
+    }
+}
+
+// displaying output to tell user that the user information has been updated successfully 
+if (isset($_SESSION["iUpdateSuccess"])) {
+    if ($_SESSION["iUpdateSuccess"] == 1) {
+        unset($_SESSION["iUpdateSuccess"]);
+        echo " <script> updateinfomodel(); </script>";
+    }
+}
+?>
 
 </html>

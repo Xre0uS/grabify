@@ -1,0 +1,3 @@
+ recaptcha key for the website
+site key: 6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY
+secret key: 6LdFov4ZAAAAAFKILOLHu1-kI1YLpFfkIt2vz2xH

@@ -1,162 +1,105 @@
+/** 
+ * flags used to check if the data has been validated and data will only be processed if the validation function is run. 
+ * 
+ * if the function is run, it will return 1, else it will return 0  
+ * where the 0s from left to right represents the following textfields
+ * username,
+ * name,
+ * mobile number,
+ * email,
+ * address,
+ * password,
+ * confirm password 
+ *  
+ * */
+var FunctionUsed = [0, 0, 0, 0, 0, 0, 0];
+
 /***
- * @description The following function allows the code to locate the index and replace the string 
- * @param Int index The location to locate the characters to be replaced to
- * @param vars replacement The characters to be replaced to 
- * @return the characters that is being replaced 
+ * @description The following function checks if both array are identical 
+ * 
+ * @param array a The first array supplied to be checked
+ * @param array b The second array supplied to be checked against 
+ * 
+ * @return Boolean If the array matches, the function will return 1 else it will return 0 
  */
 
-String.prototype.replaceAt = function (index, replacement) {
-    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+function matchesArray(a, b) {
+    if (a.length != b.length) {
+        return 0;
+    }
+
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] != b[i]) {
+            return 0;
+        }
+    }
+    return 1;
 }
+
+/***
+  * @description displaying the relevant page to allow user to interact with the website efficiently
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
 
 function checkLoggedin() {
     //check if user is logged in
     if (sessionStorage.getItem("loginstatus") == "true") {
-        userLogin();
+        loggedIn();
     }
     else {
         shloginbtn();
     }
 }
 
-/***
-  * @description filtering user input to prevent user from entering malicious character into the username field
-  * @param  null
-  * @return  remove malicious character upon user input           
-*/
-
-function usernameFilter() {
-    var username = document.getElementById("usernamesignupbox").value;
-
-    document.getElementById("usernamesignupbox").value = username.replace(/([<&%>().=+""?!$@#^*-/_;:'']|(phpinfo)?)/g, '');
-
-}
-
-/***
-  * @description filtering user input to prevent user from entering malicious character into the name field
-  * @param  null
-  * @return  remove malicious character upon user input           
-*/
-
-function nameFilter() {
-    var name = document.getElementById("namesignupbox").value;
-
-    document.getElementById("namesignupbox").value = name.replace(/([<&%>().=+""?!$@#^*-/_;:'']|(phpinfo)?)/g, '');
-}
-
-function nameFilter() {
-    var name = document.getElementById("namesignupbox").value;
-    document.getElementById("namesignupbox").value = name.replace(/([<&%>().=+""?!$@#^*-/_;:'']|(phpinfo)?)/g, '');
-}
-
-/***
-  * @description filtering user input to prevent user from entering malicious character into the mobile number field
-  * @param  null
-  * @return  remove malicious character upon user input           
-*/
-
-function mobilenoFilter() {
-    var mobileno = document.getElementById("mobilenosignupbox").value;
-
-    document.getElementById("mobilenosignupbox").value = mobileno.replace(/([A-Za-z<&%>().=+""?!$@#^*-/_;:'']|(phpinfo)?)/g, '');
-}
-
-function mobilenoFilter() {
-    var mobileno = document.getElementById("mobilenosignupbox").value;
-    document.getElementById("mobilenosignupbox").value = mobileno.replace(/([A-Za-z<&%>().=+""?!$@#^*-/_;:'']|(phpinfo)?)/g, '');
-}
-
-/***
-  * @description filtering user input to prevent user from entering malicious character into the email field
-  * @param  null
-  * @return  remove malicious character upon user input           
-*/
-
-function emailFilter() {
-    var email = document.getElementById("emailsignupbox").value;
-
-    document.getElementById("emailsignupbox").value = email.replace(/([<&%>()=+""?!$#^*/;:'']|(phpinfo)?)/g, '');
-
-}
-
-/***
-  * @description filtering user input to prevent user from entering malicious character into the address field
-  * @param  null
-  * @return  remove malicious character upon user input           
-*/
-
-function addrFilter() {
-    var addr = document.getElementById("addrsignupbox").value;
-
-    document.getElementById("addrsignupbox").value = addr.replace(/([<&%>().=+""?!$@#^*-/_;:'']|(phpinfo)?)/g, '');
-}
-
-/***
-  * @description filtering user input to prevent user from entering malicious character into the password field
-  * @param  null
-  * @return  remove malicious character upon user input           
-*/
-
-function tpwFilter() {
-    var tpw = document.getElementById("tpwsignupbox").value;
-
-    document.getElementById("tpwsignupbox").value = tpw.replace(/([<>().=+""&%^*-/_;:'']|(phpinfo)?)/g, '');
-
-}
-
-/***
-  * @description filtering user input to prevent user from entering malicious character into the confirm password field
-  * @param  null
-  * @return  remove malicious character upon user input           
-*/
-
-function pwFilter() {
-    var pw = document.getElementById("pwsignupbox").value;
-
-    document.getElementById("pwsignupbox").value = pw.replace(/([<>().=+""&%^*-/_;:'']|(phpinfo)?)/g, '');
-
-
-}
-
-/***
- * @description The following function validates the user input and returns error messages 
- * @param String passwd The password entered by the user is supplied 
- * @return 1 is return if the value does not contain the password criteria specified 
+/**
+ * @description filtering user input to prevent user from entering malicious character into the email field
+ *
+ * @param String $field retriving the name of the field and validate it against user input
+ * 
+ * @return null
  */
 
-function validatePasswd(passwd) {
-    if (!passwd.match(/[!@#$@?0-9A-Za-z]{8,}/g)) {
-        return (document.getElementById("parseflag").value = "<<lessthan8chara>>");
-    }
+function userInputFilters(textFieldID) {
+    var text = document.getElementById(textFieldID).value;
+    document.getElementById(textFieldID).value = text.replace(/([<&%>()=+""^*/;:''~`]|(phpinfo)?)/g, '');
 
-    if ((passwd.match(/[!@#$@?0-9A-Za-z]+/g)) && (!passwd.match(/.*[!@#$@?].*/g))) {
-        return (document.getElementById("parseflag").value = "<<noSpcialCharacters>>");
-    }
+    //will cause an error if index does not exist
+    var index = 500;
 
-    if ((passwd.match(/[!@#$@?0-9A-Za-z]+/g)) && (!passwd.match(/.*[0-9]./g))) {
-        return (document.getElementById("parseflag").value = "<<noNumber>>");
-    }
+    switch (textFieldID) {
 
-    if ((passwd.match(/[!@#$@?0-9A-Za-z]+/g)) && (!passwd.match(/.*[A-Z]./g))) {
-        return (document.getElementById("parseflag").value = "<<noCaps>>");
-    }
+        // for sign up form
+        case "usernamesignupbox": index = 0; break;
+        case "namesignupbox": index = 1; break;
+        case "mobilenosignupbox": index = 2; break;
+        case "emailsignupbox": index = 3; break;
+        case "addrsignupbox": index = 4; break;
+        case "tpwsignupbox": index = 5; break;
+        case "pwsignupbox": index = 6; break;
 
-    if ((passwd.match(/[!@#$@?0-9A-Za-z]+/g)) && (!passwd.match(/.*[a-z]./g))) {
-        return (document.getElementById("parseflag").value = "<<noNonCaps>>");
+        // for login and account activation login form  
+        case "usernamebox": index = 0; break;
+        case "passwordbox": index = 5; break;
+
+        //for forget password form 
+        case "resetPasswdEmail": index = 0; break;
     }
+    FunctionUsed[index] = 1;
 }
 
 /***
   * @description ensure that users entered all the data into the fields before passing the data to PHP for processing 
+  * 
   * @param  null
-  * @return  change the html style to display error messages if fields are left empty or if the passwords do no match 
-  * @return  error messages will also be displayed if it does not match the appropriate validation 
-  * @return  if the data matches all the validation, it will be parse to PHP for processing            
+  * 
+  * @return  null
 */
 
 function usersignup() {
-    alert("hi");
-    //handles signup functions, check if all fields are filled and confirm password matches
+    // check if all fields are filled and confirm password matches
     var usernamesignup = document.getElementById("usernamesignupbox").value;
     var namesignup = document.getElementById("namesignupbox").value;
     var emailsignup = document.getElementById("emailsignupbox").value;
@@ -165,215 +108,178 @@ function usersignup() {
     var tpwsignup = document.getElementById("tpwsignupbox").value;
     var pwsignup = document.getElementById("pwsignupbox").value;
 
-    //checking if there is an input in the text field and return 1 or 0 
-    // where 1 = there are missing fields 
-    // and 0 = there are no missing fields 
-    if (usernamesignup == "" || namesignup == "" || emailsignup == "" || numbersignup == "" || addresssignup == "" || tpwsignup == "" || pwsignup == "") {
-        document.getElementById("parseflag").value = "1";
-        alert("confirm password: " + document.getElementById("parseflag").value);
-    }
-    var checkEmail = emailsignup.search("@");
-    validatePasswd(tpwsignup);
+    // array used to checked against if all the validation function is run 
+    var allFunctionUsed = [1, 1, 1, 1, 1, 1, 1];
 
-    //Testing using a function called replacedAt to replace the characters in the string 
+    if (matchesArray(FunctionUsed, allFunctionUsed) == 1) {
 
-    /** 
-     * flags used to validate the data entered by user input and display error message when the value is 1, else it will return 0 
-     * where the zero starting from left to right represents 
-     * checking if the is any data in the textfield,
-     * check if the username has been taken,
-     * check the format of the email address,
-     * check the format of address entered,
-     * the length of the password,
-     * if there is any speical characters in the password,
-     * if there is a number in the password,
-     * if there is one upper and lowercase alphabet in the password field, 
-     * if the password field and the confirm password field matches. 
-     * 
-     * */
-    var displayErrorMessage = "0, 0, 0, 0, 0, 0, 0, 0, 0";
-
-    if (usernamesignup == "" || namesignup == "" || emailsignup == "" || numbersignup == "" || addresssignup == "" || tpwsignup == "" || pwsignup == "") {
-        displayErrorMessage.replaceAt(0, "1");
-        alert(displayErrorMessage);
-    }
-
-    else if ((usernamesignup != "" && namesignup != "" && emailsignup != "" && numbersignup != "" && addresssignup != "" && tpwsignup != "" && pwsignup != "")) {
-        alert(displayErrorMessage);
-        break;
-    }
-    else if ((usernamesignup != "" && namesignup != "" && emailsignup != "" && numbersignup != "" && addresssignup != "" && tpwsignup != "" && pwsignup != "")) {
-        document.getElementById("parseflag").value = "0";
-        alert("confirm password: " + document.getElementById("parseflag").value);
-
-    }
-
-    if (tpwsignup !== pwsignup) {
-        alert("in elif");
-        document.getElementById("parseflag").value = "<<passwordnotmatch>>";
-        alert("confirm password: " + document.getElementById("parseflag").value);
-    }
-
-
-    if (checkEmail == 0 || checkEmail <= -1) {
-        document.getElementById("parseflag").value = "<<invalid email>>";
-        alert("confirm password: " + document.getElementById("parseflag").value);
-
-    }
-}
-/* else {
-    sessionStorage.setItem("loginstatus", true);
-    sessionStorage.setItem("loggedinid", "1");
-    sessionStorage.setItem("loggedusername", "User");
-    location.reload();
-     var usernameinput = document.getElementById("usernamesignupbox").value;
- 
-    var credentials = new Object();
-    credentials.username = usernameinput;
- 
-    var login = new XMLHttpRequest();
-    login.open("POST", "/user/login", true);
-    login.setRequestHeader("Content-Type", "application/json");
- 
-    login.onload = function () {
-        response = JSON.parse(login.responseText);
- 
-        if (response.message == "2") {
-            document.getElementById("warningpwtext").style.display = "none";
-            document.getElementById("wronguser").style.display = "none";
-            document.getElementById("warningusernametext").style.display = "block";
+        // checking if there is an input in the text field and return 1 or 0 
+        // where 1 = there are missing fields 
+        // and 0 = there are no missing fields 
+        if (usernamesignup == "" || namesignup == "" || emailsignup == "" || numbersignup == "" || addresssignup == "" || tpwsignup == "" || pwsignup == "") {
+            document.getElementById("parseflag").value = "1";
+            //alert("confirm password: " + document.getElementById("parseflag").value);
         }
-        else {
-            var usersignup = new Object();
-            usersignup.username = usernamesignup;
-            usersignup.user_email = emailsignup;
-            usersignup.user_number = numsignup;
-            usersignup.user_address = adsignup;
-            usersignup.user_password = pwsignup;
-            usersignup.user_gender = gendersignup;
- 
-            var addUser = new XMLHttpRequest();
-            addUser.open("POST", "/user", true);
-            addUser.setRequestHeader("Content-Type", "application/json");
-            addUser.send(JSON.stringify(usersignup));
-            sessionStorage.setItem("loggedusername", usernamesignup);
-            sessionStorage.setItem("loginstatus", true);
-            shsignupmodal();
-            document.getElementById("confirmmodal").style.display = "block"
+
+        else if ((usernamesignup != "" && namesignup != "" && emailsignup != "" && numbersignup != "" && addresssignup != "" && tpwsignup != "" && pwsignup != "")) {
+            document.getElementById("parseflag").value = "0";
+            //alert("confirm password: " + document.getElementById("parseflag").value);
+
         }
-    }
-    login.send(JSON.stringify(credentials)); 
-}
-}
-/*
- 
-function userLogin() {
-//get logged in username and display in welcome text, should be done with $_session in php, remove when necessary
-if (localStorage.getItem("loginstatus") == "true" || sessionStorage.getItem("loginstatus") == "true") {
-    shuserbtn();
-    if (sessionStorage.getItem("loggedusername") == "null" || sessionStorage.getItem("loggedusername") == "" || sessionStorage.getItem("loggedusername") == null) {
-        document.getElementById("usergreet").innerHTML = "Welcome, " + localStorage.getItem("loggedusername");
     }
     else {
-        document.getElementById("usergreet").innerHTML = "Welcome, " + sessionStorage.getItem("loggedusername");
+        document.getElementById("parseflag").value = "1";
     }
 }
-else {
-    shloginbtn();
+
+/***
+  * @description ensure that users entered all the data into the fields before passing the data to PHP for processing 
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
+
+function userLogin() {
+    //alert("login");
+    // check if all fields are filled and confirm password matches
+    var usernamelogin = document.getElementById("usernamebox").value;
+    var passwdlogin = document.getElementById("passwordbox").value;
+
+    // array used to checked against if all the validation function is run 
+    var allFunctionUsed = [1, 0, 0, 0, 0, 1, 0];
+
+    if (matchesArray(FunctionUsed, allFunctionUsed) == 1) {
+
+        //checking if there is an input in the text field and return 1 or 0 
+        // where 1 = there are missing fields 
+        // and 0 = there are no missing fields 
+        if (usernamelogin == "" || passwdlogin == "") {
+            document.getElementById("loginParseflag").value = "1";
+            // alert("Login Flag: " + document.getElementById("loginParseflag").value);
+        }
+
+        else if ((usernamelogin != "" && passwdlogin != "")) {
+            document.getElementById("loginParseflag").value = "0";
+            // alert("Login Flag: " + document.getElementById("loginParseflag").value);
+
+        }
+    }
+    else {
+        document.getElementById("loginParseflag").value = "1";
+    }
 }
+
+/***
+  * @description ensure that users entered all the data into the fields before passing the data to PHP for processing 
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
+
+function passwdRecovery() {
+    // check if the email field is filled 
+    var resetPasswdEmail = document.getElementById("resetPasswdEmail").value;
+
+    // array used to checked against if all the validation function is run 
+    var allFunctionUsed = [0, 0, 0, 1, 0, 0, 0];
+
+    if (matchesArray(FunctionUsed, allFunctionUsed) == 1) {
+
+        //checking if there is an input in the text field and return 1 or 0 
+        // where 1 = there are missing fields 
+        // and 0 = there are no missing fields 
+        if (resetPasswdEmail == "" ) {
+            document.getElementById("resetParseflag").value = "1";
+            // alert("Login Flag: " + document.getElementById("loginParseflag").value);
+        }
+
+        else if ((usernamelogin != "" && passwdlogin != "")) {
+            document.getElementById("resetParseflag").value = "0";
+            // alert("Login Flag: " + document.getElementById("loginParseflag").value);
+
+        }
+    }
+    else {
+        document.getElementById("resetParseflag").value = "1";
+    }
 }
- 
-function loginUser() {
-//function to login in user and save username in storage, should be done with $_session in php, remove when necessary
-sessionStorage.setItem("loginstatus", true);
-sessionStorage.setItem("loggedinid", "");
-sessionStorage.setItem("loggedusername", "User");
-location.reload();
-/* var userid = user_array[0].user_id;
-var username = user_array[0].username;
- 
-var update = new XMLHttpRequest();
-update.open("GET", "/user/activate/" + userid, true);
-update.setRequestHeader("Content-Type", "application/json");
-update.send();
- 
-if (document.getElementById("usercheckbox").checked == true) {
-    localStorage.setItem("loginstatus", true);
-    localStorage.setItem("loggedinid", userid);
-    localStorage.setItem("loggedusername", username);
-}
- 
-else {
-    sessionStorage.setItem("loginstatus", true);
-    sessionStorage.setItem("loggedinid", userid);
-    sessionStorage.setItem("loggedusername", username);
-}
-location.reload(); 
-}
- 
-function logout() {
-//logout the user and remove username in storage, should be done with $_session in php, remove when necessary
-localStorage.setItem("loginstatus", false);
-localStorage.setItem("loggedinid", "");
-localStorage.setItem("loggedusername", "");
-sessionStorage.setItem("loginstatus", false);
-sessionStorage.setItem("loggedinid", "");
-sessionStorage.setItem("loggedusername", "");
-window.location.href = "home.php";
-}
- 
-function resetpassword() {
-//not working, should be done in php
-resetname = document.getElementById("resetpwname").value;
- 
-if (resetname == "") {
-    document.getElementById("resetinfotext").style.display = "block";
-}
-else {
-    var credentials = new Object();
-    credentials.username = resetname;
- 
-    var login = new XMLHttpRequest();
-    login.open("POST", "/user/login", true);
-    login.setRequestHeader("Content-Type", "application/json");
- 
-    login.onload = function () {
-        response = JSON.parse(login.responseText);
- 
-        if (response.message == "3") {
-            document.getElementById("resetinfotext").style.display = "block";
+
+/***
+  * @description setting the relevant information to be displayed on the website
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
+
+function loggedIn() {
+    //get logged in username and display in welcome text, should be done with $_session in php, remove when necessary
+    if (localStorage.getItem("loginstatus") == "true" || sessionStorage.getItem("loginstatus") == "true") {
+        shuserbtn();
+        if (sessionStorage.getItem("user") == "null" || sessionStorage.getItem("user") == "" || sessionStorage.getItem("user") == null) {
+            document.getElementById("usergreet").innerHTML = "Welcome, " + localStorage.getItem("user");
         }
         else {
-            var check = new XMLHttpRequest();
-            check.open("GET", "/user/check/" + resetname, true);
-            check.setRequestHeader("Content-Type", "application/json");
- 
-            check.onload = function () {
-                ueser_array_reset = JSON.parse(check.responseText);
-                changepassword();
-            };
-            check.send();
+            document.getElementById("usergreet").innerHTML = "Welcome, " + sessionStorage.getItem("user");
         }
+
+    }
+    else {
+        shloginbtn();
     }
 }
-}
- 
-function changepassword() {
-//should be done in php
-userid = ueser_array_reset[0].user_id;
-newps = rand(8);
- 
-var userinfo = new Object;
-userinfo.user_password = newps;
- 
-var update = new XMLHttpRequest();
-update.open("PUT", "/user/updatepassword/" + userid, true)
-update.setRequestHeader("Content-Type", "application/json");
-update.send(JSON.stringify(userinfo));
-document.getElementById("resetconfirmmodal").style.display = "block";
-document.getElementById("resettext").innerHTML = 'Your password has been reset to: ' + newps;
-}
+
+
+/***
+  * @description remove all session set to logged out the user completely
+  * 
+  * @param  null
+  * 
+  * @return null           
 */
+
+function logout() {
+    //logout the user and remove username in storage, should be done with $_session in php, remove when necessary
+    localStorage.setItem("loginstatus", false);
+    localStorage.setItem("user", "");
+    sessionStorage.setItem("loginstatus", false);
+    sessionStorage.setItem("user", "");
+}
+
+/***
+  * @description display countdown timer to user after login attempt failed
+  * 
+  * @param  null
+  * 
+  * @return null           
+*/
+
+function startCountdown(attemptsFail){
+    var count = 20 * attemptsFail ;
+    displayingTimer = setInterval(function(){
+        if(count >= 0){
+            document.getElementById("countdown").innerHTML = " <b>Error:</b> Too many failed login attempts. Please try again in "+count+" seconds.";
+        }
+        if (count == 0){
+            window.location.href = "./home.php";
+            $.ajax({
+                type:'post',
+                url:'./home.php',
+                data:{
+                    login:"login"
+                },
+                success:function(response){
+                    window.location = "./home.php";
+                }
+            });
+        }
+        count--;
+    }, 1000
+    );
+    
+}
 
 /* show and hide models */
 var modal = document.getElementById('loginModalContainer');
@@ -444,7 +350,7 @@ function shsignupmodal() {
 }
 
 /***
-  * @description Displaying the name of the user when the user logged in 
+  * @description Displaying the name of the user when the user logged in and remove the login button
   * @param  null
   * @return  null           
 */
@@ -453,6 +359,7 @@ function shuserbtn() {
     var x = document.getElementById("userbtncontainer");
     if (x.style.display === "none") {
         x.style.display = "block";
+        document.getElementById("loginbtncontainer").style.display = "none";
     } else {
         x.style.display = "none";
     }
