@@ -37,14 +37,32 @@ function userLogin() {
 
 function adminLogin() {
     $(document).ready(function () {
-        $("#loginBtnContainer").load('php/adminloginfn.php');
+        $("#loginBtnContainer").load('php/adminlogin.php');
     });
+    setLogoText("Grabify Admin");
 }
 
 function businessLogin() {
     $(document).ready(function () {
         $("#loginBtnContainer").load('php/bisloginfn.php');
     });
+    setLogoText("Grabify Business");
+}
+
+function setLogoText(text) {
+    document.getElementById("logoText").innerText = text;
+}
+
+function logoAction() {
+    if (window.location.href.includes("admin")) {
+        window.location.href = "admin.php"
+    }
+    else if (window.location.href.includes("bis")) {
+        window.location.href = "bislogin.php"
+    }
+    else {
+        window.location.href = "home.php"
+    }
 }
 
 /*

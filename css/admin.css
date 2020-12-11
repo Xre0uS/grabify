@@ -1,393 +1,250 @@
-html {
-  box-sizing: border-box;
+.h1 {
+  clear: both;
 }
 
-*, *:before, *:after {
-  box-sizing: inherit;
+.adminFnWrapper {
+    margin: auto;
 }
 
-html{
-  height: 100%;
-  padding: 16px;
-  background-color: #252326;
-  background-image: url('http://christiannaths.com/code/admin-interface/dots.png'), url('http://christiannaths.com/code/admin-interface/route-66.jpg');
-  background-position: center center, center, center;
-  background-attachment: fixed, fixed;
-  background-size: auto, cover;
+.tableWrapper {
+  width: auto;
+  margin: auto;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
-body{
-  height: 100%;
-  margin: 0;
-  font: 16px/24px normal "Open Sans", trebuchet, sans-serif;
-  font-weight: 100;
-  color: #616161;
-  color: #252326;
+table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+  width: auto;
+  margin: 0 auto;
+  position: relative;
+  max-width: 1500px;
 }
 
-h1, h2, h3, h4, h5{
-  margin-top: 0;
-  font-family: inherit;
-  font-weight: inherit;
-  font-size: 21px;
+table * {
+  position: relative;
 }
-
-a{
-  text-decoration: none;
-  color: #fff;
+table td, table th {
+  padding-left: 8px;
+  word-wrap: break-word;
+  max-width: 500px;
 }
-
-.brick{
-  display: inline-block;
-  width: 100%;
-  padding: 16px;
-  margin-bottom: 8px;
-  margin-right: 8px;
-  background-color: #e7e7e7;
-  vertical-align: top;
+table thead tr {
+  height: 60px;
+  background: var(--primaryColor);
 }
-
-.icon{
-  display: inline-block;
-  float: right;
-  width: 30px;
-  height: 30px;
-  font-size: 1.5em;
-  font-weight: 100;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.5;
+table tbody tr {
+  height: 50px;
+}
+table tbody tr:last-child {
+  border: 0;
+}
+table td, table th {
+  text-align: left;
+}
+table td.l, table th.l {
+  text-align: right;
+}
+table td.c, table th.c {
   text-align: center;
-
 }
-
-header > hgroup{
-  margin-bottom: 32px;
-  color: #fff;
-}
-
-header h1{
-  margin-bottom: 0;
-  font-size: 28px;
-}
-
-header a{
-  color: #a93447;
-}
-
-nav{
-  margin-bottom: 32px;
-}
-
-nav ul{
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-nav ul li{
-  display: inline;
-}
-
-nav ul li a.brick{
-  position: relative;
-  font-family: inherit;
-  font-weight: inherit;
-  color: #616161;
-  color: #252326;
-  line-height: 2;
-  background-color: #252326;
-  background-color: #F3F3F3;
-  background-color: #e7e7e7;
-  border-left: 3px solid #616161
-}
-
-nav ul li a.brick .icon{
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 64px;
-  width: 64px;
-  font-size: 2em;
-  color: #fff;
-  line-height: 2.25;
-  background: #616161;
-}
-
-nav ul li a.dashboard{
-  border-color: #B93861;
-}
-
-nav ul li a.dashboard .icon{
-  background-color: #B93861;
-}
-
-nav ul li a.pages{
-  border-color: #34ABD7;
-}
-
-nav ul li a.pages .icon{
-  background-color: #34ABD7;
-}
-
-nav ul li a.navigation{
-  border-color: #158A53;
-}
-
-nav ul li a.navigation .icon{
-  background-color: #158A53;
-}
-
-nav ul li a.users{
-  border-color: #D95235;
-}
-
-nav ul li a.users .icon{
-  background-color: #D95235;
-}
-
-nav ul li a.settings{
-  border-color:blueviolet;
-}
-
-nav ul li a.settings .icon{
-  background-color: blueviolet;
-}
-
-nav ul li a.pending{
-  border-color: green;
-}
-
-nav ul li a.pending .icon{
-  background-color: green;
+table td.r, table th.r {
+  text-align: center;
 }
 
 
-#content > header{
-  position: relative;
-  padding: 0px 72px 0px 0px;
+.table th{
+  font-size: 18px;
+  color: white;
+  line-height: 1.2;
+  font-weight: unset;
 }
 
-#content .brick{
-  position: relative;
+tbody tr {
+  font-size: 15px;
+  color: black;
+  line-height: 1.2;
+  font-weight: unset;
 }
 
-#content .brick .close{
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  color: #616161;
+tbody tr:hover {
+  color: #000000;
+  background-color: #f5f5f5;
 }
 
-#content.pages .brick.title{
-  height: 120px;
-  border-left: 8px solid #34ABD7;
+.col0 {
+  width: auto;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
-#content.pages .brick.identify{
-  display: none;
+.col1 {
+  width: auto;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
-#content.pages .brick.save{
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 64px;
-  height: 54px;
-  min-height: 54px;
-  margin-right: 0;
-  color: #fff;
-  background: #158A53;
+.col2 {
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-#content.pages .brick.close{
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 64px;
-  height: 54px;
-  min-height: 54px;
-  margin-right: 0;
-  color: #fff;
-  background: #616161;
+.col3 {
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-#content.pages .brick.save .icon, #content.pages .brick.close .icon{
-  line-height: 1;
+.col4 {
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-#content .brick.closed{
-  width: 120px;
-  height: 120px;
+.col5 {
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-#content .brick.closed hgroup a{
-  display: none;
+.col6 {
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-#content .brick.closed form{
-  display: none;
+.edit {
+  width: fit-content;
+  cursor: pointer;
+  color: var(--primaryColor);
 }
 
-#content .brick form textarea{
+.delete {
+  width: fit-content;
+  cursor: pointer;
+  color: red;
+}
+
+.approve {
+    width: fit-content;
+    cursor: pointer;
+    color:  var(--primaryColor);
+  }
+
+.deny {
+    width: fit-content;
+    cursor: pointer;
+    color: red;
+}
+
+.addAdminBtnContainer{
+  border: 2px solid;
+  display: flex;
+  margin-left: auto;
+  padding: 5px;
+  padding-right: 10px;
+  padding-left: 10px;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 2px;
+  cursor: pointer;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.addAdminBtn {
+  float: right;
+}
+
+.modalContainer{
   width: 100%;
-  max-width: 100%;
-  min-height: 200px;
-  padding: 16px;
-  border: 1px solid #666;
-    border-radius: 0px;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px;
+  z-index: 1;
+  display: none;
+  position: fixed;
 }
 
-#content .brick form input[type="text"]{
-  width: 100%;
-  padding: 8px 16px;
-  border: 1px solid #666;
-  font-size: 1.5em;
-  border-radius: 0px;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px;
+.modal{
+  width: 400px;
+  padding: 40px;
+  position: fixed;
+  top: 25%;
+  left: 40%;
+  background: #ffffff;
+  box-shadow: 0 0 5px;
+  text-align: center;
 }
 
-
-@media all and (max-width: 799px){
-  #content.pages .brick.close .text, #content.pages .brick.save .text{
-    display: none;
-  }
+.modal h1{
+  color: var(--grey);
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
-@media all and (min-width: 800px){
-  header > hgroup{
-    height: 120px;
-    color: #fff;
-  }
-
-
-  nav{
-    position: absolute;
-    width: 250px;
-  }
-
-
-
-  #content{
-    min-height: 100%;
-    margin-left: 282px;
-    font-size: 0;
-  }
-
-  #content .brick{
-    min-height: 120px;
-    min-width: 120px;
-    background: #252326;
-    background: #a93447;
-    background: #F3F3F3;
-    background-color: #e7e7e7;
-    font-size: 16px;
-  }
-
-  #content .brick hgroup h2{
-    display: inline-block;
-    width: 80%;
-  }
-
-  #content .brick hgroup a{
-    float: right;
-    line-height: 1.13;
-  }
-
-
-  #content.pages .brick.controls{
-    position: relative;
-    padding-left: 136px;
-  }
-
-  #content > header{
-    position: relative;
-    padding: 0px 128px;
-  }
-
-  #content.pages .brick.identify{
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #fff;
-    background: #34ABD7;
-    width: 120px;
-  }
-
-  #content.pages .brick.identify .icon{
-    display: block;
-    height: 60px;
-    width: 60px;
-    float: none;
-    margin: 0 auto;
-    font-size: 5em;
-    color: #fff;
-    line-height: 1.25;
-  }
-
-  #content.pages .brick.title{
-    border-left: none;
-  }
-
-  #content.pages .brick.save{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    margin-right: 0;
-    color: #fff;
-    background: #158A53;
-    height: 56px;
-    min-height: 56px;
-    width: 120px;
-  }
-
-  #content.pages .brick.close{
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 120px;
-    height: 56px;
-    min-height: 56px;
-    margin-right: 0;
-    color: #fff;
-    background: #616161;
-  }
-
-  #content.pages .brick.save .icon, #content.pages .brick.close .icon{
-    line-height: 1;
-  }
-
-  #content.pages .brick.controls .icon{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 120px;
-    width: 120px;
-    background: #34ABD7;
-    color: #fff;
-    font-size: 5em;
-  }
-
-  input[type='submit'][value='%']{
-    position: absolute;
-    background: #158A53;
-    border: none;
-    left: 0px;
-    bottom: 0px;
-    width: 60px;
-    height: 60px;
-    font-family: "ModernPictogramsNormal";
-    font-weight: 100;
-    font-size: 2em;
-    color: #fff;
-  }
+.modal input[type = "text"],.login-modal input[type = "password"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid var(--grey);
+  padding: 14px 10px;
+  width: 320px;
+  outline: none;
+  color: var(--grey);
+  border-radius: 3px;
+  transition: 0.5s;
 }
 
-.line {
+.modal input[type = "text"]:focus,.login-modal input[type = "password"]:focus{
+  border-color: var(--primaryColor);
+}
+
+.modal input[type = "button"]{
+  border:0;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px solid var(--primaryColor);
+  padding: 12px;
+  outline: none;
+  color: var(--grey);
+  border-radius: 3px;
+  transition: 0.2s ease;
+  cursor: pointer;
+  width: 320px;
+  font-size: 18px;
+  color: var(--primaryColor);
+}
+
+.modal input[type = "button"]:hover{
+  background: var(--primaryColor);
+  color: #ffffff;
+}
+
+.animate {
+  -webkit-animation: animatezoom 0.3s;
+  animation: animatezoom 0.3s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)}
+  to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)}
+  to {transform: scale(1)}
+}
+
+.warningtext {
+  clear: both;
+  font-size: 14px;
+  color: red;
   float: left;
-  width: 100%;
-  border-top: 0.15em solid white;
 }
