@@ -160,7 +160,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
 
             <input id='resetParseflag' type='hidden' name='flag'>
             <input type="text" id="resetPasswdUsername" name="resetPasswdUsername" placeholder="Username" onkeypress="userInputFilters('resetPasswdUsername')"  required>
-            <input type="text" id="resetPasswdEmail" name="resetPasswdEmail" placeholder="Email" onkeypress="userInputFilters('resetPasswdEmail')"  required>
+            <input type="email" id="resetPasswdEmail" name="resetPasswdEmail" placeholder="Email" onkeypress="userInputFilters('resetPasswdEmail')"  required>
             <input id="resetpwname" type="submit" name="resetPasswd" value="SUBMIT" onclick="passwdRecovery()">
         </form>
     </div>
