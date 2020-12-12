@@ -141,7 +141,7 @@ if (isset($_POST['updatePasswd'])) {
                         break;
                 }
                 $accessDB = 0;
-                header("location:../forgetpassword.php");
+                header("location:../new_password.php");
             }
         }
 
@@ -189,6 +189,6 @@ if (isset($_POST['updatePasswd'])) {
         }
     } else {
         $_SESSION['rpasswdFieldEmpty'] = "No fields should be left empty";
-        header("location:../forgetpassword.php");
+        header("location:../new_password.php");
     }
 }
