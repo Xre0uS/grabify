@@ -39,8 +39,8 @@ function sendMail($email, $username, $token)
   $content = '<p>Dear <strong>' . $username . ' </strong>,</p>';
   $content .= '<p>Please click on the following link to reset your password.</p>';
   $content .= '<p>-------------------------------------------------------------</p>';
-  $content .= '<p><a href="http://localhost/swap-mylittlepony/new_password.php?key=' . $token . '&action=reset" target="_blank">
-    http://localhost/swap-mylittlepony/new_password.php?key=' . $token . '&action=reset</a></p>';
+  $content .= '<p><a href="http://localhost/grabify/new_password.php?key=' . $token . '&action=reset" target="_blank">
+    http://localhost/grabify/new_password.php?key=' . $token . '&action=reset</a></p>';
   $content .= '<p>-------------------------------------------------------------</p>';
   $content .= '<p>Please be sure to copy the entire link into your browser.
     The link will expire after 1 day for security reason.</p>';
@@ -95,8 +95,8 @@ function activateAccountMail($email, $username, $token)
   $content .= '<p>Welcome to Grabify!</p><br>';
   $content .= '<p>Click on the link belo to activate your Grabify account. <p>';
   $content .= '<p>-------------------------------------------------------------</p>';
-  $content .= '<p><a href="http://localhost/swap-test/activate_login.php?key=' . $token . '&action=activate" target="_blank">
-  http://localhost/swap-test/activate_login.php?key=' . $token . '&action=activate</a></p>';
+  $content .= '<p><a href="http://localhost/grabify/activate_login.php?key=' . $token . '&action=activate" target="_blank">
+  http://localhost/grabify/activate_login.php?key=' . $token . '&action=activate</a></p>';
   $content .= '<p>-------------------------------------------------------------</p>';
   $content .= '<p>Please be sure to copy the entire link into your browser.
   If you run into any problems, feel free to contact us at support@grabify.com</p>';
