@@ -23,7 +23,7 @@ if (
     
     require "php/config.php";
 
-    echo "hi";
+    
     $query = $con->prepare("Delete FROM `users` WHERE username=?");
 
     $query->bind_param('s', $username);

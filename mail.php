@@ -290,8 +290,8 @@ function deleteAccount($email, $username, $token)
   $content .= '<br><p>Ignore this email if you do not wish to delete your account. Your data will not be lost.</p> <br>';
   $content .= '<p>However, if you still wish to delete your account, click the link below.  </p> <br>';
   $content .= '<p>-------------------------------------------------------------</p>';
-  $content .= '<p><a href="http://localhost/swap-mylittlepony/removeuser.php?username='.$username.'&key=' . $token . '&action=remove" target="_blank">
-  http://localhost/swap-mylittlepony/removeuser.php?username='.$username.'&key=' . $token . '&action=remove</a></p>';
+  $content .= '<p><a href="http://localhost/grabify/removeuser.php?username='.$username.'&key=' . $token . '&action=remove" target="_blank">
+  http://localhost/grabify/removeuser.php?username='.$username.'&key=' . $token . '&action=remove</a></p>';
   $content .= '<p>-------------------------------------------------------------</p>';
   $content .= '<p>Please be sure to copy the entire link into your browser.
   If you run into any problems, feel free to contact us at support@grabify.com</p>';
