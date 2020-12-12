@@ -215,10 +215,10 @@ function auth($username, $passwd, $conn)
  * else, it will return the usename.
  * 
  */
-function checkEmail($email, $conn)
+function checkEmail($username, $email, $conn)
 {
-    $query = $conn->prepare("SELECT username FROM users WHERE email=?");
-    $query->bind_param('s', $email);
+    $query = $conn->prepare("SELECT username FROM users WHERE email=? AND username=?");
+    $query->bind_param('ss', $email, $username);
     $result = $query->execute();
     $result = $query->get_result();
 

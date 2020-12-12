@@ -1,11 +1,15 @@
 <?php
+include "php/lookup.php";
 session_start();
 
 if (!isset($_SESSION['activation']) && !isset($_SESSION['token'])) {
+    TraversalLogs();
     header("location:home.php");
 } else if (($_SESSION['activation'] != "temp")){
+    TraversalLogs();
     header("location:home.php");
 }else if (($_SESSION['token'] == "") || ($_SESSION['token'] == null)){
+    TraversalLogs();
     header("location:home.php");
 }
 
