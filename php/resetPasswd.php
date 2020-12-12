@@ -2,9 +2,11 @@
 session_start();
 
 include "verify.php";
+require "../mail.php";
 
-if (isset($_POST["resetPasswd"]) && (!empty($_POST["resetPasswdEmail"]))) {
+if (isset($_POST["resetPasswd"]) && (!empty($_POST["resetPasswdEmail"])) && (!empty($_POST["resetPasswdUsername"]))) {
 
+    $username = $_POST['resetPasswdUsername'];
     $email = $_POST["resetPasswdEmail"];
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $email = filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -14,9 +16,9 @@ if (isset($_POST["resetPasswd"]) && (!empty($_POST["resetPasswdEmail"]))) {
         echo "valid email";
 
         require_once "config.php";
-        $result = checkEmail($email, $con);
+        $result = checkEmail($username, $email, $con);
 
-        if ($result === "Please Verify your email address again.") {
+        if ($result === "Please verify your username or email address again.") {
             $_SESSION['userNotFound'] = $result;
         } else {
             $username = $result;
@@ -51,7 +53,7 @@ if (isset($_POST["resetPasswd"]) && (!empty($_POST["resetPasswdEmail"]))) {
             if ($query->execute()) {
                 // echo "Query executed.";
 
-                require "../mail.php";
+                
                 $result = sendMail($email, $username, $token);
 
                 if ($result == 1) {

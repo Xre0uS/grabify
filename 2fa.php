@@ -1,9 +1,12 @@
 <?php
 // Check if session is not registered, if it is not, the user will be redirected back to the login page.
+include "php/lookup.php";
 session_start();
 if (!isset($_SESSION['loginstatus']) || $_SESSION['loginstatus'] == 'false' || $_SESSION['loginstatus'] == 'true') {
+    TraversalLogs();
     header("location:home.php");
 } else if ($_SESSION['username'] == null) {
+    TraversalLogs();
     header("location:home.php");
 }
 

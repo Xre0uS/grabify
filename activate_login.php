@@ -1,10 +1,13 @@
 <?php
+include "php/lookup.php";
 // Check if session is not registered, if it is not, the user will be redirected back to the login page.
 session_start();
+
 if (
     !isset($_GET["key"]) && !isset($_GET["action"])
     && ($_GET['action'] != "activate")
 ) {
+    TraversalLogs();
     header("location:home.php");
 }
 // include 'php/userloginfn.php';

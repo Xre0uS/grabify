@@ -85,7 +85,8 @@ function userInputFilters(textFieldID) {
         case "passwordbox": index = 5; break;
 
         //for forget password form 
-        case "resetPasswdEmail": index = 0; break;
+        case "resetPasswdUsername": index = 0; break;
+        case "resetPasswdEmail": index = 3; break;
     }
     FunctionUsed[index] = 1;
 }
@@ -180,22 +181,23 @@ function userLogin() {
 
 function passwdRecovery() {
     // check if the email field is filled 
+    var resetPasswdUsername = document.getElementById("resetPasswdUsername").value;
     var resetPasswdEmail = document.getElementById("resetPasswdEmail").value;
 
     // array used to checked against if all the validation function is run 
-    var allFunctionUsed = [0, 0, 0, 1, 0, 0, 0];
+    var allFunctionUsed = [1, 0, 0, 1, 0, 0, 0];
 
     if (matchesArray(FunctionUsed, allFunctionUsed) == 1) {
 
         //checking if there is an input in the text field and return 1 or 0 
         // where 1 = there are missing fields 
         // and 0 = there are no missing fields 
-        if (resetPasswdEmail == "" ) {
+        if (resetPasswdEmail == "" || resetPasswdUsername == "") {
             document.getElementById("resetParseflag").value = "1";
             // alert("Login Flag: " + document.getElementById("loginParseflag").value);
         }
 
-        else if ((usernamelogin != "" && passwdlogin != "")) {
+        else if ((resetPasswdUsername != "" && resetPasswdEmail != "")) {
             document.getElementById("resetParseflag").value = "0";
             // alert("Login Flag: " + document.getElementById("loginParseflag").value);
 

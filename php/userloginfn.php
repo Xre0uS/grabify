@@ -96,7 +96,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
 
                         <input id='loginParseflag' type='hidden' name='flag'>
                         <div class="bigspace"></div>
-                        <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY"> </div>
+                        <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY" required> </div>
                         <div class="bigspace"></div>
 
                         <p id="countdown"></p>
@@ -146,11 +146,11 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
 
     <div id="passwdResetModel" class="fpswmodal animate" style="display: none;">
         <form action="php/resetPasswd.php" method="post" class="fpsemail">
-            <h1>Enter your email to reset password</h1>
+            <h1>Password Recovery</h1>
             <div class="space"></div>
             <hr />
             <div class="space"></div>
-            <?php if (isset($_SESSION["resetEmailError"])) { ?>
+            <?php if (isset($_SESSION["username"])) { ?>
                 <p style="text-align:center; padding-left:15%;" class="warningtext"><?= $_SESSION["resetEmailError"]; ?></p>
             <?php } ?>
 
@@ -159,6 +159,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
             <?php } ?>
 
             <input id='resetParseflag' type='hidden' name='flag'>
+            <input type="text" id="resetPasswdUsername" name="resetPasswdUsername" placeholder="Username" onkeypress="userInputFilters('resetPasswdUsername')"  required>
             <input type="text" id="resetPasswdEmail" name="resetPasswdEmail" placeholder="Email" onkeypress="userInputFilters('resetPasswdEmail')"  required>
             <input id="resetpwname" type="submit" name="resetPasswd" value="SUBMIT" onclick="passwdRecovery()">
         </form>
@@ -268,6 +269,11 @@ if (isset($_SESSION['emailSent'])) {
         unset($_SESSION['emailSent']);
     }
 
+}
+
+if (isset($_SESSION['deleted'])) {
+    echo "<script>alert('Account Deleted Successfully.');</script>";
+    unset($_SESSION['deleted']);
 }
 
 ?>
