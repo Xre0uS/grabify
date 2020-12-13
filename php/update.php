@@ -43,6 +43,8 @@ if (isset($_POST["update"])) {
         echo "OK: fields are not empty<br>";
         $arr = array('mobileNo', 'email', 'address');
 
+        $username = $_SESSION['username'];
+
         foreach ($arr as &$i) {
             $matchesRegex = checkField($i);
             echo $i . ' ' . $_POST[$i] . ' ' . $matchesRegex . '<br>';
@@ -85,12 +87,13 @@ if (isset($_POST["update"])) {
 
                 // sending email to inform users that their profile has been updated 
                 $informingUsers = infoUserMail($email, $username, 1);
-                if ($informingUsers == 1) {
-                    $_SESSION['iUpdateSuccess'] = 1;
+                // if ($informingUsers == 1) {
+                    echo 'hi';
+                     $_SESSION['iUpdateSuccess'] = 1;
                     header("Location:../profile.php");
-                } else {
-                    echo "Error sending mail";
-                }
+                // } else {
+                //     echo "Error sending mail";
+                // }
             } else {
                 echo "Error executing query.";
             }

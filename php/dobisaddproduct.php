@@ -56,7 +56,7 @@ $pQuery->bind_param('ss', $logContent, $logIp);
 $pQuery->execute();
 
 $query= $con->prepare("INSERT INTO product (name, price, description, location, business_business_id) VALUES (?,?,?,?,?);");
-$query->bind_param('sdssi', $name, $price, $description, $location,$business_id,);
+$query->bind_param('sdssi', $name, $price, $description, $location,$business_id);
 $query->execute();
 header("location:http://localhost/grabify/bis.php");
 

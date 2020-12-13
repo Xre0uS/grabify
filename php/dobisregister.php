@@ -92,7 +92,7 @@ if(isset($_POST['Register']) && $_POST['Register'] === "Register"){ //check the 
         }
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $query= $con->prepare("INSERT INTO business (username, password, company_name, email, address, contact_number) VALUES (?,?,?,?,?,?);");
-        $query->bind_param('sssssi', $busername, $hashed_password, $cname, $email,$address,$cnumber,);
+        $query->bind_param('sssssi', $busername, $hashed_password, $cname, $email,$address,$cnumber);
         if ($query->execute()){  //execute query
             header("location:http://localhost/grabify/biswait.php");
         }else{

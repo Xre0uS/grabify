@@ -78,16 +78,25 @@ include 'php/userloginfn.php';
         echo "<form action='php/update.php' method='POST'>";
         echo "<div class='updateinfocontainer'>";
         while ($row = $result->fetch_assoc()) { //placing the data into its appropriate location in the table
-            $email = $row['email'];
-            $mobile = $row['mobile_number'];
-            $address = $row['address'];
-        }
+            echo "<input id='emailbox' type='email' name='email' placeholder='Email' value='" . $row['email'] . "' onkeypress='userInputFilters('emailbox')' required>";
+            echo "<input id='numbox' type='text' name='mobileNo' placeholder='Mobile Number' value='" . $row['mobile_number'] . "' onkeypress='userInputFilters('numbox')' required>";
+            echo "<input id='addbox' type='text' name='address' placeholder='Address e.g. 123 Pine St' value='" . $row['address'] . "' onkeypress='userInputFilters('addbox')' required>";
+           
+                   }
+        echo "<input id='updateParseflag' type='hidden' name='flag'>";
+        echo "<div class='updatebtncontainer'>";
+        echo "<input type='submit' name='update' class='updatekbtn' onclick='updateinfo()' value='UPDATE'>";
+        echo "</div></form>";
+        // $con->close()
+           
+            // $email = $row['email'];
+            // $mobile = $row['mobile_number'];
+            // $address = $row['address'];
+        
         $con->close();
         ?>
-        <!-- echo "<input id='emailbox' type='email' name='email' placeholder='Email' value='" . $row['email'] . "' onkeypress='userInputFilters('emailbox')' required>";
-            echo "<input id='numbox' type='text' name='mobileNo' placeholder='Mobile Number' value='" . $row['mobile_number'] . "' onkeypress='userInputFilters('numbox')' required>";
-            echo "<input id='addbox' type='text' name='address' placeholder='Address e.g. 123 Pine St' value='" . $row['address'] . "' onkeypress='userInputFilters('addbox')' required>"; -->
-        <form action='php/update.php' method='POST'>
+
+        <!-- <form action='php/update.php' method='POST'>
             <div class='updateinfocontainer'>
                 <input id='emailbox' type='email' name='email' placeholder='Email' value='<?php echo $email; ?>' onkeypress="userInputFilters('emailbox')" required>
                 <?php if (isset($_SESSION["uEmailError"])) { ?>
@@ -113,7 +122,7 @@ include 'php/userloginfn.php';
             <div class='updatebtncontainer'>
                 <input type='submit' name='update' class='updatekbtn' onclick='updateinfo()' value='UPDATE'>
             </div>
-        </form>
+        </form> -->
 
 
 
@@ -246,8 +255,6 @@ if (isset($_POST["delete"])) {
 
     //calling the php script to connect to the database
     require "php/config.php";
-    include "php/verify.php";
-    include "mail.php";
 
     //assigning variables
     extract($_SESSION);
@@ -255,22 +262,18 @@ if (isset($_POST["delete"])) {
     //print_r($_SESSION);
 
 
-    $token = bin2hex(random_bytes(32));
-    $email = getEmail($username, $con);
-    deleteAccount($email, $username, $token);
+    // echo "Deleting data from the database. <br>";
+    $query = $con->prepare("Delete FROM `users` WHERE username=?");
 
-    // // echo "Deleting data from the database. <br>";
-    // $query = $con->prepare("Delete FROM `users` WHERE username=?");
+    $query->bind_param('s', $username);
 
-    // $query->bind_param('s', $username);
-
-    // if ($query->execute()) {
-    //     //echo "Delete Successfully.";
-    //     echo " <script> delusermodel(); </script>";
-    // } else {
-    //     // echo "Unable to Delete.";
-    //     echo " <script> alert('Delete Failed'); </script>";
-    // }
+    if ($query->execute()) {
+        //echo "Delete Successfully.";
+        echo " <script> delusermodel(); </script>";
+    } else {
+        // echo "Unable to Delete.";
+        echo " <script> alert('Delete Failed'); </script>";
+    }
 }
 
 // displaying output to tell user that the password has been updated successfully 
@@ -288,7 +291,6 @@ if (isset($_SESSION["iUpdateSuccess"])) {
         echo " <script> updateinfomodel(); </script>";
     }
 }
-
 ?>
 
 </html>

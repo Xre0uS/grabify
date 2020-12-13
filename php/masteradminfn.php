@@ -4,6 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if (isset($_POST['function'])) {
+    echo "hi";
     if (limitRequest($response)) {
         echo $response;
     } else if (checkLoggedIn($response)) {
@@ -15,6 +16,7 @@ if (isset($_POST['function'])) {
             $result = $pQuery->execute(); //execute the prepared statement
             $result = $pQuery->get_result(); //store the result of the query from prepared statement
             $rows = array();
+            echo "hi";
             while ($r = $result->fetch_assoc()) {
                 $rows[] = $r;
             }
@@ -225,7 +227,7 @@ function limitRequest(&$response)
         $response = json_encode([
             'status' => 3,
             'err' => "Too many requests. Actions disabled for 30 seconds.",
-            'redirect' => "http://localhost/grabify/admin.php"
+            'redirect' => "https://localhost/grabify/admin.php"
         ]);
 
         $logIp = $_SERVER['REMOTE_ADDR'];
@@ -250,7 +252,7 @@ function logout(&$response)
     session_unset();
     session_destroy();
     $response = json_encode([
-        'redirect' => "http://localhost/grabify/admin.php"
+        'redirect' => "https://localhost/grabify/admin.php"
     ]);
     return $response;
 }
@@ -265,7 +267,7 @@ function checkTimeout(&$response)
             $response = json_encode([
                 'status' => 2,
                 'err' => "Session timed out.",
-                'redirect' => "http://localhost/grabify/admin.php"
+                'redirect' => "https://localhost/grabify/admin.php"
             ]);
             return $response;
             return true;

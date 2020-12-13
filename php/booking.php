@@ -5,7 +5,7 @@ session_regenerate_id(); //regenerate new session id
 // To check if session is started.
 if(isset($_SESSION["username"]))
 {
-    if(time()-$_SESSION["login_time_stamp"] >600)
+    if(time()-$_SESSION["timeout"] >600)
     {
         session_unset();
         session_destroy();
