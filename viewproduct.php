@@ -42,7 +42,7 @@ if(isset($_SESSION["username"]))
     }		
     echo "</table><br>";
 	
-	echo"<form action='booking.php' method='POST'><input type='hidden' value='".$productID."' name='prodID'><input type='submit' value='Book Now'></form>";
+	echo"<form action='createbooking.php' method='POST'><input type='hidden' value='".$productID."' name='prodID'><input type='submit' value='Book Now'></form>";
 	
 	$stmt=$con->prepare("SELECT review.rating, review.content, review.timestamp, users.username FROM review LEFT JOIN users ON review.users_user_id  = users.user_id WHERE product_product_id = ?");//Get product data from database
 	$stmt->bind_param("i", $productID);
