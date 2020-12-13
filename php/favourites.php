@@ -1,5 +1,3 @@
-<?php include 'navbar.php'; ?>
-<?php include 'css/styles.css'; ?>
 <?php
 require('config.php');
 
