@@ -13,7 +13,7 @@ if(isset($_SESSION["username"]))
 }
 else
 {
-    header("Location:editbooking.php");
+    header("Location:../home.php");
 }
 ?>
 <html>

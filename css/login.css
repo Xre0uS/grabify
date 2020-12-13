@@ -1,111 +1,101 @@
-.logincontainer {
-  height: 8000px;
-  width: 100%;
-  z-index: 1;
-  display: none;
-  position: fixed;
-}
-
-.login-modal {
-  width: 400px;
-  padding: 40px;
-  position: fixed;
-  top: 25%;
-  left: 40%;
-  background: #ffffff;
-  box-shadow: 0 0 5px;
-  text-align: center;
-}
-
-.login-modal h1 {
-  color: var(--grey);
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.login-modal input[type="text"],
-.login-modal input[type="password"] {
-  border: 0;
-  background: none;
-  display: block;
-  margin: 20px auto;
-  text-align: center;
-  border: 2px solid var(--grey);
-  padding: 14px 10px;
-  width: 320px;
-  outline: none;
-  color: var(--grey);
-  border-radius: 3px;
-  transition: 0.5s;
-}
-
-.login-modal input[type="text"]:focus,
-.login-modal input[type="password"]:focus {
-  border-color: var(--primaryColor);
-}
-
-.login-modal input[type="submit"] {
-  border: 0;
-  background: none;
-  display: block;
-  margin: 20px auto;
-  text-align: center;
-  border: 2px solid var(--primaryColor);
-  padding: 12px;
-  outline: none;
-  color: var(--grey);
-  border-radius: 3px;
-  transition: 0.2s ease;
-  cursor: pointer;
-  width: 320px;
-  font-size: 18px;
-  color: var(--primaryColor);
-}
-
-.login-modal input[type="submit"]:hover {
-  background: var(--primaryColor);
-  color: #ffffff;
-}
-
-.close {
-  display: none;
-}
-
-.psw,
-.signuplink {
-  color: var(--primaryColor);
-  font-weight: 200;
-  text-decoration: none;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.signup {
-  font-size: 12px;
-}
-
-.animate {
-  -webkit-animation: animatezoom 0.3s;
-  animation: animatezoom 0.3s;
-}
-
-@-webkit-keyframes animatezoom {
-  from {
-    -webkit-transform: scale(0);
+.loginModalContainer{
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: none;
+    position: fixed;
   }
-  to {
-    -webkit-transform: scale(1);
-  }
-}
 
-@keyframes animatezoom {
-  from {
-    transform: scale(0);
+  .login-modal{
+    width: 400px;
+    padding: 40px;
+    position: fixed;
+    top: 25%;
+    left: 40%;
+    background: #ffffff;
+    box-shadow: 0 0 5px;
+    text-align: center;
   }
-  to {
-    transform: scale(1);
+  
+  .login-modal h1{
+    color: var(--grey);
+    text-transform: uppercase;
+    font-weight: 500;
   }
-}
+
+  .login-modal input[type = "text"],.login-modal input[type = "password"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid var(--grey);
+    padding: 14px 10px;
+    width: 320px;
+    outline: none;
+    color: var(--grey);
+    border-radius: 3px;
+    transition: 0.5s;
+  }
+
+  .login-modal input[type = "text"]:focus,.login-modal input[type = "password"]:focus{
+    border-color: var(--primaryColor);
+  }
+
+  .login-modal input[type = "button"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid var(--primaryColor);
+    padding: 12px;
+    outline: none;
+    color: var(--grey);
+    border-radius: 3px;
+    transition: 0.2s ease;
+    cursor: pointer;
+    width: 320px;
+    font-size: 18px;
+    color: var(--primaryColor);
+  }
+
+  .login-modal input[type = "button"]:hover{
+    background: var(--primaryColor);
+    color: #ffffff;
+  }
+
+  .close{
+    display: none;
+  }
+  
+  .psw, .signuplink {
+    color: var(--primaryColor);
+    font-weight: 200;
+    text-decoration: none;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .signup {
+    font-size: 12px;
+  }
+
+
+  .animate {
+    -webkit-animation: animatezoom 0.3s;
+    animation: animatezoom 0.3s
+  }
+
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+  }
+
+  @keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+  }
 
 .fpswmodal {
   z-index: 1;
@@ -124,8 +114,8 @@
   font-weight: 300;
 }
 
-.fpswmodal input[type="text"] {
-  border: 0;
+.fpswmodal input[type = "text"]{
+  border:0;
   background: none;
   display: block;
   margin: 20px auto;
@@ -139,12 +129,12 @@
   transition: 0.5s;
 }
 
-.fpswmodal input[type="text"]:focus {
+.fpswmodal input[type = "text"]:focus {
   border-color: var(--primaryColor);
 }
 
-.fpswmodal input[type="submit"] {
-  border: 0;
+.fpswmodal input[type = "submit"]{
+  border:0;
   background: none;
   display: block;
   margin: 20px auto;
@@ -161,24 +151,22 @@
   color: var(--primaryColor);
 }
 
-.fpswmodal input[type="submit"]:hover {
+.fpswmodal input[type = "submit"]:hover{
   background: var(--primaryColor);
   color: #ffffff;
 }
 
-.signupconatiner {
+.signupconatiner{
   height: 8000px;
   width: 100%;
   z-index: 1;
   display: none;
   position: fixed;
-  overflow-y: initial !important;
 }
 
 .signupmodal {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
+  z-index: 1;
+  position: fixed ;
   top: 10%;
   left: 40%;
   width: 400px;
@@ -186,14 +174,10 @@
   background: #ffffff;
   box-shadow: 0 0 5px;
   text-align: center;
-  height: 90vh;
-  overflow-y: auto !important;
 }
 
-.signupmodal input[type="text"],
-input[type="email"],
-input[type="password"] {
-  border: 0;
+.signupmodal input[type = "text"], input[type = "password"]{
+  border:0;
   background: none;
   display: block;
   margin: 20px auto;
@@ -206,14 +190,12 @@ input[type="password"] {
   transition: 0.5s;
 }
 
-.signupmodal input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
+.signupmodal input[type = "text"]:focus, input[type = "password"]:focus {
   border-color: var(--primaryColor);
 }
 
-.signupmodal input[type="submit"] {
-  border: 0;
+.signupmodal input[type = "button"]{
+  border:0;
   background: none;
   display: block;
   margin: 20px auto;
@@ -222,14 +204,14 @@ input[type="password"]:focus {
   padding: 12px;
   outline: none;
   color: var(--grey);
-  transition: 0.2s ease;
+  transition: 0.2s;
   cursor: pointer;
   width: 320px;
   font-size: 18px;
   color: var(--primaryColor);
 }
 
-.signupmodal input[type="submit"]:hover {
+.signupmodal input[type = "button"]:hover{
   background: var(--primaryColor);
   color: #ffffff;
 }
@@ -261,8 +243,8 @@ input[type="password"]:focus {
   font-weight: 300;
 }
 
-.confirmmodal input[type="button"] {
-  border: 0;
+.confirmmodal input[type = "button"]{
+  border:0;
   background: none;
   display: block;
   margin: 20px auto;
@@ -279,7 +261,11 @@ input[type="password"]:focus {
   color: var(--primaryColor);
 }
 
-.confirmmodal input[type="button"]:hover {
+.confirmmodal input[type = "button"]:hover{
   background: var(--primaryColor);
   color: #ffffff;
+}
+
+.modalHeader {
+  font-size: 24px;
 }
