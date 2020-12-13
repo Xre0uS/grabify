@@ -13,7 +13,7 @@ if(isset($_SESSION["username"]))
 }
 else
 {
-    header("Location:deletebooking.php");
+    header('HTTP/1.0 403 Forbidden');
 }
 ?>
 <?php
