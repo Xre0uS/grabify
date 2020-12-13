@@ -5,7 +5,7 @@ $rating = $_POST["rating"];
 $content = $_POST["content"];
 
 $ratingpattern = "/^[a-zA-Z0-9\s]*$/";
-	if (!preg_match($contentpattern, $rating)){
+	if (!preg_match($ratingpattern, $rating)){
     $content = preg_replace('/[^1-5]/', '5', $rating);} 
 	
 $contentpattern = "/^[a-zA-Z0-9\s]*$/";
