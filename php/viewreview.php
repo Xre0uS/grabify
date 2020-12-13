@@ -1,6 +1,13 @@
 <?php
 require('config.php');
-$userID = '2';
+$username = $_SESSION[username];
+$stmt=$con->prepare("SELECT username FROM users WHERE user_id = ?");//Get favorite data from database
+    $stmt->bind_param("s", $username);
+	$res=$stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($userID); //Bind the data from database
+$userID = $userID;
+
 $stmt=$con->prepare("SELECT review.review_id, review.rating, review.content, review.timestamp, product.name FROM review LEFT JOIN product ON review.product_product_id = product.product_id WHERE users_user_id = ?");//Get product data from database
 	$stmt->bind_param("i", $userID);
     $res=$stmt->execute();
