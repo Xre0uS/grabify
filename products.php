@@ -1,93 +1,71 @@
-<html>
+<!DOCTYPE html>
 
+<html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-table {
-  
-  border: 0px solid black;
-  
-}
-td {
-  border: 0px solid black;
-  text-align: left;
-  padding: 2px;
-  font-size:20px;
-  
-}
-
-th {
-	border: 0px solid black;
-	text-align: center;
-	padding: 2px;
-
-}
-
-.center{
-margin-left:20px;
-margin-right:auto;
-}
-
-.product_image{
-	font-size:25px;
-}
-<?php include 'css/styles.css'; ?>
-
-
-
-</style>
+    <style>
+        <?php include 'css/styles.css'; ?>
+    </style>
 </head>
+
 <body>
-<?php include 'php/navbar.php'; ?>
 
-<button onclick="goBack()">Return</button>
-
-
-<h1 style="text-align:center">Products</h1>
-
- <table border="1" class="center">
-  <tr>
-	<td><a href="View_Item.php"><img src="" alt="Product Image 1" class="product_image"></a></td>
-    <td><a href="View_Item.php">Product Name 1</a></td>
-    <td><a href="View_Business.php">Business Name</a></td>
-	<td>Product Price 1</td>
-    </tr>
-</table>
-<br>
-
- <table border="1" class="center">
-  <tr>
-	<td><a href="View_Item.php"><img src="" alt="Product Image 2" class="product_image"></a></td>
-    <td><a href="View_Item.php">Product Name 2</a></td>
-    <td><a href="View_Business.php">Business Name</a></td>
-	<td>Product Price 2</td>
-    </tr>
-</table>
-<br>
-
- <table border="1" class="center">
-  <tr>
-	<td><a href="View_Item.php"><img src="" alt="Product Image 3" class="product_image"></a></td>
-    <td><a href="View_Item.php">Product Name 3</a></td>
-    <td><a href="View_Business.php">Business Name</a></td>
-	<td>Product Price 3</td>
-    </tr>
-</table>
-<br>
-
- <table border="1" class="center">
-  <tr>
-	<td><a href="View_Item.php"><img src="" alt="Product Image 4" class="product_image"></a></td>
-    <td><a href="View_Item.php">Product Name 4</a></td>
-    <td><a href="View_Business.php">Business Name</a></td>
-	<td>Product Price 4</td>
-    </tr>
-</table>
-<br>
+    <?php include 'php/userloginfn.php'; ?>
 
 </body>
+
 </html>
+<?php
+
+require('php/config.php');
+// To check if session is started.
+if(isset($_SESSION["username"]))
+{
+	$username = $_SESSION["username"];
+	$stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get product data from database
+	$stmt->bind_param("s", $username);
+    $res=$stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($userID); //Bind the data from database
+	$userID = $userID;
+	$stmt=$con->prepare("SELECT product.product_id, product.name, product.price, product.description, product.location, business.company_name FROM (product LEFT JOIN business ON product.business_business_id = business.business_id) GROUP BY product.product_id");//Get product data from database
+    $res=$stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($productID, $name, $price, $description, $location, $busName); //Bind the data from database
+	//List the data from the database
+    echo "<h1> List of products</h1>";
+    echo "<table border='1'>";
+    echo "<tr><td>Name</td><td>Price</td><td>Description</td><td>Location</td><td>Business Name</td><td></td>";
+        while ($stmt->fetch()){
+            echo "<tr><td><form action='viewproduct.php' method='post'><input type='hidden' value='".$userID."' name='userID'><input type='hidden' value='".$productID."' name='productID'><input class='viewproduct' type='submit' value='".$name."'></form></td><td>$" .$price. "</td><td>" .$description. "</td><td>" .$location. "</td><td>".$busName."</td><td><form action='favourites.php' method='post'><input type='hidden' value='".$productID."' name='prodID'> <select id='cat' name='cat'><option value='MUST-BUY'>MUST-BUY</option><option value='OPTIONAL'>OPTIONAL</option></select> <input type='submit' value='Add to Favourite'></form></td>";
+    }
+    echo "</table>";
+	
+    if(time()-$_SESSION["timeout"] >600)
+    {
+        session_unset();
+        session_destroy();
+        header("Location:../home.php");
+    }
+}
+else
+{
+	
+	$stmt=$con->prepare("SELECT product.product_id, product.name, product.price, product.description, product.location, business.company_name FROM (product LEFT JOIN business ON product.business_business_id = business.business_id) GROUP BY product.product_id");//Get product data from database
+    $res=$stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($productID, $name, $price, $description, $location, $busName); //Bind the data from database
+	//List the data from the database
+    echo "<h1> List of products</h1>";
+    echo "<table border='1'>";
+    echo "<tr><td>Name</td><td>Price</td><td>Description</td><td>Location</td><td>Business Name</td>";
+        while ($stmt->fetch()){
+            echo "<tr><td><form action='viewproduct.php' method='post'><input type='hidden' value='".$productID."' name='productID'><input class='viewproduct' type='submit' value='".$name."'></form></td><td>$" .$price. "</td><td>" .$description. "</td><td>" .$location. "</td><td>".$busName."</td>";
+    }
+    echo "</table>";
+}
+?>
