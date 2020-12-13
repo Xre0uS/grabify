@@ -18,7 +18,7 @@ $location=$_POST['location'];
 
 $nameregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 $priceregex= "/^[0-9]+(\.[0-9]{2})?$/";
-$descriptionregex= "/^[a-zA-Z-' ]*$/"; //regular expression for characters and spaces.
+$descriptionregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 $locationregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 
 
@@ -58,7 +58,7 @@ $pQuery->execute();
 $query= $con->prepare("INSERT INTO product (name, price, description, location, business_business_id) VALUES (?,?,?,?,?);");
 $query->bind_param('sdssi', $name, $price, $description, $location,$business_id);
 $query->execute();
-header("location:http://localhost/grabify/bis.php");
+header("location:https://localhost/grabify/bis.php");
 
 
 

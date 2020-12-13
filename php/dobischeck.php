@@ -53,7 +53,7 @@ if (password_verify($rpassword,$password) && $rusername === $username){
 else{
 echo "<script>
 alert('Username or Password May be Invalid');
-window.location.href='http://localhost/grabify/bischeck.php';
+window.location.href='https://localhost/grabify/bischeck.php';
 </script>";
 die;
 }
@@ -62,12 +62,12 @@ die;
 if ($active === 1)
 {
   echo "Your Business has been Approved <br>";
-  echo "<a href='http://localhost/grabify/bislogin.php'>Login Now ?</a><br />";
+  echo "<a href='https://localhost/grabify/bislogin.php'>Login Now ?</a><br />";
 }
 else
 {
   echo "Your Business is still pending Approval <br>";
-  echo "<a href='http://localhost/grabify/bislogin.php'>Go Back to Login Page? </a><br />";
+  echo "<a href='https://localhost/grabify/bislogin.php'>Go Back to Login Page? </a><br />";
 }
 ?>
 

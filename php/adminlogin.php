@@ -40,8 +40,8 @@
             </div>
         </div>
         <div class="userdropdown">
-            <a href="http://localhost/grabify/admin.php">Manage</a>
-            <a href="http://localhost/grabify/adminlogs.php">Logs</a>
+            <a href="https://localhost/grabify/admin.php">Manage</a>
+            <a href="https://localhost/grabify/adminlogs.php">Logs</a>
             <a href="#" onclick="logout()">Logout</a>
         </div>
     </div>

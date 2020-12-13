@@ -8,7 +8,7 @@ if(isset($_POST['g-recaptcha-response'])) {
 if(!$captcha || empty($captcha)) {
   echo "<script>
   alert('Captcha Error');
-  window.location.href='http://localhost/grabify/bislogin.php';
+  window.location.href='https://localhost/grabify/bislogin.php';
   </script>";
   die;
 }
@@ -60,7 +60,7 @@ if ($ausername === $username){
   $paQuery->execute();
   echo "<script>
   alert('Your Password or Username is Incorrect');
-  window.location.href='http://localhost/grabify/bislogin.php';
+  window.location.href='https://localhost/grabify/bislogin.php';
   </script>";
   die;
 }
@@ -74,7 +74,7 @@ if (password_verify($epassword,$password)){
     $pQuery->execute();
     echo "<script>
     alert('Your Password or Username is Incorrect');
-    window.location.href='http://localhost/grabify/bislogin.php';
+    window.location.href='https://localhost/grabify/bislogin.php';
     </script>";
   die;
 }
@@ -90,12 +90,12 @@ $_SESSION['address'] = $address;
 $_SESSION['contact_number'] = $contact_number;
 $_SESSION['password'] = $password;
 $_SESSION["bloginstatus"] = true;
-header("location:http://localhost/grabify/bis.php");
+header("location:https://localhost/grabify/bis.php");
 }
 else{
      echo "<script>
     alert('Your Account has not been Approved ');
-    window.location.href='http://localhost/grabify/bislogin.php';
+    window.location.href='https://localhost/grabify/bislogin.php';
     </script>";
   die;
 }

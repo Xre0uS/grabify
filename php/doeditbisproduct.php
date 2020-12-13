@@ -18,7 +18,7 @@ else{
 
 $nameregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 $priceregex= "/^[0-9]+(\.[0-9]{2})?$/";
-$descriptionregex= "/^[a-zA-Z-' ]*$/"; //regular expression for characters and spaces.
+$descriptionregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 $locationregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 
 
@@ -50,9 +50,8 @@ if(preg_match($locationregex,$location)){ //regex checking the id input to ensur
 $query= $con->prepare("UPDATE product SET name=?, price=?, description=?, location=? WHERE product_id=?");
 $query->bind_param('sdssi', $name,$price, $description,$location,$product_id); //bind the parameters
 if ($query->execute()){  //execute query
-header("location:http://localhost/grabify/bis.php");
+header("location:https://localhost/grabify/bis.php");
 }else{
-    echo $query->error;
 }
 ?>
 

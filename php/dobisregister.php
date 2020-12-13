@@ -8,7 +8,7 @@ if(isset($_POST['g-recaptcha-response'])) {
 if(!$captcha || empty($captcha)) {
     echo "<script>
     alert('Captcha Error');
-    window.location.href='http://localhost/grabify/bislogin.php';
+    window.location.href='https://localhost/grabify/bislogin.php';
     </script>";
     die;
 }
@@ -94,7 +94,7 @@ if(isset($_POST['Register']) && $_POST['Register'] === "Register"){ //check the 
         $query= $con->prepare("INSERT INTO business (username, password, company_name, email, address, contact_number) VALUES (?,?,?,?,?,?);");
         $query->bind_param('sssssi', $busername, $hashed_password, $cname, $email,$address,$cnumber);
         if ($query->execute()){  //execute query
-            header("location:http://localhost/grabify/biswait.php");
+            header("location:https://localhost/grabify/biswait.php");
         }else{
             echo $query->error;
             echo "Error executing query.";

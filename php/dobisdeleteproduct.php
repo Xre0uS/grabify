@@ -23,7 +23,7 @@ $query= $con->prepare("Delete from product where product_id = ?");
 $query->bind_param('i', $product_id); 
 
 if ($query->execute()){  //execute query
-    header("location:http://localhost/grabify/bis.php");
+    header("location:https://localhost/grabify/bis.php");
 }else{
     echo $query->error;
     }

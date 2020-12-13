@@ -17,7 +17,7 @@ $productregex= "/^[0-9]+$/"; // regular expression for numbers.
 
 $startTime=$_POST['start_time'];
 $endtime=$_POST['end_time'];
-$usersID=$_POST['users_user_id'];
+$usersID=$_POST['userID'];
 $product=$_POST['product_product_id'];
 //$bookingID=$_POST['booking_id'];
 
