@@ -7,6 +7,13 @@
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
+-- Database: `grabify`
+--
+CREATE DATABASE IF NOT EXISTS `grabify` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `grabify`;
+
+-- --------------------------------------------------------
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -116,66 +123,7 @@ CREATE TABLE `logs` (
   `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `logs`
---
 
-INSERT INTO `logs` (`log_id`, `log_type`, `log_content`, `log_ip`, `log_time`) VALUES
-(16, '0', 'Unauthorised access on /grabify/php/adminlogsfn.php', '::1', '2020-12-11 15:11:13'),
-(17, '2', 'Multiple failed login attempts to login to \'bryan\' account', '::1', '2020-12-11 15:24:01'),
-(18, '2', 'Unauthorised access on /swap-test/profile.php', '::1', '2020-12-11 15:30:51'),
-(19, '2', 'Unauthorised access on /swap-test/profile.php', '::1', '2020-12-11 15:40:19'),
-(20, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-11 16:02:34'),
-(21, '2', 'Unauthorised access on /grabify/2fa.php', '::1', '2020-12-11 16:02:37'),
-(22, '2', 'Unauthorised access on /grabify/activateaccount.php', '::1', '2020-12-11 16:02:43'),
-(23, '2', 'Unauthorised access on /grabify/activate_login.php', '::1', '2020-12-11 16:02:48'),
-(24, '2', 'Unauthorised access on /grabify/new_password.php', '::1', '2020-12-11 16:02:56'),
-(25, '2', 'Unauthorised access on /grabify/check.php', '::1', '2020-12-11 16:03:09'),
-(26, '2', 'Unauthorised access on /swap-mylittlepony/profile.php', '::1', '2020-12-11 18:28:49'),
-(27, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:09:38'),
-(28, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:10:34'),
-(29, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:10:52'),
-(30, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:10:52'),
-(31, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:10:52'),
-(32, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:10:53'),
-(33, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:10:53'),
-(34, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:11:40'),
-(35, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:01'),
-(36, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:02'),
-(37, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:02'),
-(38, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:02'),
-(39, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:02'),
-(40, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:02'),
-(41, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:03'),
-(42, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:03'),
-(43, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:03'),
-(44, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:03'),
-(45, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:12:03'),
-(46, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:14:34'),
-(47, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:18:00'),
-(48, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:19:21'),
-(49, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:19:45'),
-(50, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:20:52'),
-(51, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:21:37'),
-(52, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:21:38'),
-(53, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:28:49'),
-(54, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:28:50'),
-(55, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:29:03'),
-(56, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:29:04'),
-(57, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:30:29'),
-(58, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:30:43'),
-(59, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:33:35'),
-(60, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:38:07'),
-(61, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:38:08'),
-(62, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:38:08'),
-(63, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:38:09'),
-(64, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:39:26'),
-(65, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:39:28'),
-(66, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:39:28'),
-(67, '2', 'Unauthorised access on /grabify/profile.php', '::1', '2020-12-13 04:40:49'),
-(68, '2', 'Unauthorised access on /swap-mylittlepony/profile.php', '::1', '2020-12-13 04:50:54'),
-(69, '2', 'Unauthorised access on /swap-mylittlepony/profile.php', '::1', '2020-12-13 04:51:21'),
-(70, '2', 'Unauthorised access on /swap-mylittlepony/profile.php', '::1', '2020-12-13 04:51:32');
 
 -- --------------------------------------------------------
 
@@ -190,15 +138,6 @@ CREATE TABLE `password_reset_temp` (
   `exp_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `password_reset_temp`
---
-
-INSERT INTO `password_reset_temp` (`password_reset_temp_id`, `email`, `csrfToken`, `exp_date`) VALUES
-(1, 'a@a.com', '0e846eb5299faf5ff50ba237d84406e05ccf347a105d0e66e70a27d74ffe81265b3bb183c945c08cb5a9fb2e9acb1bc062c8b52751580b2022401207dca3106d', '2020-12-10 18:17:39'),
-(2, 'bryansim02@gmail.com', '1f5899d6ad9458c84ec10b5444ffa3b7b80dec6dbebbe1aa3f24dbac27cf7376', '2020-12-14 08:11:54');
-
--- --------------------------------------------------------
 
 --
 -- Table structure for table `payment_info`
@@ -261,13 +200,7 @@ CREATE TABLE `temp_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `temp_user`
---
-
-INSERT INTO `temp_user` (`temp_user_id`, `username`, `password`, `name`, `email`, `mobile_number`, `address`, `token`) VALUES
-(9, 'a', '$2y$10$RqImFDETc1x7uDGgmitMTexDW5aPYq.kE9E80PEjLSp06kAU31/YK', 'a', 'a@a.a', 91234123, '123 e E', '8ae24dee6d4a99a3f90ddbff2ffcc79cdfd026b12bbf4e289813a6112ad40219');
-
--- --------------------------------------------------------
+---
 
 --
 -- Table structure for table `users`
@@ -286,14 +219,6 @@ CREATE TABLE `users` (
 --
 -- Dumping data for table `users`
 --
-
-INSERT INTO `users` (`user_id`, `username`, `password`, `name`, `email`, `mobile_number`, `address`) VALUES
-(2, 'bryan', '$2y$10$KouGCQ5cbrRPCdOiNniqweNekWxRNdFEwPX7K3TX3KpFfhssQ1LlS', 'bryan', 'bryansim02@gmail.com', 91234124, '123 Tamp St'),
-(3, 'veruuuu', '$2y$10$zgqQl7QWLv1r95KcqzIdLOJsNhFxqR7HBdnXfnlXhzFdc5qd.48P.', 'veruuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu', 'verilim3802@gmail.com', 81234123, '81 Tampines St'),
-(4, 'b', '$2y$10$Y1cQt2O1SVkNRcPozbuFYOr9QdgeZCg.SHHz1pc7MDS2o5mdjsp16', 'test', 'bryansim02@gmail.com', 81234567, '123 A a'),
-(6, 'd', '$2y$10$jO3OQffEA7AB7tcsNN5YmO3DQJgRmlPviHdnydvTm7bmuCNN1qB2K', 'd', 'd@d.com', 81234567, '123 D d'),
-(9, 'vera', '$2y$10$DmfMIxDpTwE/834tjSHJH.Wcv82zp8xUvsAX7Q9gWbG5IzZZQWkke', 'veraaaaaaaaaaaaaaa', 'verilim3802@gmail.com', 91234123, '4 e E'),
-(11, 'ichika', '$2y$10$Y1cQt2O1SVkNRcPozbuFYOr9QdgeZCg.SHHz1pc7MDS2o5mdjsp16', 'Igarashi Ichika', 'bryansim02@gmail.com', 91234123, '123 Tuas Ave');
 
 --
 -- Indexes for dumped tables
