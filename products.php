@@ -32,8 +32,8 @@ if(isset($_SESSION["username"]))
     $stmt->store_result();
     $stmt->bind_result($userID); //Bind the data from database
 	while ($stmt->fetch()){
-            $userID = $userID
-    }
+            $userID = $userID;
+    };
 	
 	$stmt=$con->prepare("SELECT product.product_id, product.name, product.price, product.description, product.location, business.company_name FROM (product LEFT JOIN business ON product.business_business_id = business.business_id) GROUP BY product.product_id");//Get product data from database
     $res=$stmt->execute();
