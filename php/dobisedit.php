@@ -66,7 +66,7 @@ $_SESSION["bloginstatus"] = true;
 
 echo "<script>
 alert('Edited Account Information');
-window.location.href='http://localhost/grabify/bis.php';
+window.location.href='https://localhost/grabify/bis.php';
 </script>";
 
 
