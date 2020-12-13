@@ -2,13 +2,9 @@
 include "php/lookup.php";
 session_start();
 
-if (!isset($_SESSION['activation']) && !isset($_SESSION['token'])) {
-    TraversalLogs();
-    header("location:home.php");
-} else if (($_SESSION['activation'] != "temp")){
-    TraversalLogs();
-    header("location:home.php");
-}else if (($_SESSION['token'] == "") || ($_SESSION['token'] == null)){
+if (
+    !isset($_GET["key"]) && !isset($_GET["action"]) && ($_GET['action'] == "activate")
+) {
     TraversalLogs();
     header("location:home.php");
 }
@@ -18,9 +14,12 @@ if (!isset($_SESSION['activation']) && !isset($_SESSION['token'])) {
 ?>
 
 <?php
-if (isset($_SESSION['activation']) && isset($_SESSION['token'])) {
+if  (
+    isset($_GET["key"]) && isset($_GET["action"])
+    && ($_GET['action'] == "activate") && !isset($_POST["action"])
+){
     
-    $token = $_SESSION['token'];
+    $token = $_GET["key"];
     require_once "php/config.php";
 
     $query = $con->prepare("SELECT * FROM `temp_user` WHERE token=?");
@@ -53,16 +52,16 @@ if (isset($_SESSION['activation']) && isset($_SESSION['token'])) {
     ); //bind the parameters
 
     if ($query->execute()) {
-        echo "Query executed.";
+        //echo "Query executed.";
 
         $query = $con->prepare("Delete FROM `temp_user` WHERE username=?");
 
         $query->bind_param('s', $username);
 
         if ($query->execute()) {
-            echo "Delete Successfully.";
+            //echo "Delete Successfully.";
         } else {
-            echo "Unable to Delete.";
+           // echo "Unable to Delete.";
         }
     } else {
         echo "Error executing query";
@@ -183,30 +182,7 @@ else{
                             <p style="margin: 0;">We're excited to have you get started. Press the button below to get started.</p>
                         </td>
                     </tr>
-                    <tr>
-                        <td bgcolor="#ffffff" align="left">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    <td align="center" style="padding: 20px 30px 60px 30px;">
-                                        <table border="0" cellspacing="0" cellpadding="0">
-                                            <tr>
-                                                <td align="center" style="border-radius: 3px;">
-                                                    <form action="activateaccount.php" method="POST">
-                                                        <input type="submit" name="activated" class="updatekbtn" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #e3a97b; text-decoration: none; color: #e3a97b; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block;" value="Click Here">
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr> <!-- COPY -->
-                    <tr>
-                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">If that doesn't work, copy and paste the following link in your browser:</p>
-                        </td>
-                    </tr> <!-- COPY -->
+
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                             <p style="margin: 0;"><a href="http://localhost/swap-test/" target="_blank" style="color: #FFA73B;">http://localhost/swap-test/</a></p>
@@ -223,10 +199,4 @@ else{
     </table>
 </body>
 
-<?php
-if(isset($_POST['activated'])){
-    session_unset();
-    header("location:http://localhost/swap-test/");
-}
-?>
 </html>

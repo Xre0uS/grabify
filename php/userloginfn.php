@@ -46,7 +46,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
     <nav>
         <div class="nav-links" id="tabnav">
             <li><a id="homeTab" href="home.php">Home</a></li>
-            <li><a id="browseTab" href="browse.php">Browse</a></li>
+            <li><a id="browseTab" href="products.php">Products</a></li>
             <li><a id="searchTab" href="search.php">Search</a></li>
             <li><a id="aboutTab" href="about.php">About</a></li>
         </div>
@@ -138,7 +138,8 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
             <div class="userdropdown">
                 <a href="profile.php">Profile</a>
                 <a href="listReview.php">My reviews</a>
-                <a href="favourites.php">Favourites</a>
+                <a href="favouritespage.php">My Favourites</a>
+                <a href="booking.php">My Bookings</a>
                 <a href="logout.php" onclick="logout()">Logout</a>
             </div>
         </div>
@@ -161,6 +162,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
             <input id='resetParseflag' type='hidden' name='flag'>
             <input type="text" id="resetPasswdUsername" name="resetPasswdUsername" placeholder="Username" onkeypress="userInputFilters('resetPasswdUsername')"  required>
             <input type="email" id="resetPasswdEmail" name="resetPasswdEmail" placeholder="Email" onkeypress="userInputFilters('resetPasswdEmail')"  required>
+            <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY" required> </div>
             <input id="resetpwname" type="submit" name="resetPasswd" value="SUBMIT" onclick="passwdRecovery()">
         </form>
     </div>
@@ -219,7 +221,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
                     <p style="text-align:center" class="warningtext"><?= $_SESSION["sUsernameTaken"]; ?></p>
                 <?php } ?>
 
-                <!-- <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY"> </div> -->
+                <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY"> </div>
 
                 <input type="submit" name="signUp" value="SUBMIT" onclick="usersignup()">
             </form>

@@ -3,17 +3,18 @@ include "php/lookup.php";
 // Check if session is not registered, if it is not, the user will be redirected back to the login page.
 session_start();
 
-if (
-    !isset($_GET["key"]) && !isset($_GET["action"])
-    && ($_GET['action'] != "activate")
-) {
-    TraversalLogs();
-    header("location:home.php");
-}
+// if (
+//     !isset($_GET["key"]) && !isset($_GET["action"]) && ($_GET['action'] == "activate")
+// ) {
+//     TraversalLogs();
+//     header("location:home.php");
+// }
 // include 'php/userloginfn.php';
 ?>
 
 <?php
+        include "php/verify.php";
+        include "php/config.php";
 if (
     isset($_GET["key"]) && isset($_GET["action"])
     && ($_GET['action'] == "activate") && !isset($_POST["action"])
@@ -22,7 +23,6 @@ if (
     
 }
     if (isset($_POST['activateAccount'])) {
-        include "php/verify.php";
         
 
         $username = $_POST['username'];
@@ -31,7 +31,7 @@ if (
             !empty($username) &&
             !empty($passwd)
         ) {
-            require_once "php/config.php";
+            
             $validation = auth($username, $passwd, $con);
 
             if ($validation) {
@@ -42,9 +42,9 @@ if (
                 // session_regenerate_id();
 
                 $_SESSION['activation'] = 'temp';
-                // $_SESSION['token'] = $_GET["key"];
+                $_SESSION['token'] = $_GET["key"];
                 
-                header("location:activateaccount.php");
+               header("location:activateaccount.php");
             } else {
                 echo "<script>document.getElementById('credsError').style.display = 'block';</script>";
                 mysqli_close($con);

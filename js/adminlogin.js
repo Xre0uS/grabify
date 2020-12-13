@@ -41,7 +41,6 @@ function loginRequest() {
             data: data,
 
             success: function (response) {
-                console.log(response);
                 var response = JSON.parse(response);
                 if (response.status == 0) {
                     document.getElementById("loginWarn").innerText = "Incorrect username or password";

@@ -29,7 +29,7 @@
     <script>
         function reject() {
             alert('Unauthorised!');
-            window.location.href = 'http://localhost/grabify/admin.php';
+            window.location.href = 'https://localhost/grabify/admin.php';
         }
     </script>
 
