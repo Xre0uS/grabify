@@ -24,7 +24,7 @@ require('php/config.php');
 // To check if session is started.
 if(isset($_SESSION["username"]))
 {
-	$username = $_SESSION[username];
+	$username = $_SESSION['username'];
 	$stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get favorite data from database
     $stmt->bind_param("s", $username);
 	$res=$stmt->execute();
