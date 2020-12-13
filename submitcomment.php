@@ -1,5 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        <?php include 'css/styles.css'; ?>
+    </style>
+</head>
+
+<body>
+
+    <?php include 'php/userloginfn.php'; ?>
+
+</body>
+
+</html>
 <?php
-require('config.php');
+require('php/config.php');
 $prodID = $_POST['prodID'];
 $busID = $_POST['busID'];
 $rating = $_POST['rating'];
