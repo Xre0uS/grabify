@@ -31,7 +31,7 @@ if(isset($_SESSION["username"]))
     $stmt->store_result();
     $stmt->bind_result($userID); //Bind the data from database
 	while ($stmt->fetch()){
-            $userID = $userID
+            $userID = $userID;
     }
 
 	$stmt=$con->prepare("SELECT review.review_id, review.rating, review.content, review.timestamp, product.name FROM review LEFT JOIN product ON review.product_product_id = product.product_id WHERE users_user_id = ?");//Get product data from database
