@@ -1,3 +1,4 @@
+<?php include 'php/config.php'; ?>
 <?php
 session_start();
 session_regenerate_id(); //session_regenerate_id();
