@@ -39,6 +39,12 @@ while($asql->fetch()){
     $fquery= $con->prepare("Delete from booking where product_product_id  = ?");
     $fquery->bind_param('i', $product_id);  
     $fquery->execute();
+    $lquery= $con->prepare("Delete from favorite where product_product_id  = ?");
+    $lquery->bind_param('i', $product_id);  
+    $lquery->execute();
+
+
+
 }
 
 
