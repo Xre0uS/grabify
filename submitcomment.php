@@ -33,7 +33,7 @@ $stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get produc
     $stmt->bind_result($userID); //Bind the data from database
 while ($stmt->fetch()){
             $userID = $userID;
-    };
+    }
 	
 $ratingpattern = "/^[a-zA-Z0-9\s]*$/";
 	if (!preg_match($ratingpattern, $rating)){
