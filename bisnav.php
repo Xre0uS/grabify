@@ -10,7 +10,7 @@ $session_life = time() - $_SESSION['timeout'];
 if($session_life > $inactive){
  session_destroy();
  session_unset(); 
-  header("location:http://localhost/grabify/bislogin.php");
+  header("location:https://localhost/grabify/bislogin.php");
      }
 
 $_SESSION['timeout']=time();
