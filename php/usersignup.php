@@ -184,5 +184,7 @@ if (isset($_POST['signUp'])) {
         $_SESSION['sNoInput'] = "Please enter all the information";
     }
     header("Location: ../home.php");
+}else {
+    http_response_code(404);
 }
 ?>

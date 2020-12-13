@@ -10,11 +10,10 @@ if (isset($_POST['login'])) {
     }
 
     // remove the error message showing that the user has been blocked previously
-    if (isset($_SESSION['blocked'])){
+    if (isset($_SESSION['blocked'])) {
         unset($_SESSION['blocked']);
     }
     if ($_POST['flag'] == '0') {
-
         $username = $_POST['username'];
         $passwd = $_POST['passwd'];
         if (
@@ -23,11 +22,11 @@ if (isset($_POST['login'])) {
         ) {
             require('config.php');
 
-            // check if the user has been blocked for multiple failed login attempts 
+            // check if the user has been blocked for multiple failed login attempts
             $blockedByDB = checkBlock($username, $con);
             if ($blockedByDB == 1) {
 
-                // logging in DB after blocking user in database for multiple failed login attempts 
+                // logging in DB after blocking user in database for multiple failed login attempts
                 $ip_address = getIpAddr();
                 $logContent = "Continued attempts to login using '{$username}' after being logged out in db ";
                 $pQuery = $con->prepare("INSERT INTO `logs`(`log_type`, `log_content`, `log_ip`, `log_time`) VALUES (2,?,?,CURRENT_TIMESTAMP)"); //Prepared statement
@@ -62,12 +61,10 @@ if (isset($_POST['login'])) {
                     // checking the number of failed attempts
                     if (isset($_SESSION['failAttempts'])) {
                         if ($_SESSION["loginAttempts"] > 2) {
-
                             $email = getEmail($username, $con);
                             // sending email to inform users about the failed login attempts
                             $informingUsers = infoUserMail($email, $username, 2);
                             if ($informingUsers == 1) {
-
                                 $lockedTimeFormat = time();
                                 $lockedTime = date("Y-m-d H:i:s", $lockedTimeFormat);
                                 // generating the timeout time
@@ -96,7 +93,7 @@ if (isset($_POST['login'])) {
 
                                 if ($query->execute()) {
 
-                                    // logging in DB after blocking user in database for multiple failed login attempts 
+                                    // logging in DB after blocking user in database for multiple failed login attempts
                                     $ip_address = getIpAddr();
                                     // log multiple failed login attempts
                                     $logContent = "Multiple failed login attempts to login to '{$username}' account";
@@ -125,6 +122,7 @@ if (isset($_POST['login'])) {
 
 
 
+
 if (isset($_SESSION["loginAttempts"])) {
     if ($_SESSION["loginAttempts"] > 3) {
         $_SESSION["failAttempts"] += 1;
@@ -142,3 +140,5 @@ if (isset($_SESSION["timeout"])) {
         header("location:../home.php");
     }
 }
+
+?>

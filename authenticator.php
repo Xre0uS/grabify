@@ -175,3 +175,5 @@ class Authenticator
         return $result === 0;
     }
 }
+    http_response_code(404);
+?>
