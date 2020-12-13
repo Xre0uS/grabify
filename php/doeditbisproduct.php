@@ -52,7 +52,6 @@ $query->bind_param('sdssi', $name,$price, $description,$location,$product_id); /
 if ($query->execute()){  //execute query
 header("location:https://localhost/grabify/bis.php");
 }else{
-    echo $query->error;
 }
 ?>
 
