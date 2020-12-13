@@ -1,76 +1,70 @@
 <head>
-  
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <style>
-<?php include 'css/bispage.css'; ?>
-<?php include 'css/bistable.css'; ?>
-<?php include 'css/style.css'; ?>
+<?php include 'css/bislogin.css'; ?>
 </style>
-
 </head>
-<body>
-<h2>Bussiness Page </h2>
-<h3> Fill out the below form to register for Grabify </h3>
-
-<br>
 <div class="container">
-  <form action="biswaiting.php">
-  <div class="row">
-    <div class="col-25">
-      <label for="bisname">Business Name</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="bisname" name="bisname" placeholder="Business Name...">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-25">
-      <label for="username">Username:</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="username" name="username" placeholder="Username...">
-    </div>
-  </div>
+    <h3>Grabify Business Register</h3>
+    <form action="php/dobisregister.php" method="post" id="login-form">
+      <div class="form-field">
+        <label for="username">
+          Username
+        </label>
+        <input type="text" name="username" id="user-name" size="50" required autofocus/>
+      </div>
+      
+      <div class="form-field">
+        <label for="password">
+          Password
+        </label>
+        <input type="password" name="password" pattern="^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{7,}$" title="Minimum of 7 characters. Should have at least one special character and one number and one UpperCase Letter." required>      </div>
 
-  <div class="row">
-    <div class="col-25">
-      <label for="password">Password:</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="password" name="password" placeholder="Password...">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-25">
-      <label for="email">Email:</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="email" name="email" placeholder="Email...">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-25">
-      <label for="contact">Contact Number:</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="contact" name="contact" placeholder="Contact Number...">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-25">
-      <label for="bisaddress">Business Address</label>
-    </div>
-    <div class="col-75">
-      <input type="text" id="bisaddress" name="bisaddress" placeholder="Business Address...">
-    </div>
-  </div>
+        <div class="form-field">
+        <label for="cpassword">
+          Confirm Password
+        </label>
+        <input type="password" name="cpassword" pattern="^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{7,}$" title="Minimum of 7 characters. Should have at least one special character and one number and one UpperCase Letter." required>      </div>
 
-  <div class="row">
-    <input type="submit" value="Register">
-  </div>
-  </div>
-  </div>
-  </form>
-</body>
+      <div class="form-field">
+        <label for="cname">
+          Company Name
+        </label>
+        <input type="text" name="cname" id="cname" size="50" required />
+      </div>
+      
+            
+      <div class="form-field">
+        <label for="email">
+          Email
+        </label>
+        <input type="text" name="email" id="email" size="50" required />
+      </div>
+            
+      <div class="form-field">
+        <label for="address">
+          Address
+        </label>
+        <input type="text" name="address" id="address" size="50" required />
+      </div>
+                  
+      <div class="form-field">
+        <label for="cnumber">
+          Contact Number
+        </label>
+        <input type="text" name="cnumber" id="cnumber" size="50" pattern="^[6,8,9]{1}[0-9]{7}$" title="Singapore Number Only without contry code. Starting With 6,8,9" required />
+      </div>
+      <div class="g-recaptcha" data-sitekey="6LfXJQEaAAAAALGBfXk-TjUlI8CTyBeRDWk4bZRy"></div>
 
+      <div id="form-submit">
+        <input type="submit" name="Register" value="Register"/>
+      </div>
+    </form>
+    
+    <span>
+      <a href="http://localhost/grabify/bislogin.php">
+      Want to Login ?
+      </a>
 
-
+  </div>
+</div>

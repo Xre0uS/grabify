@@ -1,40 +1,41 @@
-<!DOCTYPE html>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <head>
-  <style>
-    <?php include 'css/bispage.css'; ?><?php include 'css/bistable.css'; ?><?php include 'css/style.css'; ?>
-  </style>
-
+<style>
+<?php include 'css/bislogin.css'; ?>
+</style>
 </head>
+<div class="container">
+    <h3>Grabify Business Login</h3>
+    <form action="php/dobislogin.php" method="post" id="login-form">
+      <div class="form-field">
+        <label for="username">
+          Username
+        </label>
+        <input type="text" name="ausername" id="username" size="50" required autofocus/>
+      </div>
+      
+      <div class="form-field">
+        <label for="pass">
+          Password
+        </label>
+        <input type="password" name="password" id="pass" size="50" required />
+      </div>
+      <div class="g-recaptcha" data-sitekey="6LfXJQEaAAAAALGBfXk-TjUlI8CTyBeRDWk4bZRy"></div>
+      <br>      
+      <div id="form-submit">
+        <input type="submit" value="Login" />
+      </div>
+    </form>
 
+      <a href="bisregister.php">
+      Need an account ? <br>
+      </a>
+      <br>
 
-<body>
-<?php include 'php/navbar.php'; ?>
-  <h2>Business Login to Grabify </h2>
-  <a href="bisregister.php"><input style="float:right" type="submit" value="Register"></a>
-  <br>
-  <div class="container">
-    <form action="bis.php">
-      <div class="row">
-        <div class="col-25">
-          <label for="username">User Name</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="username" name="username" placeholder="User Name...">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="password">Password:</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="password" name="password" placeholder="Password...">
-        </div>
-      </div>
-      <div class="row">
-        <input type="submit" value="Login">
-      </div>
+      <a href="bischeck.php">
+        Check Account Status?
+      </a>
+    
   </div>
-  </div>
-  </form>
-
-</body>
+</div>
