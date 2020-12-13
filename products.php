@@ -10,21 +10,22 @@
     <style>
         <?php include 'css/styles.css'; ?>
     </style>
-    <title>Grabify - Home</title>
 </head>
 
 <body>
 
     <?php include 'php/userloginfn.php'; ?>
 
-    <?php
+</body>
+
+</html>
+<?php
 
 require('php/config.php');
-
 // To check if session is started.
 if(isset($_SESSION["username"]))
 {
-    $username = $_SESSION["username"];
+	$username = $_SESSION["username"];
 	$stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get product data from database
 	$stmt->bind_param("s", $username);
     $res=$stmt->execute();
@@ -68,7 +69,3 @@ else
     echo "</table>";
 }
 ?>
-
-</body>
-
-</html>

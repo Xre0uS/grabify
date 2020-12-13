@@ -1,4 +1,24 @@
-<?php include 'php/userloginfn.php'; ?>
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        <?php include 'css/styles.css'; ?>
+    </style>
+</head>
+
+<body>
+
+    <?php include 'php/userloginfn.php'; ?>
+
+</body>
+
+</html>
 <?php
 
 require('php/config.php');
@@ -21,6 +41,8 @@ if(isset($_SESSION["username"]))
             echo "<tr><td>" .$name. "</td><td>$" .$price. "</td><td>" .$description. "</td><td>" .$location. "</td><td>".$busName."</td><td><form action='favourites.php' method='post'><input type='hidden' value='".$productID."' name='prodID'><input type='hidden' value='".$userID."' name='userID'> <select id='cat' name='cat'><option value='MUST-BUY'>MUST-BUY</option><option value='OPTIONAL'>OPTIONAL</option></select> <input type='submit' value='Add to Favourite'></form></td>";
     }		
     echo "</table><br>";
+	
+	echo"<form action='booking.php' method='POST'><input type='hidden' value='".$productID."' name='prodID'><input type='submit' value='Book Now'></form>";
 	
 	$stmt=$con->prepare("SELECT review.rating, review.content, review.timestamp, users.username FROM review LEFT JOIN users ON review.users_user_id  = users.user_id WHERE product_product_id = ?");//Get product data from database
 	$stmt->bind_param("i", $productID);
