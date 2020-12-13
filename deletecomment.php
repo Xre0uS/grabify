@@ -1,5 +1,5 @@
 <?php
-require('config.php');
+require('php/config.php');
 $reviewID = $_POST["reviewID"];
 $stmt=$con->prepare("Delete FROM review WHERE review_id=?"); //Delete function
 $stmt->bind_param("s", $reviewID);
