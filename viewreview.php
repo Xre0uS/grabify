@@ -20,7 +20,7 @@
 
 </html>
 <?php
-require('config.php');
+require('php/config.php');
 // To check if session is started.
 if(isset($_SESSION["username"]))
 {
