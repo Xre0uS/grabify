@@ -1,5 +1,5 @@
 <?php
-require('config.php');
+require('php/config.php');
 $reviewID = $_POST["reviewID"];
 $rating = $_POST["rating"];
 $content = $_POST["content"];
