@@ -27,7 +27,7 @@ $rating = $_POST['rating'];
 $content = $_POST['content'];
 $username = $_SESSION['username'];
 $stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get product data from database
-	$stmt->bind_param("i", $username);
+	$stmt->bind_param("s", $username);
     $res=$stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($userID); //Bind the data from database
