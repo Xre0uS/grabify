@@ -38,7 +38,7 @@ if (isset($_SESSION['bloginstatus'])){
   }
   echo "<script>
 alert('Updated Password');
-window.location.href='http://localhost/grabify/bis.php';
+window.location.href='https://localhost/grabify/bis.php';
 </script>";
 
 
