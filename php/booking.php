@@ -14,10 +14,10 @@ if(isset($_SESSION["username"]))
 }
 else
 {
-    header("Location:booking.php");
+    header('HTTP/1.0 403 Forbidden');
 }
 ?> 
-?>
+
 <html>
 <head>
 
