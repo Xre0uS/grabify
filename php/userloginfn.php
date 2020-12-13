@@ -46,7 +46,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
     <nav>
         <div class="nav-links" id="tabnav">
             <li><a id="homeTab" href="home.php">Home</a></li>
-            <li><a id="browseTab" href="browse.php">Browse</a></li>
+            <li><a id="browseTab" href="products.php">Products</a></li>
             <li><a id="searchTab" href="search.php">Search</a></li>
             <li><a id="aboutTab" href="about.php">About</a></li>
         </div>
@@ -138,7 +138,8 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
             <div class="userdropdown">
                 <a href="profile.php">Profile</a>
                 <a href="listReview.php">My reviews</a>
-                <a href="favourites.php">Favourites</a>
+                <a href="favouritespage.php">My Favourites</a>
+                <a href="booking.php">My Bookings</a>
                 <a href="logout.php" onclick="logout()">Logout</a>
             </div>
         </div>
