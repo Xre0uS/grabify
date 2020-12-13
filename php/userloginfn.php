@@ -1,356 +1,32 @@
 <?php
-
-/**
- * Regex is used validate each fields to ensure that the information entered by the user is indeed 
- * what it is meant to be 
- *
- * @param String $field retriving the name of the field and validate it against user input
- * 
- * @return Boolean If the user input fits the regex pattern, it will return 1 else, it will return 0.
- * @return integer An integer will be returned after password vaildation 
- * @return integer -1 will be returned if there is an error in the code 
- */
-
-function checkField(String $field)
-{
-    switch ($field) {
-        case 'username':
-            return (preg_match('/[a-zA-Z0-9]+/', $_POST['username']));
-            break;
-        case 'name':
-            return (preg_match('/[a-zA-Z\s]+/', $_POST['name']));
-            break;
-        case 'mobileNo':
-            return (preg_match('/^[89][0-9]{7}$/', $_POST['mobileNo']));
-            break;
-        case 'email':
-            if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-                return 1;
-                break;
-            } else {
-                return 0;
-                break;
-            }
-            break;
-        case 'address':
-            return (preg_match('/^\d+\s[A-Za-z]+\s[A-Za-z]+/', $_POST['address']));
-            break;
-        case 'passwd':
-            return (preg_match('/^[!@#$@?0-9A-Za-z]{8,}$/', $_POST['passwd']) * 10000 +
-                preg_match('/^.*[!@#$@?].*$/', $_POST['passwd']) * 1000 +
-                preg_match('/^.*[0-9].*$/', $_POST['passwd']) * 100 +
-                preg_match('/^.*[A-Z].*$/', $_POST['passwd']) * 10 +
-                preg_match('/^.*[a-z].*$/', $_POST['passwd']));
-            break;
-        case 'cfmpasswd':
-            return ($_POST['passwd'] === $_POST['cfmpasswd']);
-            break;
-        default:
-            return -1;
-            break;
-    }
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} else {
+    session_regenerate_id();
 }
 
-/**
- * Checking if the username has been taken by another user 
- *
- * @param String $username Retriving the username and validate against the database
- * @param Object $conn      Retriving the connection instance made previously
- * 
- * @return Boolean If the username exist in the database, it will return 1 and display and error message
- * else, it will return 0.
- * 
- */
-function checkUsername($username, $conn)
-{
-    $query = $conn->prepare("SELECT username FROM users WHERE username=?");
-    $query->bind_param('s', $username);
-    $result = $query->execute();
-    $result = $query->get_result();
-
-    if (!$result) {
-        die("SELECT query failed<br> " . $conn->error);
-    } else {
-        echo "SELECT query successful<br>";
-    }
-
-    $nrows = $result->num_rows;
-
-    if ($nrows > 0) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
-/**
- * Authenticate users based on the username and password supplied by the user 
- * 
- * @param String $username Retriving the username and validate against the database
- * @param String $passwd   Retriving the password and validate against the database
- * @param Object $conn      Retriving the connection instance made previously
- * 
- * @return Boolean If the credentials supplied by the user exist in the database, 
- * it will return 1 and display and error message else, it will return 0.
- * 
- */
-function auth($username, $passwd, $conn)
-{
-
-    $query = $conn->prepare("SELECT password FROM users WHERE username=?");
-    $query->bind_param('s', $username);
-    $result = $query->execute();
-    $result = $query->get_result();
-
-    if (!$result) {
-        die("SELECT query failed<br> " . $conn->error);
-    } else {
-        echo "SELECT query successful<br>";
-    }
-
-    $nrows = $result->num_rows;
-
-    if ($nrows > 0) {
-        $row = $result->fetch_assoc();
-        $hashedpass = $row['password'];
-    } else {
-        echo "Username or Password is incorrect. <br>";
-        return 0;
-    }
-
-    $verifypass = password_verify($passwd, $hashedpass);
-    if ($verifypass == 1) {
-        echo "true";
-        return 1;
-    } else {
-        echo "false";
-        echo "Username or Password is incorrect. <br>";
-        return 0;
-    }
-}
-
-
-if (isset($_POST['login'])) {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    $username = $_POST['username'];
-    $passwd = $_POST['passwd'];
-    require('php/config.php');
-
-    $validation = auth($username, $passwd, $con);
-    if ($validation) {
-        session_regenerate_id();
-        $_SESSION['loginstatus'] = true;
-        $_SESSION['username'] = $username;
-        $_SESSION['timeout'] = time();
-        $query = $con->prepare("SELECT * FROM users WHERE username=?");
-        $query->bind_param('s', $username);
-        $result = $query->execute();
-        $result = $query->get_result();
-
-        echo "done query <br>";
-        header("location:./home.php");
-    } else {
-        echo '<script>document.getElementById("loginerrormsg").style.display = "block";</script>';
-    }
-}
-
-//check to see if timeout is $_SESSION['timeout'] is set 
-if (isset($_SESSION["timeout"])) {
-    $inactive = 600;
-    $sessionTTL = time() - $_SESSION["timeout"];
-    if ($sessionTTL > $inactive) {
-        session_destroy();
-        header("location:./home.php");
-    }
-}
-
-if (isset($_POST['logout'])) {
-    session_destroy();
-    unset($_SESSION['username']);
-    unset($_SESSION['timeout']);
-    unset($_SESSION['loginstatus']);
-    header("location:./home.php");
-}
-
-
-if (isset($_POST['signUp'])) {
-    // Allow database to be accessed 
-    $accessDB = 1;
-
-    echo "Flag is " . $_POST['flag'];
-
-    // iff usersignup() runs will $_POST['flag'] obtains a value of 1 or 0 
-    // where 1 = there is missing user input and an error message will be shown 
-    // and 0 = there is no missing user input and data entered by the user will be assigned to the variables to be processed by PHP
-    if ($_POST['flag'] == '0') {
-        session_start();
-        $username = $_POST['username'];
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $mobile = $_POST['mobileNo'];
-        $addr = $_POST['address'];
-        $pass = $_POST['passwd'];
-        $cfmpass = $_POST["cfmpasswd"];
-
-        echo "username: " . $username . "<br>";
-        echo "email: " . $email . "<br>";
-        echo "mobileNo: " . $mobile . "<br>";
-        echo "name: " . $name . "<br>";
-        echo "pass: " . $pass . "<br>";
-        echo "cfm pass: " . $cfmpass . "<br>";
-    } else if ($_POST['flag'] == '1') {
-        echo '<script>alert("Please enter all information")</script>';
-        echo '<script>document.getElementById("warninginfotext").style.display = "block";</script>';
-    }
-
-    /**
-     * Ensure that no fields are left empty and the fields are vaildated. 
-     * 
-     * @return String Error messages will be displayed if user input does not match the pattern specify in Regex
-     */
-
-    if (
-        !empty($username) &&
-        !empty($name) &&
-        !empty($mobile) &&
-        !empty($email) &&
-        !empty($addr) &&
-        !empty($pass) &&
-        !empty($cfmpass)
-    ) {
-        echo "OK: fields are not empty<br>";
-        $arr = array('username', 'name', 'mobileNo', 'email', 'address', 'passwd', 'cfmpasswd');
-
-        foreach ($arr as &$i) {
-            $matchesRegex = checkField($i);
-            echo $i . ' ' . $_POST[$i] . ' ' . $matchesRegex . '<br>';
-
-            if ($i == "passwd") {
-
-                /** 
-                 * checkField('passwd') returns an integer in the format ABCDE
-                 * where A, B, C, D & E are either 1 or 0 
-                 * A represents whether the password is at least 8 characters long 
-                 * B represents whether the password contains at least a special character 
-                 * C represents whether the password contains at least a number 
-                 * D represents whether the password contains at least an uppercase letter
-                 * E represents whether the password contains at least a lowercase letter 
-                 * */
-
-                if ($matchesRegex < 10000) {
-                    // A is 0 
-                    echo 'Length of password must be at least 8 characters long.<br>';
-                    echo '<script>document.getElementById("passLengError").style.color = "red";</script>';
-                }
-                if (intdiv($matchesRegex, 1000) % 10 == 0) {
-                    // B is 0
-                    echo 'Password must contain at least a special character.<br>';
-                    echo '<script>document.getElementById("noSpecialCharacter").style.color = "red";</script>';
-                }
-                if (intdiv($matchesRegex, 100) % 10 == 0) {
-                    // C is 0
-                    echo 'Password must contain at least a number.<br>';
-                    echo '<script>document.getElementById("noNumber").style.color = "red";</script>';
-                }
-                if (intdiv($matchesRegex, 10) % 10 == 0) {
-                    // D is 0
-                    echo 'Password must contain at least an uppercase letter.<br>';
-                    echo '<script>document.getElementById("noAlphabets").style.color = "red";</script>';
-                }
-                if ($matchesRegex % 10 == 0) {
-                    // E is 0 
-                    echo 'Password must contain at least a lowercase letter.<br>';
-                    echo '<script>document.getElementById("noAlphabets").style.color = "red";</script>';
-                }
-                if ($matchesRegex != 11111) {
-                    $accessDB = 0;
-                }
-            } else if ($matchesRegex == 0) {
-                switch ($i) {
-                    case 'username':
-                        echo  'Username should only contain alphanumeric characters.<br>';
-                        echo '<script>document.getElementById("invalidUser").style.display = "block";</script>';
-                        break;
-
-                    case 'name':
-                        echo 'Name should only contain alphabets.<br>';
-                        echo '<script>document.getElementById("invalidName").style.display = "block";</script>';
-                        break;
-
-                    case 'mobileNo':
-                        echo 'Invalid Phone Number.<br>';
-                        echo '<script>document.getElementById("invalidNo").style.display = "block";</script>';
-                        break;
-
-                    case 'email':
-                        echo 'Invalid email.<br>';
-                        echo '<script>document.getElementById("invalidEmail").style.display = "block";</script>';
-                        break;
-
-                    case 'address':
-                        echo 'Invalid Address.<br>';
-                        echo '<script>document.getElementById("invalidAddr").style.display = "block";</script>';
-                        break;
-
-                    case 'cfmpasswd':
-                        echo 'Password Does not match';
-                        echo '<script>document.getElementById("warningpwtext").style.display = "block";</script>';
-                        break;
-
-                    default:
-                        echo "<br> Error: Code Logic Error";
-                        break;
-                }
-                $accessDB = 0;
-            }
-        }
-        if ($accessDB == 1) {
-            require_once('config.php');
-
-            // checking if the username exist in the database
-            // if username exist in the database, it will return an error message
-            // else it will proceed to add the data into the database 
-            $usernameExist = checkUsername($username, $con);
-            if ($usernameExist == 1) {
-                echo '<script>document.getElementById("warningusernametext").style.display = "block";</script>';
-            } else if ($usernameExist == 0) {
-                $hashedpass = password_hash($pass, PASSWORD_BCRYPT);
-                echo "hashed password: " . $hashedpass . "<br>";
-                session_regenerate_id();
-
-                $query = $con->prepare("INSERT INTO `users` (`username`,`password`, `name`,`email`, `mobile_number`,`address`) VALUES
-                (?,?,?,?,?,?)");
-
-                $query->bind_param(
-                    'ssssis',
-                    $username,
-                    $hashedpass,
-                    $name,
-                    $email,
-                    $mobile,
-                    $addr
-                ); //bind the parameters
-
-                if ($query->execute()) {
-                    echo "Query executed.";
-                } else {
-                    echo "Error executing query";
-                }
-            }
-            mysqli_close($con);
-        }
-    } else {
-        echo "Error: No fields should be empty<br>";
+if (isset($_SESSION["locked"])) {
+    $difference = time() - $_SESSION["locked"];
+    if ($difference > 20) {
+        unset($_SESSION["locked"]);
+        unset($_SESSION["loginAttempts"]);
     }
 }
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<?php
+if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response'])) {
+    $secret = '6LdFov4ZAAAAAFKILOLHu1-kI1YLpFfkIt2vz2xH';
+    $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
+    $responseData = json_decode($verifyResponse);
+    if ($responseData->success) {
+        $succMsg = 'Your contact request have submitted successfully.';
+    } else {
+        $errMsg = 'Robot verification failed, please try again.';
+    }
+}
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -363,6 +39,7 @@ if (isset($_POST['signUp'])) {
     <script type="text/javascript" src="js/userlogin.js"></script>
     <script type="text/javascript" src="js/jquery-3.3.1.slim.min.js"></script>
     <script type="text/javascript" src="js/w3.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js' async defer> </script>
 </head>
 
 <body>
@@ -390,7 +67,7 @@ if (isset($_POST['signUp'])) {
         </div>
 
         <div id="loginContainer" class="loginContainer">
-            <div id="loginbtncontainer" class="loginbtncontainer" style="display: block;" onclick="shloginmodel()">
+            <div id="loginbtncontainer" class="loginbtncontainer" style="display: none;" onclick="shloginmodel()">
                 <button id="login-btn" class="login-btn">
                     <div class="login-txt">
                         LOGIN
@@ -400,23 +77,49 @@ if (isset($_POST['signUp'])) {
 
             <div id="loginModalContainer" class="loginModalContainer" style="display: none;">
                 <div id="login-modal" class="login-modal animate">
-                    <form action="#" method="post" class="login">
+                    <form action="php/userlogin.php" method="post" class="login">
                         <h1>LOGIN</h1>
                         <div class="space"></div>
                         <hr />
+                        <?php if (isset($_SESSION["loginError"])) { ?>
+                            <p style="text-align:center" class="warningtext"><?= $_SESSION["loginError"]; ?></p>
+                        <?php } ?>
+                        <?php if (isset($_SESSION["blocked"])) { ?>
+                            <p style="text-align:center" class="warningtext"><?= $_SESSION["blocked"]; ?></p>
+                        <?php } ?>
                         <div class="space"></div>
-                        <input type="text" id="usernamebox" name="username" placeholder="Username" required>
-                        <input type="password" id="passwordbox" name="passwd" placeholder="Password" required>
-                        <div id="loginerrormsg" class="warningtext" style="display: none;">Incorrect username or password. Please try again.</div>
+                        <input type="text" id="usernamebox" name="username" placeholder="Username" onkeypress="userInputFilters('usernamebox')" required>
+                        <input type="password" id="passwordbox" name="passwd" placeholder="Password" onkeypress="userInputFilters('passwordbox')" required>
+
                         <input type="checkbox" class="usercheckbox" id="usercheckbox" name="rmbMe">
                         <label for="usercheckbox" class="staylogged">Stay logged in</label>
+
+                        <input id='loginParseflag' type='hidden' name='flag'>
                         <div class="bigspace"></div>
+                        <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY" required> </div>
                         <div class="bigspace"></div>
-                        <input type="submit" name="login" value="LOGIN">
+
+                        <p id="countdown"></p>
+                        <?php
+                        if (isset($_SESSION["loginAttempts"])) {
+
+                            if ($_SESSION["loginAttempts"] > 3) {
+                                $_SESSION["locked"] = time();
+                                if (isset($_SESSION["failAttempts"])) {
+                                    echo "<script>startCountdown(" . $_SESSION["failAttempts"] . ");</script>";
+                                } else {
+                                    echo "Code Logic Error";
+                                }
+                            } else { ?>
+                                <input type="submit" name="login" value="LOGIN" onclick="userLogin()">
+                            <?php }
+                        } else { ?>
+                            <input type="submit" name="login" value="LOGIN" onclick="userLogin()">
+                        <?php } ?>
                     </form>
 
                     <div>
-                        <a id="forgotpsw" class="psw">Forgot
+                        <a id="forgotpsw" class="psw" onclick="shloginmodel(), passwdResetModal()">Forgot
                             password?</a>
                         <div class="space"></div>
                         <p class="signup">New user?<a class="signuplink" onclick="shloginmodel(), shsignupmodal()">
@@ -436,75 +139,94 @@ if (isset($_POST['signUp'])) {
                 <a href="profile.php">Profile</a>
                 <a href="listReview.php">My reviews</a>
                 <a href="favourites.php">Favourites</a>
-                <a href="#" name="logout">Logout</a>
+                <a href="logout.php" onclick="logout()">Logout</a>
             </div>
         </div>
     </nav>
 
     <div id="passwdResetModel" class="fpswmodal animate" style="display: none;">
-        <form class="fpsemail">
-            <h1>Enter your username to reset password</h1>
+        <form action="php/resetPasswd.php" method="post" class="fpsemail">
+            <h1>Password Recovery</h1>
             <div class="space"></div>
             <hr />
             <div class="space"></div>
-            <input type="text" name="" placeholder="Username">
-            <div id="resetinfotext" class="warningtext" style="display: none;">No user found</div>
-            <input id="resetpwname" type="button" name="" value="SUBMIT">
+            <?php if (isset($_SESSION["username"])) { ?>
+                <p style="text-align:center; padding-left:15%;" class="warningtext"><?= $_SESSION["resetEmailError"]; ?></p>
+            <?php } ?>
+
+            <?php if (isset($_SESSION["userNotFound"])) { ?>
+                <p style="text-align:center; padding-left:15%;" class="warningtext"><?= $_SESSION["userNotFound"]; ?></p>
+            <?php } ?>
+
+            <input id='resetParseflag' type='hidden' name='flag'>
+            <input type="text" id="resetPasswdUsername" name="resetPasswdUsername" placeholder="Username" onkeypress="userInputFilters('resetPasswdUsername')"  required>
+            <input type="email" id="resetPasswdEmail" name="resetPasswdEmail" placeholder="Email" onkeypress="userInputFilters('resetPasswdEmail')"  required>
+            <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY" required> </div>
+            <input id="resetpwname" type="submit" name="resetPasswd" value="SUBMIT" onclick="passwdRecovery()">
         </form>
     </div>
 
     <div id="userSignupContainer" class="userSignupContainer" style="display: none;">
         <div id="signupmodal" class="signupmodal animate">
-            <form action="#" method="post" class="signup">
+            <form action="php/usersignup.php" method="post" class="signup">
                 <h1>SIGN UP</h1>
                 <div class="space"></div>
                 <hr />
                 <div class="space"></div>
 
-                <input id="usernamesignupbox" type="text" name="username" placeholder="Username" onkeypress="usernameFilter()" required>
-                <p id="invalidUser" class="warningtext" style="display: none;">Username should only contain alphanumeric characters </p>
+                <input id="usernamesignupbox" type="text" name="username" placeholder="Username" onkeypress="userInputFilters('usernamesignupbox')" required>
+                <?php if (isset($_SESSION["sUsernameError"])) { ?>
+                    <p style="text-align:center" class="warningtext"><?= $_SESSION["sUsernameError"]; ?></p>
+                <?php } ?>
 
-                <input id="namesignupbox" type="text" name="name" placeholder="Name" onkeypress="nameFilter()" required>
-                <p id="invalidName" class="warningtext" style="display: none;">Name should only contain alphabets.</p>
+                <input id="namesignupbox" type="text" name="name" placeholder="Name" onkeypress="userInputFilters('namesignupbox')" required>
+                <?php if (isset($_SESSION["sNameError"])) { ?>
+                    <p style="text-align:center" class="warningtext"><?= $_SESSION["sNameError"]; ?></p>
+                <?php } ?>
 
-                <input id="mobilenosignupbox" type="text" name="mobileNo" placeholder="Mobile Number" onkeypress="mobilenoFilter()" required>
-                <p id="invalidNo" class="warningtext" style="display: none;">Invalid Phone Number. </p>
+                <input id="mobilenosignupbox" type="text" name="mobileNo" placeholder="Mobile Number" onkeypress="userInputFilters('mobilenosignupbox')" required>
+                <?php if (isset($_SESSION["sMobileError"])) { ?>
+                    <p style="text-align:center" class="warningtext"><?= $_SESSION["sMobileError"]; ?></p>
+                <?php } ?>
 
-                <input id="emailsignupbox" type="email" name="email" placeholder="Email" onkeypress="emailFilter()" required>
-                <p id="invalidEmail" class="warningtext" style="display: none;">Invalid email. </p>
+                <input id="emailsignupbox" type="email" name="email" placeholder="Email" onkeypress="userInputFilters('emailsignupbox')" required>
+                <?php if (isset($_SESSION["sEmailError"])) { ?>
+                    <p style="text-align:center" class="warningtext"><?= $_SESSION["sEmailError"]; ?></p>
+                <?php } ?>
 
-                <input id="addrsignupbox" type="text" name="address" placeholder="Address e.g. 123 Pine St" onkeypress="addrFilter()" required>
+                <input id="addrsignupbox" type="text" name="address" placeholder="Address e.g. 123 Pine St" onkeypress="userInputFilters('addrsignupbox')" required>
+                <?php if (isset($_SESSION["sAddressError"])) { ?>
+                    <p style="text-align:center" class="warningtext"><?= $_SESSION["sAddressError"]; ?></p>
+                <?php } ?>
                 <p id="invalidAddr" class="warningtext" style="display: none;">Invalid Address </p>
 
-                <input id="tpwsignupbox" type="password" name="passwd" placeholder="Password" onkeypress="tpwFilter()" required>
-                <input id="pwsignupbox" type="password" name="cfmpasswd" placeholder="Confirm password" onkeypress="pwFilter()" required>
+                <input id="tpwsignupbox" type="password" name="passwd" placeholder="Password" onkeypress="userInputFilters('tpwsignupbox')" required>
+                <input id="pwsignupbox" type="password" name="cfmpasswd" placeholder="Confirm password" onkeypress="userInputFilters('pwsignupbox')" required>
                 <input id='parseflag' type='hidden' name='flag'>
                 <ul>
-                    <li id="passLengError" class="warningtext" style="display: none;">Password must be at least 8 characters long</li>
-                    <li id="noSpecialCharacter" class="warningtext" style="display: none;">Password must contain at least 1 special character</li>
-                    <li id="noNumber" class="warningtext" style="display: none;">Password must contain at least a number</li>
-                    <li id="noAlphabets" class="warningtext" style="display: none;">Password must contain at least an uppercase and a lowercase letter</li>
+                    <li id="passLengError" style="display: block;">Password must be at least 8 characters long</li>
+                    <li id="noSpecialCharacter" style="display: block;">Password must contain at least 1 special character</li>
+                    <li id="noNumber" style="display: block;">Password must contain at least a number</li>
+                    <li id="noAlphabets" style="display: block;">Password must contain at least an uppercase and a lowercase letter</li>
                 </ul>
                 <div class="space"></div>
-                <div id="warninginfotext" class="warningtext" style="display: none;">Please enter all the information </div>
-                <div id="warningpwtext" class="warningtext" style="display: none;"> Passwords do not match </div>
-                <div id="emailerrormsg" class="warningtext" style="display: none"> Invalid email address</div>
-                <div id="warningusernametext" class="warningtext" style="display: none;">This username is already taken</div>
+                <?php if (isset($_SESSION["sNoInput"])) { ?>
+                    <p style="text-align:center" class="warningtext"><?= $_SESSION["sNoInput"]; ?></p>
+                <?php } ?>
+                <?php if (isset($_SESSION["sPasswdNotMatch"])) { ?>
+                    <p style="text-align:center" class="warningtext"><?= $_SESSION["sPasswdNotMatch"]; ?></p>
+                <?php } ?>
+                <?php if (isset($_SESSION["sUsernameTaken"])) { ?>
+                    <p style="text-align:center" class="warningtext"><?= $_SESSION["sUsernameTaken"]; ?></p>
+                <?php } ?>
+
+                <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY"> </div>
 
                 <input type="submit" name="signUp" value="SUBMIT" onclick="usersignup()">
             </form>
         </div>
     </div>
 
-    <!--  <div id="confirmmodal" class="confirmmodal animate" style="display: none;">
-        <form class="confirmtxt">
-            <h1>Sign up success</h1>
-            <div class="space"></div>
-            <hr />
-            <div class="bigspace"></div>
-            <input type="button" name="" value="OK" onclick="location.reload();">
-        </form>
-    </div> -->
 
     <div id="resetconfirmmodal" class="confirmmodal animate" style="display: none;">
         <form class="confirmtxt">
@@ -521,19 +243,42 @@ if (isset($_POST['signUp'])) {
     <!-- NAVBAR -->
 
 </body>
+<?php 
 
-<!--<script>
-    function staticUserLogin() {
-        sessionStorage.setItem("loginstatus", true);
-        sessionStorage.setItem("loggedinid", "");
-        sessionStorage.setItem("loggedusername", "User");
-        location.reload();
+if (isset($_SESSION["signUpSuccess"])) {
+    echo "<script>alert('An activation link has been sent to your email.');</script>";
+    unset($_SESSION['signUpSuccess']);
+} 
+
+if (isset($_SESSION['rUpdateSuccess'])) {
+    echo "<script>alert('Password is changed successfully');</script>";
+    unset($_SESSION['rUpdateSuccess']);
+}
+
+if (isset($_SESSION['recoveryTimeout'])) {
+    echo "<script>alert('Password recovery link has expired.');</script>";
+    unset($_SESSION['recoveryTimeout']);
+}
+
+if (isset($_SESSION['emailSent'])) { 
+    if($_SESSION['emailSent'] == 1){
+        echo "<script>alert('An email has been sent to you with instructions on how to reset your password.');</script>";
+        unset($_SESSION['emailSent']);
+    }
+    else if ($_SESSION['emailSent'] == 0){
+        echo "<script>alert('Error sending mail');</script>";
+        unset($_SESSION['emailSent']);
     }
 
-    function staticReload() {
-        location.reload();
-    }
+}
+
+if (isset($_SESSION['deleted'])) {
+    echo "<script>alert('Account Deleted Successfully.');</script>";
+    unset($_SESSION['deleted']);
+}
+
+?>
+
+<script>
+    window.onload = checkLoggedin();
 </script>
--->
-
-</html>
