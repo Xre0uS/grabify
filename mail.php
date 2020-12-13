@@ -313,4 +313,5 @@ function deleteAccount($email, $username, $token)
   }
 }
 
+http_response_code(404);
 ?>

@@ -192,3 +192,4 @@ if (isset($_POST['updatePasswd'])) {
         header("location:../new_password.php");
     }
 }
+
