@@ -47,7 +47,7 @@ if(isset($_SESSION["username"]))
             echo "<tr><td>" .$prodName. "</td><td>" .$rating. "/5⭐</td><td>" .$content. "</td><td>" .$timestamp. "</td><td><form action='editcomment.php' method='post'><input type='hidden' value='".$userID."' name='userID'><input type='hidden' value='".$reviewID."' name='reviewID'><input type='submit' value='Edit Review'></form></td>";
     }		
     echo "</table><br>";
-    if(time()-$_SESSION["login_time_stamp"] >600)
+    if(time()-$_SESSION["timeout"] >600)
     {
         session_unset();
         session_destroy();
