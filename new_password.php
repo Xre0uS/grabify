@@ -38,6 +38,7 @@ if (
 
 <head>
     <title>Password Recovery</title>
+    <script type="text/javascript" src="js/userlogin.js"></script>
     <style>
         .error p {
             color: #FF0000;
@@ -80,10 +81,10 @@ if (
     <form method="post" action="php/resetPasswd.php">
         <br><br>
         <label style="padding-left:600px"><strong>Enter New Password:</strong></label><br />
-        <input type="password" name="passwd" required />
+        <input type="password" id="tpwsignupbox" name="passwd" onkeypress="userInputFilters('tpwsignupbox')" required />
         <br><br>
         <label style="padding-left:600px"><strong>Re-Enter New Password:</strong></label><br />
-        <input type="password" name="cfmpasswd" required />
+        <input type="password" id="pwsignupbox" name="cfmpasswd" onkeypress="userInputFilters('pwsignupbox')" required />
         <br><br>
         <input type="hidden" name="email" value="<?php echo $email; ?>" />
 
