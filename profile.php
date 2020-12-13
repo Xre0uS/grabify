@@ -212,24 +212,31 @@ if (isset($_POST["delete"])) {
 
     //calling the php script to connect to the database
     require "php/config.php";
+    include "php/verify.php";
+    include "mail.php";
 
     //assigning variables
     extract($_SESSION);
-    // $username =  $_SESSION["username"];
+    print_r($_SESSION);
+    $username =  $_SESSION["username"];
 
+    echo $username;
 
-    // echo "Deleting data from the database. <br>";
-    $query = $con->prepare("Delete FROM `users` WHERE username=?");
+    $token = bin2hex(random_bytes(32));
+    $email = getEmail($username, $con);
+    deleteAccount($email, $username, $token);
+    // // echo "Deleting data from the database. <br>";
+    // $query = $con->prepare("Delete FROM `users` WHERE username=?");
 
-    $query->bind_param('s', $username);
+    // $query->bind_param('s', $username);
 
-    if ($query->execute()) {
-        //echo "Delete Successfully.";
-        echo " <script> delusermodel(); </script>";
-    } else {
-        // echo "Unable to Delete.";
-        echo " <script> alert('Delete Failed'); </script>";
-    }
+    // if ($query->execute()) {
+    //     //echo "Delete Successfully.";
+    //     echo " <script> delusermodel(); </script>";
+    // } else {
+    //     // echo "Unable to Delete.";
+    //     echo " <script> alert('Delete Failed'); </script>";
+    // }
 }
 
 // displaying output to tell user that the password has been updated successfully 

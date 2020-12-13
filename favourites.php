@@ -1,7 +1,5 @@
-<?php include 'navbar.php'; ?>
-<?php include 'css/styles.css'; ?>
 <?php
-require('config.php');
+require('php/config.php');
 
 $prodID = $_POST["prodID"];
 $cat = $_POST["cat"];
@@ -22,4 +20,3 @@ else{
     }
 ?>
 <html>
-

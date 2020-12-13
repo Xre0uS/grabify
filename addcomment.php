@@ -1,5 +1,5 @@
 <?php
-require('config.php');
+require('php/config.php');
 $userID = $_POST['userID'];
 $prodID = $_POST['prodID'];
 $busID = $_POST['busID'];

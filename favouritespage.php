@@ -1,7 +1,8 @@
-<?php include 'navbar.php'; ?>
+
 <?php
-require('config.php');
-$username = $_SESSION[username];
+session_start();
+require('php/config.php');
+$username = $_SESSION['username'];
 $stmt=$con->prepare("SELECT username FROM users WHERE user_id = ?");//Get favorite data from database
     $stmt->bind_param("s", $username);
 	$res=$stmt->execute();

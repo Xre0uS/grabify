@@ -137,9 +137,9 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
             </div>
             <div class="userdropdown">
                 <a href="profile.php">Profile</a>
-                <a href="listReview.php">My reviews</a>
-                <a href="favouritespage.php">My Favourites</a>
-                <a href="booking.php">My Bookings</a>
+                <a href="viewreview.php">My reviews</a>
+                <a href="favouritespage.php">Favourites</a>
+                <a href="booking.php">Bookings</a>
                 <a href="logout.php" onclick="logout()">Logout</a>
             </div>
         </div>

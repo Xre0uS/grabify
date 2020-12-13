@@ -16,6 +16,18 @@
 <body>
 
 <?php include 'php/userloginfn.php'; ?>
+<div align=center>
+<form action="search.php" method="get">
+
+<!--  <input type="hidden" name="token" value="<?php// echo $token; ?>" /> -->
+Search Product: <input type="text" name="search" id="search">
+<input type="submit" value="Search">
+<br></br>
+
+
+</form>
+</div>
+
 
 </body>
 
