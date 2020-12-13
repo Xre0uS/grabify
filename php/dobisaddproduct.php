@@ -18,7 +18,7 @@ $location=$_POST['location'];
 
 $nameregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 $priceregex= "/^[0-9]+(\.[0-9]{2})?$/";
-$descriptionregex= "/^[a-zA-Z-' ]*$/"; //regular expression for characters and spaces.
+$descriptionregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 $locationregex= "/^[a-zA-Z-' \d]*$/"; //regular expression for characters and spaces.
 
 
