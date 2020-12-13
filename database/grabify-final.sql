@@ -90,6 +90,7 @@ CREATE TABLE `business` (
 
 CREATE TABLE `favorite` (
   `fav_id` int(11) NOT NULL,
+   `category` varchar(9) NOT NULL,
   `users_user_id` int(11) NOT NULL,
   `product_product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
