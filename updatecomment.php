@@ -11,8 +11,8 @@ $ratingpattern = "/^[a-zA-Z0-9\s]*$/";
 $contentpattern = "/^[a-zA-Z0-9\s]*$/";
 	if (!preg_match($contentpattern, $content)){
     $content = preg_replace('/[^A-Za-z0-9\-\s\.\,]/', '', $content);} 
-$stmt=$con->prepare("UPDATE review SET rating=?, content=? WHERE review_id=?"); //Update function
-$stmt->bind_param("iss", $rating, $content, $reviewID);
+$stmt=$con->prepare("UPDATE review SET rating=?, content=?, timestamp=CURRENT_TIMESTAMP WHERE review_id=?"); //Update function
+$stmt->bind_param("isi", $rating, $content, $reviewID);
 $res=$stmt->execute();
 if($res){
     echo "UPDATE SUCCESSFUL";
