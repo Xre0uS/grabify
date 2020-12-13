@@ -3,16 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2020 at 08:26 AM
+-- Generation Time: Dec 11, 2020 at 03:04 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
-
--- Database: `grabify`
---
-CREATE DATABASE IF NOT EXISTS `grabify` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `grabify`;
-
--- --------------------------------------------------------
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -26,6 +19,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
+CREATE DATABASE IF NOT EXISTS `grabify` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `grabify`;
 -- Database: `grabify`
 --
 
@@ -41,15 +36,6 @@ CREATE TABLE `admin` (
   `password` varchar(128) NOT NULL,
   `role` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`admin_id`, `username`, `password`, `role`) VALUES
-(1, 'admin0', '$2y$10$A4or4RkbHD1f5emcyJza2ew3584UDFj77UYtdcX3aJWPR7rEJcUoC', '0'),
-(2, 'admin1', '$2y$10$e/98e5Qgj4XX6.HMcgIIbeKt.T4w.ReSWxX28GQ1037l9PieIFaqO', '1'),
-(3, 'admin2', '$2y$10$W6k7e4P1HbJ.RlZ2hdJ4Yuri5eTXWHEBVD4vTM1ZTsVsEUkuwHRUG', '2');
 
 -- --------------------------------------------------------
 
@@ -73,8 +59,8 @@ CREATE TABLE `block_user` (
 
 CREATE TABLE `booking` (
   `booking_id` int(11) NOT NULL,
-  `start_time` datetime DEFAULT NULL,
-  `end_time` datetime DEFAULT NULL,
+  `start_time` varchar(45) DEFAULT NULL,
+  `end_time` varchar(45)DEFAULT NULL,
   `users_user_id` int(11) NOT NULL,
   `product_product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -104,9 +90,9 @@ CREATE TABLE `business` (
 
 CREATE TABLE `favorite` (
   `fav_id` int(11) NOT NULL,
+   `category` varchar(9) NOT NULL,
   `users_user_id` int(11) NOT NULL,
-  `product_product_id` int(11) NOT NULL,
-  `category` varchar(9) NOT NULL
+  `product_product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -123,7 +109,21 @@ CREATE TABLE `logs` (
   `log_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `logs`
+--
 
+INSERT INTO `logs` (`log_id`, `log_type`, `log_content`, `log_ip`, `log_time`) VALUES
+(6, '2', 'Continued attempts to login using \'f\' after being logged out in db ', '::1', '2020-12-11 13:07:38'),
+(7, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:09:15'),
+(8, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:10:13'),
+(9, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:11:15'),
+(10, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:11:17'),
+(11, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:12:22'),
+(12, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:13:15'),
+(13, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:14:11'),
+(14, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:14:22'),
+(15, '2', 'Continued attempts to login using \'bryan\' after being logged out in db ', '::1', '2020-12-11 13:15:27');
 
 -- --------------------------------------------------------
 
@@ -138,6 +138,14 @@ CREATE TABLE `password_reset_temp` (
   `exp_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `password_reset_temp`
+--
+
+INSERT INTO `password_reset_temp` (`password_reset_temp_id`, `email`, `csrfToken`, `exp_date`) VALUES
+(1, 'a@a.com', '0e846eb5299faf5ff50ba237d84406e05ccf347a105d0e66e70a27d74ffe81265b3bb183c945c08cb5a9fb2e9acb1bc062c8b52751580b2022401207dca3106d', '2020-12-10 18:17:39');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `payment_info`
@@ -176,7 +184,7 @@ CREATE TABLE `review` (
   `review_id` int(11) NOT NULL,
   `rating` int(11) NOT NULL,
   `content` varchar(255) NOT NULL,
-  `timestamp` datetime DEFAULT CURRENT_TIMESTAMP,
+  `timestamp` datetime DEFAULT NULL,
   `users_user_id` int(11) NOT NULL,
   `product_product_id` int(11) NOT NULL,
   `business_business_id` int(11) NOT NULL
@@ -200,7 +208,13 @@ CREATE TABLE `temp_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
----
+-- Dumping data for table `temp_user`
+--
+
+INSERT INTO `temp_user` (`temp_user_id`, `username`, `password`, `name`, `email`, `mobile_number`, `address`, `token`) VALUES
+(9, 'a', '$2y$10$RqImFDETc1x7uDGgmitMTexDW5aPYq.kE9E80PEjLSp06kAU31/YK', 'a', 'a@a.a', 91234123, '123 e E', '8ae24dee6d4a99a3f90ddbff2ffcc79cdfd026b12bbf4e289813a6112ad40219');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `users`
@@ -220,6 +234,23 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
+INSERT INTO `users` (`user_id`, `username`, `password`, `name`, `email`, `mobile_number`, `address`) VALUES
+(2, 'bryan', '$2y$10$vRNIn6avh5FP9HjSD2jHwuqSYiPWJqMAK3qWoO1Ap9boGc/lA7IcS', 'bryan', 'bryansim02@gmail.com', 91234124, '123 Tamp St'),
+(3, 'veruuuu', '$2y$10$zgqQl7QWLv1r95KcqzIdLOJsNhFxqR7HBdnXfnlXhzFdc5qd.48P.', 'veruuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu', 'verilim3802@gmail.com', 81234123, '81 Tampines St'),
+(4, 'b', '$2y$10$l3H5mA4LaZroDRNdExzCHufSGxaHV8k2tMf7mAUv2w4A29InZ0TjW', 'test', 'verilim3802@gmail.com', 81234567, '123 A a'),
+(5, 'c', '$2y$10$.p7A2A3645telw5wbIGzLuy2oIHq5SbIV1zwcMCpRgdcZKvBBXVDK', 'c', 'verilim3802@gmail.com', 81234567, '123 C c'),
+(6, 'd', '$2y$10$jO3OQffEA7AB7tcsNN5YmO3DQJgRmlPviHdnydvTm7bmuCNN1qB2K', 'd', 'd@d.com', 81234567, '123 D d'),
+(8, 'e', '$2y$10$vRNIn6avh5FP9HjSD2jHwuqSYiPWJqMAK3qWoO1Ap9boGc/lA7IcS', 'E', 'bryansim02@gmail.com', 91234123, '123 e E'),
+(9, 'vera', '$2y$10$DmfMIxDpTwE/834tjSHJH.Wcv82zp8xUvsAX7Q9gWbG5IzZZQWkke', 'veraaaaaaaaaaaaaaa', 'verilim3802@gmail.com', 91234123, '4 e E'),
+(10, 'f', '$2y$10$vRNIn6avh5FP9HjSD2jHwuqSYiPWJqMAK3qWoO1Ap9boGc/lA7IcS', 'f', 'bryansim02@gmail.com', 91234123, '123 F f'),
+(11, 'ichika', '$2y$10$owsekvBIHTNdpXM3mAobxO.X46G9cNkUBpRdf3GNFB4W1V3pnrYAO', 'Igarashi Ichika', 'bryansim02@gmail.com', 91234123, '123 Tuas Ave');
+
+
+INSERT INTO `admin` (`admin_id`, `username`, `password`, `role`) VALUES
+(1, 'admin0', '$2y$10$A4or4RkbHD1f5emcyJza2ew3584UDFj77UYtdcX3aJWPR7rEJcUoC', '0'),
+(2, 'admin1', '$2y$10$e/98e5Qgj4XX6.HMcgIIbeKt.T4w.ReSWxX28GQ1037l9PieIFaqO', '1'),
+(3, 'admin2', '$2y$10$W6k7e4P1HbJ.RlZ2hdJ4Yuri5eTXWHEBVD4vTM1ZTsVsEUkuwHRUG', '2');
+
 --
 -- Indexes for dumped tables
 --
@@ -229,8 +260,7 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`admin_id`),
-  ADD UNIQUE KEY `admin_id_UNIQUE` (`admin_id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `admin_id_UNIQUE` (`admin_id`);
 
 --
 -- Indexes for table `block_user`
@@ -323,13 +353,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `block_user`
 --
 ALTER TABLE `block_user`
-  MODIFY `block_user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `block_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `booking`
@@ -353,13 +383,13 @@ ALTER TABLE `favorite`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `password_reset_temp`
 --
 ALTER TABLE `password_reset_temp`
-  MODIFY `password_reset_temp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `password_reset_temp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `payment_info`
@@ -383,7 +413,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `temp_user`
 --
 ALTER TABLE `temp_user`
-  MODIFY `temp_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `temp_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `users`

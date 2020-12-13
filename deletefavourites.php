@@ -1,8 +1,8 @@
 <?php
-require('config.php');
+require('php/config.php');
 $favID = $_POST["favID"];
 $stmt=$con->prepare("Delete FROM favorite WHERE fav_id=?"); //Delete function
-$stmt->bind_param("s", $favID);
+$stmt->bind_param("i", $favID);
 $res=$stmt->execute();
 if($res){
     echo "DELETE SUCCESSFUL";

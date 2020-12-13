@@ -1,4 +1,23 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        <?php include '../css/styles.css'; ?><?php include '../css/userlogin.css'; ?><?php include '../css/navbar.css'; ?>
+    </style>
+</head>
+
+<body>
+
 <?php include 'userloginfn.php'; ?>
+
+
 <?php
 
 require('config.php');
@@ -49,3 +68,7 @@ else
     echo "</table>";
 }
 ?>
+
+</body>
+
+</html>

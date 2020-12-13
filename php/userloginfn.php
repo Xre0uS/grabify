@@ -33,7 +33,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
-        <?php include 'css/styles.css'; ?><?php include 'css/navbar.css'; ?><?php include 'css/login.css'; ?>
+        <?php include 'css/styles.css'; ?><?php include 'css/navbar.css'; ?><?php include 'css/userlogin.css'; ?>
     </style>
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/userlogin.js"></script>
@@ -137,7 +137,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
             </div>
             <div class="userdropdown">
                 <a href="profile.php">Profile</a>
-                <a href="listReview.php">My reviews</a>
+                <a href="viewreview.php">My reviews</a>
                 <a href="favouritespage.php">My Favourites</a>
                 <a href="booking.php">My Bookings</a>
                 <a href="logout.php" onclick="logout()">Logout</a>

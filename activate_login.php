@@ -3,12 +3,12 @@ include "php/lookup.php";
 // Check if session is not registered, if it is not, the user will be redirected back to the login page.
 session_start();
 
-// if (
-//     !isset($_GET["key"]) && !isset($_GET["action"]) && ($_GET['action'] == "activate")
-// ) {
-//     TraversalLogs();
-//     header("location:home.php");
-// }
+if (
+    !isset($_GET["key"]) && !isset($_GET["action"]) && ($_GET['action'] == "activate")
+) {
+    TraversalLogs();
+    header("location:home.php");
+}
 // include 'php/userloginfn.php';
 ?>
 
@@ -36,11 +36,6 @@ if (
 
             if ($validation) {
 
-                //print_r("vaildated");
-                // // remove all session data 
-                // session_unset();
-                // session_regenerate_id();
-
                 $_SESSION['activation'] = 'temp';
                 $_SESSION['token'] = $_GET["key"];
                 
@@ -49,23 +44,11 @@ if (
                 echo "<script>document.getElementById('credsError').style.display = 'block';</script>";
                 mysqli_close($con);
                $_SESSION["loginAttempts"] += 1;
-               // $_SESSION['loginError'] = "Your username or password entered is incorrect";
-                //header("location:activate_login.php");
+               $_SESSION['loginError'] = "Your username or password entered is incorrect";
+               header("location:activate_login.php");
             }
         }
     }
-
-    // $query = $con->prepare("SELECT * FROM `password_reset_temp` WHERE csrfToken=?");
-    // $query->bind_param('s', $token);
-    // $result = $query->execute();
-    // $result = $query->get_result();
-
-    // $nrows = $result->num_rows;
-
-    // while ($row = $result->fetch_assoc()) { //placing the data into its appropriate location in the table
-    //     $email = $row['email'];
-    //     //echo $email;
-    // }
 
 
 if (isset($_SESSION["loginAttempts"])) {

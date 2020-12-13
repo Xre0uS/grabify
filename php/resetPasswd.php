@@ -13,7 +13,6 @@ if (isset($_POST["resetPasswd"]) && (!empty($_POST["resetPasswdEmail"])) && (!em
 
     if ($email) {
         session_unset();
-        echo "valid email";
 
         require_once "config.php";
         $result = checkEmail($username, $email, $con);
@@ -71,7 +70,6 @@ if (isset($_POST["resetPasswd"]) && (!empty($_POST["resetPasswdEmail"])) && (!em
         }
         mysqli_close($con);
     } else {
-        echo "invalid email";
         $_SESSION['resetEmailError'] = 'Invalid email address. Please type a valid email address!';
         header("Location:../home.php");
     }
@@ -91,7 +89,6 @@ if (isset($_POST['updatePasswd'])) {
 
         foreach ($arr as &$i) {
             $matchesRegex = checkField($i);
-            echo $i . ' ' . $_POST[$i] . ' ' . $matchesRegex . '<br>';
 
             if ($i == "passwd") {
 
@@ -107,23 +104,18 @@ if (isset($_POST['updatePasswd'])) {
 
                 if ($matchesRegex < 10000) {
                     // A is 0 
-                    echo 'Length of password must be at least 8 characters long.<br>';
                 }
                 if (intdiv($matchesRegex, 1000) % 10 == 0) {
                     // B is 0
-                    echo 'Password must contain at least a special character.<br>';
                 }
                 if (intdiv($matchesRegex, 100) % 10 == 0) {
                     // C is 0
-                    echo 'Password must contain at least a number.<br>';
                 }
                 if (intdiv($matchesRegex, 10) % 10 == 0) {
                     // D is 0
-                    echo 'Password must contain at least an uppercase letter.<br>';
                 }
                 if ($matchesRegex % 10 == 0) {
                     // E is 0 
-                    echo 'Password must contain at least a lowercase letter.<br>';
                 }
                 if ($matchesRegex != 11111) {
                     $accessDB = 0;
@@ -132,7 +124,6 @@ if (isset($_POST['updatePasswd'])) {
                 switch ($i) {
 
                     case 'cfmpasswd':
-                        echo 'Password Does not match';
                         $_SESSION['rPasswdNotMatch'] = "Password Does not match";
                         break;
 
@@ -149,9 +140,6 @@ if (isset($_POST['updatePasswd'])) {
         $cPass = $_POST['cfmpasswd'];
         $email = $_POST['email'];
 
-        echo "New Pass: " . $nPass . "<br>";
-        echo "Confirm Pass:" . $cPass . "<br>";
-        echo "Email:" . $email . "<br>";
 
         if ($accessDB == 1) {
             require_once('config.php');
@@ -172,12 +160,10 @@ if (isset($_POST['updatePasswd'])) {
                 $query->bind_param('s', $email);
 
                 if ($query->execute()) {
-                    //echo "Delete Successfully.";
 
                     $_SESSION['rUpdateSuccess'] = 1;
                     header("Location:../home.php");
                 } else {
-                    // echo "Unable to Delete.";
                     echo " <script> alert('Delete Failed'); </script>";
                 }
                 

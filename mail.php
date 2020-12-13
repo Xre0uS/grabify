@@ -39,8 +39,8 @@ function sendMail($email, $username, $token)
   $content = '<p>Dear <strong>' . $username . ' </strong>,</p>';
   $content .= '<p>Please click on the following link to reset your password.</p>';
   $content .= '<p>-------------------------------------------------------------</p>';
-  $content .= '<p><a href="http://localhost/swap-test/new_password.php?key=' . $token . '&action=reset" target="_blank">
-    http://localhost/swap-test/new_password.php?key=' . $token . '&action=reset</a></p>';
+  $content .= '<p><a href="http://localhost/grabify/new_password.php?key=' . $token . '&action=reset" target="_blank">
+    http://localhost/grabify/new_password.php?key=' . $token . '&action=reset</a></p>';
   $content .= '<p>-------------------------------------------------------------</p>';
   $content .= '<p>Please be sure to copy the entire link into your browser.
     The link will expire after 1 day for security reason.</p>';
