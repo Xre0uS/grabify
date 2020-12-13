@@ -11,6 +11,11 @@ else{
 }
 
 
+
+$bquery= $con->prepare("Delete from favorite where product_product_id = ?");
+$bquery->bind_param('i', $product_id); 
+$bquery->execute();
+
 $bquery= $con->prepare("Delete from booking where product_product_id = ?");
 $bquery->bind_param('i', $product_id); 
 $bquery->execute();
