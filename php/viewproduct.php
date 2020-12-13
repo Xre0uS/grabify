@@ -1,8 +1,6 @@
-<?php include 'navbar.php'; ?>
+<?php include 'userloginfn.php'; ?>
 <?php
 
-session_start();
-session_regenerate_id(); //regenerate new session id
 require('config.php');
 // To check if session is started.
 if(isset($_SESSION["username"]))
@@ -24,7 +22,7 @@ if(isset($_SESSION["username"]))
     }		
     echo "</table><br>";
 	
-$stmt=$con->prepare("SELECT review.rating, review.content, review.timestamp, users.username FROM review LEFT JOIN users ON review.users_user_id  = users.user_id WHERE product_product_id = ?");//Get product data from database
+	$stmt=$con->prepare("SELECT review.rating, review.content, review.timestamp, users.username FROM review LEFT JOIN users ON review.users_user_id  = users.user_id WHERE product_product_id = ?");//Get product data from database
 	$stmt->bind_param("i", $productID);
     $res=$stmt->execute();
     $stmt->store_result();
@@ -62,7 +60,7 @@ $stmt=$con->prepare("SELECT review.rating, review.content, review.timestamp, use
 else
 {
     $productID = $_POST['productID'];
-$stmt=$con->prepare("SELECT product.name, product.price, product.description, product.location, business.business_id, business.company_name FROM product LEFT JOIN business ON product.business_business_id = business.business_id WHERE product.product_id = ?");//Get product data from database
+	$stmt=$con->prepare("SELECT product.name, product.price, product.description, product.location, business.business_id, business.company_name FROM product LEFT JOIN business ON product.business_business_id = business.business_id WHERE product.product_id = ?");//Get product data from database
 	$stmt->bind_param("i", $productID);
     $res=$stmt->execute();
     $stmt->store_result();
@@ -77,7 +75,7 @@ $stmt=$con->prepare("SELECT product.name, product.price, product.description, pr
     }		
     echo "</table><br>";
 	
-$stmt=$con->prepare("SELECT review.rating, review.content, review.timestamp, users.username FROM review LEFT JOIN users ON review.users_user_id  = users.user_id WHERE product_product_id = ?");//Get product data from database
+	$stmt=$con->prepare("SELECT review.rating, review.content, review.timestamp, users.username FROM review LEFT JOIN users ON review.users_user_id  = users.user_id WHERE product_product_id = ?");//Get product data from database
 	$stmt->bind_param("i", $productID);
     $res=$stmt->execute();
     $stmt->store_result();
