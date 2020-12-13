@@ -73,8 +73,8 @@ CREATE TABLE `block_user` (
 
 CREATE TABLE `booking` (
   `booking_id` int(11) NOT NULL,
-  `start_time` datetime DEFAULT NULL,
-  `end_time` datetime DEFAULT NULL,
+  `start_time` varchar(45) DEFAULT NULL,
+  `end_time` varchar(45) DEFAULT NULL,
   `users_user_id` int(11) NOT NULL,
   `product_product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
