@@ -1,6 +1,6 @@
 <?php include 'navbar.php'; ?>
 <?php
-require('config.php');
+require('php/config.php');
 $userID = $_POST["userID"];
 $favID = $_POST["favID"];
 $stmt=$con->prepare("SELECT favorite.category, product.name FROM favorite LEFT JOIN product ON favorite.product_product_id = product.product_id WHERE favorite.fav_id = ?");//Get favorite data from database
