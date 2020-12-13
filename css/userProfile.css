@@ -58,18 +58,27 @@
 }
 
 .updatekbtn {
-    align-content: center;
+    border: 0;
+    background: none;
+    display: block;
+    margin: 10px auto;
     text-align: center;
-    margin-top: 5px;
     border: 2px solid var(--primaryColor);
-    padding-top: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 2px;
+    padding: 12px;
+    outline: none;
+    color: var(--grey);
+    transition: 0.2s ease;
+    cursor: pointer;
+    font-size: 16px;
     color: var(--primaryColor);
-    font-size: 14px;
+    align-content: center;
 }
 
+.updatekbtn:hover {
+    background: var(--primaryColor);
+    color: #ffffff;
+  }
+  
 .uploadbtn{
     max-width: 100px;
 }
@@ -108,6 +117,26 @@
 .updateinfocontainer input[type = "text"]:focus{
 border-color: var(--primaryColor);
 }
+
+.updateinfocontainer input[type = "email"]{
+    border:0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 1px solid #414141;
+    padding: 14px 10px;
+    width: 400px;
+    outline: none;
+    color: #313131;
+    border-radius: 3px;
+    transition: 0.5s;
+}
+
+.updateinfocontainer input[type = "email"]:focus{
+border-color: var(--primaryColor);
+}
+
 
 .updatepassword {
     clear: both;
@@ -175,21 +204,27 @@ border-color: var(--primaryColor);
     margin: 0 auto;
     border-radius: 2px;
     justify-content: space-around;
+    border: 0;
+    text-align: center;
     cursor: pointer;
-    width: 400px;
+    width: 450px;
 }
 
 .delacc {
-    align-content: center;
+    border: 0;
+    display: block;
+    margin: 20px auto;
     text-align: center;
-    margin-top: 5px;
     border: 2px solid #FF2323;
-    padding: 15px;
+    padding: 12px;
     padding-left: 100px;
     padding-right: 100px;
     border-radius: 2px;
-    font-weight: 600;
+    width: 400px;
+    font-size: 18px;
+    font-weight: normal;
     color: #FF2323;
+
 }
 
 .delaccbtncontainer :hover {
