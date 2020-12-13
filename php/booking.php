@@ -203,7 +203,7 @@ else
 include 'config.php';
 
 $pQuery="SELECT booking.booking_id, booking.start_time, booking.end_time, product.name FROM (( booking LEFT JOIN product ON booking.product_product_id = product.product_id ) LEFT JOIN users ON booking.users_user_id=users.user_id ) WHERE users.username='$username' GROUP BY booking.booking_id" ;
-$pQuery = $con->prepare($query); //Prepared statement
+$pQuery = $con->prepare($pQuery); //Prepared statement
 $result=$pQuery->execute(); //execute the prepared statement
 $result=$pQuery->get_result(); //store the result of the query from prepared statement
 if(!$result) {
