@@ -29,9 +29,9 @@ $stmt=$con->prepare("SELECT username FROM users WHERE user_id = ?");//Get favori
     $stmt->bind_result($userID); //Bind the data from database
 while ($stmt->fetch()){
             $userID = $userID;
-    };
+    }
 $stmt=$con->prepare("SELECT favorite.fav_id, favorite.category, product.name, product.price, product.description, product.location, business.company_name FROM (favorite LEFT JOIN product ON favorite.product_product_id = product.product_id) RIGHT JOIN business ON business.business_id = product.business_business_id WHERE favorite.users_user_id = ?");//Get favorite data from database
-    $stmt->bind_param("s", $userID);
+    $stmt->bind_param("i", $userID);
 	$res=$stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($favID, $cat, $productName, $productPrice, $productDes, $productLoc, $busName); //Bind the data from database
