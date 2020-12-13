@@ -6,7 +6,7 @@ require('config.php');
 if(isset($_SESSION["username"]))
 {
 	$username = $_SESSION[username];
-	$stmt=$con->prepare("SELECT username FROM users WHERE user_id = ?");//Get favorite data from database
+	$stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get favorite data from database
     $stmt->bind_param("s", $username);
 	$res=$stmt->execute();
     $stmt->store_result();
