@@ -21,20 +21,21 @@
 </html>
 <?php
 require('php/config.php');
-$username = $_SESSION[username];
-$stmt=$con->prepare("SELECT username FROM users WHERE user_id = ?");//Get favorite data from database
+$username = $_SESSION['username'];
+$stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get favorite data from database
     $stmt->bind_param("s", $username);
 	$res=$stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($userID); //Bind the data from database
-while ($stmt->fetch()){
-            $userID = $userID;
-    }
+    $stmt->fetch();
+
 $stmt=$con->prepare("SELECT favorite.fav_id, favorite.category, product.name, product.price, product.description, product.location, business.company_name FROM (favorite LEFT JOIN product ON favorite.product_product_id = product.product_id) RIGHT JOIN business ON business.business_id = product.business_business_id WHERE favorite.users_user_id = ?");//Get favorite data from database
     $stmt->bind_param("i", $userID);
 	$res=$stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($favID, $cat, $productName, $productPrice, $productDes, $productLoc, $busName); //Bind the data from database
+
+    if($stmt->num_rows === 0) exit("There Seems to be no Favourites");
 	//List the data from the database
     echo "<h1> Favourite products</h1>";
     echo "<table border='0' cellspacing='7px'>";
