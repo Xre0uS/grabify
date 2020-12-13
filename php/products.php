@@ -1,14 +1,13 @@
 <?php include 'navbar.php'; ?>
 <?php
 require('config.php');
-$userID = 0;
 $username = $_SESSION["username"];
 $stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get product data from database
 	$stmt->bind_param("s", $username);
     $res=$stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($userID); //Bind the data from database
-
+$userID = $userID;
 $stmt=$con->prepare("SELECT product_id, name, price, description, location, business_business_id FROM product");//Get product data from database
     $res=$stmt->execute();
     $stmt->store_result();
