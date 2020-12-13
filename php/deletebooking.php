@@ -13,7 +13,7 @@ if(isset($_SESSION["username"]))
 }
 else
 {
-    header('HTTP/1.0 403 Forbidden');
+    header("Location:../home.php");
 }
 ?>
 <?php
