@@ -26,11 +26,12 @@ require('php/config.php');
 if(isset($_SESSION["username"]))
 {
 	$username = $_SESSION["username"];
-	$stmt1=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get product data from database
-	$stmt1->bind_param("s", $username);
-    $res=$stmt1->execute();
-    $stmt1->store_result();
-    $stmt1->bind_result($userID); //Bind the data from database
+	$stmt=$con->prepare("SELECT user_id FROM users WHERE username = ?");//Get product data from database
+	$stmt->bind_param("s", $username);
+    $res=$stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($userID); //Bind the data from database
+	$stmt->fetch();
 	$userID = $userID;
 	
 	$stmt=$con->prepare("SELECT product.product_id, product.name, product.price, product.description, product.location, business.company_name FROM (product LEFT JOIN business ON product.business_business_id = business.business_id) GROUP BY product.product_id");//Get product data from database
