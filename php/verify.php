@@ -270,3 +270,6 @@ function getEmail($username, $conn)
         return "User does not exist";
     }
 }
+
+http_response_code(404);
+?>
