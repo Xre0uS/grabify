@@ -1,4 +1,3 @@
-<?php include 'navbar.php'; ?>
 <?php
 require('php/config.php');
 $userID = $_POST["userID"];
