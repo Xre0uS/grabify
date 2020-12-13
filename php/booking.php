@@ -201,7 +201,7 @@ else
 <?php 
 
 include 'config.php';
-$username=$_SESSION['usename'];
+$username=$_SESSION["usename"];
 $pQuery="SELECT booking.booking_id, booking.start_time, booking.end_time, product.name FROM (( booking LEFT JOIN product ON booking.product_product_id = product.product_id ) LEFT JOIN users ON booking.users_user_id=users.user_id ) WHERE users.username='$username' GROUP BY booking.booking_id" ;
 $pQuery = $con->prepare($pQuery); //Prepared statement
 $result=$pQuery->execute(); //execute the prepared statement
