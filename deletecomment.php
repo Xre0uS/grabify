@@ -2,7 +2,7 @@
 require('php/config.php');
 $reviewID = $_POST["reviewID"];
 $stmt=$con->prepare("Delete FROM review WHERE review_id=?"); //Delete function
-$stmt->bind_param("s", $reviewID);
+$stmt->bind_param("i", $reviewID);
 $res=$stmt->execute();
 if($res){
     echo "DELETE SUCCESSFUL";
