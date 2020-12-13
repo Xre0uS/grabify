@@ -1,7 +1,6 @@
-
-<?php 
+<?php
 session_start();
-session_regenerate_id(); //regenerate new session id
+session_regenerate_id(); //session_regenerate_id();
 // To check if session is started.
 if(isset($_SESSION["username"]))
 {
@@ -14,29 +13,29 @@ if(isset($_SESSION["username"]))
 }
 else
 {
-    header("Location:booking.php");
+    header("Location:createbooking.php");
 }
-?> 
 ?>
 <html>
 <head>
-
  <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
-        <?php include '../css/styles.css'; ?>
-        <?php include '../css/navbar.css'; ?>
-        <?php include '../css/login.css'; ?>
-        <?php include '../css/booking.css'; ?>
+        <?php include '../css/styles.css'; 
+         include '../css/navbar.css'; 
+         include '../css/login.css';
+         include '../css/editbooking.css';
+         ?>
+    
 
-       
     </style>
     <script type="text/javascript" src="js/navbar.js"></script>
     <script type="text/javascript" src="js/userlogin.js"></script>
     <script type="text/javascript" src="js/jquery-3.3.1.slim.min.js"></script>
     <script type="text/javascript" src="js/w3.js"></script>
     
+
 </head>
 
 
@@ -195,68 +194,26 @@ else
     <div id="navSpace" class="navSpace"></div>
 
     <!-- NAVBAR -->
-
-
-   
-<?php 
-
-include 'config.php';
-
-$query="SELECT booking_id, start_time, end_time, users_user_id, product_product_id FROM booking";
-$pQuery = $con->prepare($query); //Prepared statement
-$result=$pQuery->execute(); //execute the prepared statement
-$result=$pQuery->get_result(); //store the result of the query from prepared statement
-if(!$result) {
-    die("Connection failed<br> ");
-}
-else {
-    
-}
-$nrows=$result->num_rows; //store the number of rows from the results
-
-if ($nrows>0) {
-    echo "<h1 align='center'>Bookings</h1>";
-    echo "<table>"; //Draw the table header
-    echo "<table align='center'  width=50%>";
-    echo "<tr>";
-    echo "<th>ID</th>";
-    echo "<th>Start Time</th>";
-    echo "<th>End Time</th>";
-    echo "<th>User</th>";
-    echo "<th>Product</th>";
-    echo "</tr>";
-    while ($row=$result->fetch_assoc()) { //fields that will be filled with the details taken from sql db
-        echo "<tr>";
-        echo "<td>";
-        echo $row['booking_id']; //defined in the db
-        echo "</td>";
-        echo "<td>";
-        echo $row['start_time'];
-        echo "</td>";
-        echo "<td>";
-        echo $row['end_time'];
-        echo "</td>";
-        echo "<td>";
-        echo $row['users_user_id'];
-        echo "</td>";
-        echo "<td>";
-        echo $row['product_product_id'];
-        echo "</td>";
-        echo "<td>";
-        echo "<a href='editbooking.php?Submit=GetUpdate&booking_id=".$row['booking_id']."'><button>Edit</button></a>"; //link to editbooking.php
-        echo "</td>";
-        echo "<td>";
-        echo "<a href='deletebooking.php?Submit=Delete&booking_id=".$row['booking_id']."'><button>Delete</button></a>"; //link to deletebooking.php delete function
-        echo "</td>";
-        echo "</tr>";
-    }
-    echo "</table>";
-}
-
-
-$con->close(); //close the connecti
-
-?>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div>
+<form action="booking_config.php" method="post">
+<h1 align='center'>Create your booking</h1>
+<table  class='center'>
+	 <tr><td>Please enter the start date in yyyy-mm-dd format</td></tr>
+	<tr><td>Start Time: </td><td><input type="text" name="start_time"></td></tr>
+	 <tr><td>Please enter the end date in yyyy-mm-dd format</td></tr>
+    <tr><td>End Time: </td><td><input type="text" name="end_time"></td></tr>
+	<tr><td>User</td><td><input type="text" name="users_user_id"/></td></tr>
+	<tr><td>Product</td><td><input type="text" name="product_product_id"/></td></tr>
+	<tr><td></td><td><input type="submit" name="formButton" value="Submit"/></td></tr>
+</table>
+</form>
+</div>
 
 
 </body>
