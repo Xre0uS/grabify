@@ -1,0 +1,125 @@
+:root {
+    box-sizing: border-box;
+  }
+  
+  *,
+  ::before,
+  ::after {
+    box-sizing: inherit;
+  }
+  
+  body {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* form container */
+  .container {
+    max-width: 400px;
+    margin: 2em auto;
+    background-color: eee;
+    padding: 2em;
+    border-radius: .5em;
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      margin: 0 auto;
+    }
+  }
+  
+  .container h3 {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 1.5em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #eee;
+  }
+  .container h4 {
+    margin-top: 0;
+    text-align: center;
+    font-size: 25px;
+  }
+  .container h2 {
+    text-align: center;
+  }
+  /* form */
+  .form-field {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: .8em;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: left;
+    color: #212121;
+  }
+  
+  input {
+    width: 100%;
+  }
+  
+  /* submit button */
+  #form-delete {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  #form-delete input,
+  #form-delete input:active {
+    background-color: red;
+    color: #fff;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    padding: 0.5em;
+  }
+  
+  #form-delete input:hover {
+    cursor: pointer;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    padding: 0.5em;
+  }
+
+  #form-submit {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  
+  #form-submit input,
+  #form-submit input:active {
+    background-color: #000;
+    color: #fff;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    padding: 0.5em;
+  }
+  
+  #form-submit input:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #000;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 0.5em;
+    padding: 0.5em;
+  }
+  
+  /* additional link */
+  div #forgot-link {
+    font-size: 0.75rem;
+    text-align: right;
+  }
+  
+
+  
+  div a {
+    color: #000;
+  }
