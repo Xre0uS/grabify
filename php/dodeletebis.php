@@ -57,7 +57,7 @@ if ($query->execute()){  //execute query
   session_destroy();
   echo "<script>
   alert('Your Account has been Deleted ');
-  window.location.href='http://localhost/grabify/bislogin.php';
+  window.location.href='https://localhost/grabify/bislogin.php';
   </script>";
 }else{
   echo "Error";
