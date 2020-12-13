@@ -81,59 +81,16 @@ include 'php/userloginfn.php';
             echo "<input id='emailbox' type='email' name='email' placeholder='Email' value='" . $row['email'] . "' onkeypress='userInputFilters('emailbox')' required>";
             echo "<input id='numbox' type='text' name='mobileNo' placeholder='Mobile Number' value='" . $row['mobile_number'] . "' onkeypress='userInputFilters('numbox')' required>";
             echo "<input id='addbox' type='text' name='address' placeholder='Address e.g. 123 Pine St' value='" . $row['address'] . "' onkeypress='userInputFilters('addbox')' required>";
-           
-                   }
+        }
+
         echo "<input id='updateParseflag' type='hidden' name='flag'>";
         echo "<div class='updatebtncontainer'>";
         echo "<input type='submit' name='update' class='updatekbtn' onclick='updateinfo()' value='UPDATE'>";
         echo "</div></form>";
-        // $con->close()
-           
-            // $email = $row['email'];
-            // $mobile = $row['mobile_number'];
-            // $address = $row['address'];
-        
         $con->close();
         ?>
 
-        <!-- <form action='php/update.php' method='POST'>
-            <div class='updateinfocontainer'>
-                <input id='emailbox' type='email' name='email' placeholder='Email' value='<?php echo $email; ?>' onkeypress="userInputFilters('emailbox')" required>
-                <?php if (isset($_SESSION["uEmailError"])) { ?>
-                    <p style="padding-left:250px" class="warningtext"><?= $_SESSION["uEmailError"]; ?></p><br>
-                <?php } ?>
 
-                <input id='numbox' type='text' name='mobileNo' placeholder='Mobile Number' value='<?php echo $mobile; ?>' onkeypress="userInputFilters('numbox')" required>
-                <?php if (isset($_SESSION["uMobileError"])) { ?>
-                    <p style="padding-left:250px" class="warningtext"><?= $_SESSION["uMobileError"]; ?></p><br>
-                <?php } ?>
-
-                <input id='addbox' type='text' name='address' placeholder='Address e.g. 123 Pine St' value='<?php echo $address; ?>' onkeypress="userInputFilters('addbox')" required>
-                <?php if (isset($_SESSION["uAddressError"])) { ?>
-                    <p style="padding-left:250px" class="warningtext"><?= $_SESSION["uAddressError"]; ?></p><br>
-                <?php } ?>
-
-            </div>
-            <input id='updateParseflag' type='hidden' name='flag'>
-            <?php if (isset($_SESSION["profileFieldEmpty"])) { ?>
-                <p style="padding-left:350px" class="warningtext"><?= $_SESSION["profileFieldEmpty"]; ?></p><br>
-            <?php } ?>
-
-            <div class='updatebtncontainer'>
-                <input type='submit' name='update' class='updatekbtn' onclick='updateinfo()' value='UPDATE'>
-            </div>
-        </form> -->
-
-
-
-        <?php
-        // }
-        // echo "<input id='updateParseflag' type='hidden' name='flag'>";
-        // echo "<div class='updatebtncontainer'>";
-        // echo "<input type='submit' name='update' class='updatekbtn' onclick='updateinfo()' value='UPDATE'>";
-        // echo "</div></form>";
-        // $con->close();
-        ?>
 
         <div class="bigspace"></div>
         <div class="updatepassword">
@@ -259,7 +216,6 @@ if (isset($_POST["delete"])) {
     //assigning variables
     extract($_SESSION);
     // $username =  $_SESSION["username"];
-    //print_r($_SESSION);
 
 
     // echo "Deleting data from the database. <br>";

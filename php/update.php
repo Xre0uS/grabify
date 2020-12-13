@@ -40,30 +40,25 @@ if (isset($_POST["update"])) {
         !empty($mobile) &&
         !empty($addr)
     ) {
-        echo "OK: fields are not empty<br>";
         $arr = array('mobileNo', 'email', 'address');
 
         $username = $_SESSION['username'];
 
         foreach ($arr as &$i) {
             $matchesRegex = checkField($i);
-            echo $i . ' ' . $_POST[$i] . ' ' . $matchesRegex . '<br>';
 
             if ($matchesRegex == 0) {
                 switch ($i) {
 
                     case 'mobileNo':
-                        echo 'Invalid Phone Number.<br>';
                         $_SESSION['uMobileError'] = "Invalid Phone Number e.g. of Phone number: 8123 1234";
                         break;
 
                     case 'email':
-                        echo 'Invalid email.<br>';
                         $_SESSION['uEmailError'] = "Invalid email.";
                         break;
 
                     case 'address':
-                        echo 'Invalid Address.<br>';
                         $_SESSION['uAddressError'] = "Invalid Address.";
                         break;
 
@@ -83,17 +78,13 @@ if (isset($_POST["update"])) {
             $query->bind_param('siss', $email, $mobile, $addr, $username);
 
             if ($query->execute()) {
-                echo "Query executed.";
 
                 // sending email to inform users that their profile has been updated 
                 $informingUsers = infoUserMail($email, $username, 1);
-                // if ($informingUsers == 1) {
-                    echo 'hi';
+ 
                      $_SESSION['iUpdateSuccess'] = 1;
                     header("Location:../profile.php");
-                // } else {
-                //     echo "Error sending mail";
-                // }
+
             } else {
                 echo "Error executing query.";
             }
@@ -137,10 +128,7 @@ if (isset($_POST['cPasswdBtn'])) {
         $cPass = $_POST['cfmpasswd'];
         $username = $_SESSION["username"];
 
-        // echo "Original Pass: " . $oPass . "<br>";
-        // echo "New Pass: " . $nPass . "<br>";
-        // echo "Confirm Pass:" . $cPass . "<br>";
-        // echo "Username:" . $username . "<br>";
+
     } else if ($_POST['flag'] == '1') {
         $_SESSION['passwdFieldEmpty'] = "Please enter all the information";
         header("location:../prorfile.php");
@@ -157,7 +145,6 @@ if (isset($_POST['cPasswdBtn'])) {
 
         foreach ($arr as &$i) {
             $matchesRegex = checkField($i);
-            echo $i . ' ' . $_POST[$i] . ' ' . $matchesRegex . '<br>';
 
             if ($i == "passwd") {
 
@@ -173,23 +160,23 @@ if (isset($_POST['cPasswdBtn'])) {
 
                 if ($matchesRegex < 10000) {
                     // A is 0 
-                    echo 'Length of password must be at least 8 characters long.<br>';
+                    
                 }
                 if (intdiv($matchesRegex, 1000) % 10 == 0) {
                     // B is 0
-                    echo 'Password must contain at least a special character.<br>';
+                    
                 }
                 if (intdiv($matchesRegex, 100) % 10 == 0) {
                     // C is 0
-                    echo 'Password must contain at least a number.<br>';
+                    
                 }
                 if (intdiv($matchesRegex, 10) % 10 == 0) {
                     // D is 0
-                    echo 'Password must contain at least an uppercase letter.<br>';
+                    
                 }
                 if ($matchesRegex % 10 == 0) {
                     // E is 0 
-                    echo 'Password must contain at least a lowercase letter.<br>';
+                    
                 }
                 if ($matchesRegex != 11111) {
                     $accessDB = 0;
@@ -198,7 +185,6 @@ if (isset($_POST['cPasswdBtn'])) {
                 switch ($i) {
 
                     case 'cfmpasswd':
-                        echo 'Password Does not match';
                         $_SESSION['sPasswdNotMatch'] = "Password Does not match";
                         break;
 
@@ -224,14 +210,12 @@ if (isset($_POST['cPasswdBtn'])) {
                     header("location:../profile.php");
                 } else {
                     $hashedpass = password_hash($nPass, PASSWORD_BCRYPT);
-                    echo "hashed password: " . $hashedpass . "<br>";
 
                     $query = $con->prepare("UPDATE `users` set password=? WHERE username=?");
 
                     $query->bind_param('ss', $hashedpass, $username);
 
                     if ($query->execute()) {
-                        echo "Query executed.";
 
                         // retrieving email address
                         $email = getEmail($username, $con);

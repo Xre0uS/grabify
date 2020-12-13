@@ -9,8 +9,6 @@ if (
     header("location:home.php");
 }
 
-// include "php/userloginfn.php";
-
 ?>
 
 <?php
@@ -59,9 +57,7 @@ if  (
         $query->bind_param('s', $username);
 
         if ($query->execute()) {
-            //echo "Delete Successfully.";
         } else {
-           // echo "Unable to Delete.";
         }
     } else {
         echo "Error executing query";
@@ -185,7 +181,7 @@ else{
 
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;"><a href="http://localhost/swap-test/" target="_blank" style="color: #FFA73B;">http://localhost/swap-test/</a></p>
+                            <p style="margin: 0;"><a href="http://localhost/grabify/" target="_blank" style="color: #FFA73B;">http://localhost/grabify/</a></p>
                         </td>
                     </tr>
                     <tr>
