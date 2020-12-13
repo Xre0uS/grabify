@@ -21,6 +21,7 @@ function verifyAdmin() {
                         data: data,
 
                         success: function (response) {
+                            console.log(response);
                             var response = JSON.parse(response);
                             fillMasterTable(response);
                         },

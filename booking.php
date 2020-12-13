@@ -30,7 +30,7 @@ session_regenerate_id(); //session_regenerate_id();
  
 <?php 
 
-include 'config.php';
+include 'php/config.php';
 
 if(isset($_SESSION["username"]))
 {
@@ -86,7 +86,7 @@ if(isset($_SESSION["username"]))
         }
         echo "</table>";
     }
-    if(time()-$_SESSION["login_time_stamp"] >600)
+    if(time()-$_SESSION["timeout"] >600)
     {
         session_unset();
         session_destroy();

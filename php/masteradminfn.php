@@ -4,6 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 if (isset($_POST['function'])) {
+    echo "hi";
     if (limitRequest($response)) {
         echo $response;
     } else if (checkLoggedIn($response)) {
@@ -15,6 +16,7 @@ if (isset($_POST['function'])) {
             $result = $pQuery->execute(); //execute the prepared statement
             $result = $pQuery->get_result(); //store the result of the query from prepared statement
             $rows = array();
+            echo "hi";
             while ($r = $result->fetch_assoc()) {
                 $rows[] = $r;
             }

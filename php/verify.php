@@ -113,12 +113,6 @@ function checkBlock($username, $conn)
     $result = $query->execute();
     $result = $query->get_result();
 
-    // if (!$result) {
-    //     die("SELECT query failed<br> " . $conn->error);
-    // } else {
-    //     echo "SELECT query successful<br>";
-    // }
-
     $nrows = $result->num_rows;
 
     if ($nrows > 0) {
@@ -167,19 +161,12 @@ function auth($username, $passwd, $conn)
     $result = $query->execute();
     $result = $query->get_result();
 
-    // if (!$result) {
-    //     die("SELECT query failed<br> " . $conn->error);
-    // } else {
-    //     echo "SELECT query successful<br>";
-    // }
-
     $nrows = $result->num_rows;
 
     if ($nrows > 0) {
         $row = $result->fetch_assoc();
         $hashedpass = $row['password'];
     } else {
-        // echo "Username or Password is incorrect. <br>";
 
         $query = $conn->prepare("SELECT password FROM temp_user WHERE username=?");
         $query->bind_param('s', $username);
@@ -196,11 +183,8 @@ function auth($username, $passwd, $conn)
 
     $verifypass = password_verify($passwd, $hashedpass);
     if ($verifypass == 1) {
-        // echo "true";
         return 1;
     } else {
-        // echo "false";
-        // echo "Username or Password is incorrect. <br>";
         return 0;
     }
 }
@@ -221,12 +205,6 @@ function checkEmail($username, $email, $conn)
     $query->bind_param('ss', $email, $username);
     $result = $query->execute();
     $result = $query->get_result();
-
-    if (!$result) {
-        die("SELECT query failed<br> " . $conn->error);
-    } else {
-        echo "SELECT query successful<br>";
-    }
 
     $nrows = $result->num_rows;
 
@@ -254,12 +232,6 @@ function getEmail($username, $conn)
     $query->bind_param('s', $username);
     $result = $query->execute();
     $result = $query->get_result();
-
-    // if (!$result) {
-    //     die("SELECT query failed<br> " . $conn->error);
-    // } else {
-    //     echo "SELECT query successful<br>";
-    // }
 
     $nrows = $result->num_rows;
 

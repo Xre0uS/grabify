@@ -19,8 +19,7 @@ $checkResult = $Authenticator->verifyCode($_SESSION['auth_secret'], $_POST['code
 
 if (!$checkResult) {
     $_SESSION['failed'] = true;
-    echo "failed";
-    //header("location: home.php");
+    header("location: home.php");
     die();
 } else {
     $_SESSION['authentication'] = "2FA";
