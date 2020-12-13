@@ -161,6 +161,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
             <input id='resetParseflag' type='hidden' name='flag'>
             <input type="text" id="resetPasswdUsername" name="resetPasswdUsername" placeholder="Username" onkeypress="userInputFilters('resetPasswdUsername')"  required>
             <input type="email" id="resetPasswdEmail" name="resetPasswdEmail" placeholder="Email" onkeypress="userInputFilters('resetPasswdEmail')"  required>
+            <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY" required> </div>
             <input id="resetpwname" type="submit" name="resetPasswd" value="SUBMIT" onclick="passwdRecovery()">
         </form>
     </div>
@@ -219,7 +220,7 @@ if (isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response
                     <p style="text-align:center" class="warningtext"><?= $_SESSION["sUsernameTaken"]; ?></p>
                 <?php } ?>
 
-                <!-- <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY"> </div> -->
+                <div class="g-recaptcha" data-sitekey="6LdFov4ZAAAAACTNQftPShIGjRXGKioxcTOp2eeY"> </div>
 
                 <input type="submit" name="signUp" value="SUBMIT" onclick="usersignup()">
             </form>
