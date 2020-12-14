@@ -18,7 +18,6 @@ if (
     && ($_GET['action'] == "remove") && !isset($_POST["action"])
 ) {
     $username = $_GET['username'];
-    echo $username;
 
     
     require "php/config.php";

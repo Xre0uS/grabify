@@ -72,4 +72,3 @@ window.location.href='https://localhost/grabify/bis.php';
 
 
 ?>
-

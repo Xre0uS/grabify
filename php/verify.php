@@ -168,17 +168,17 @@ function auth($username, $passwd, $conn)
         $hashedpass = $row['password'];
     } else {
 
-        $query = $conn->prepare("SELECT password FROM temp_user WHERE username=?");
-        $query->bind_param('s', $username);
-        $result = $query->execute();
-        $result = $query->get_result();
+        // $query = $conn->prepare("SELECT password FROM temp_user WHERE username=?");
+        // $query->bind_param('s', $username);
+        // $result = $query->execute();
+        // $result = $query->get_result();
 
-        if ($result->num_rows) {
-            $row = $result->fetch_assoc();
-            $hashedpass = $row['password'];
-        } else {
+        // if ($result->num_rows) {
+        //     $row = $result->fetch_assoc();
+        //     $hashedpass = $row['password'];
+        // } else {
             return 0;
-        }
+        // }
     }
 
     $verifypass = password_verify($passwd, $hashedpass);

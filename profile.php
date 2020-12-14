@@ -194,7 +194,7 @@ include 'php/userloginfn.php';
 
         <div id="delmodal" class="confirmmodal animate" style="display: none;">
             <form class="confirmtxt">
-                <h1>Your account has been deleted</h1>
+                <h1>Please check your email to delete complete the deletion of your account</h1>
                 <div class="space"></div>
                 <hr />
                 <div class="bigspace"></div>
@@ -217,14 +217,18 @@ if (isset($_POST["delete"])) {
 
     //assigning variables
     extract($_SESSION);
-    print_r($_SESSION);
     $username =  $_SESSION["username"];
-
-    echo $username;
 
     $token = bin2hex(random_bytes(32));
     $email = getEmail($username, $con);
-    deleteAccount($email, $username, $token);
+    $result = deleteAccount($email, $username, $token);
+    
+    if($result){
+        echo " <script> delusermodel(); </script>";
+    }else{
+        echo " <script> alert('Delete Failed'); </script>";
+    }
+
     // // echo "Deleting data from the database. <br>";
     // $query = $con->prepare("Delete FROM `users` WHERE username=?");
 

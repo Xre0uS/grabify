@@ -1,6 +1,5 @@
-<?php include 'navbar.php'; ?>
 <?php
-require('config.php');
+require('php/config.php');
 $userID = $_POST["userID"];
 $reviewID = $_POST["reviewID"];
 echo $reviewID;
@@ -18,4 +17,3 @@ $stmt=$con->prepare("SELECT review.rating, review.content, review.timestamp, pro
 			}
     echo "</table>";
 ?>
-

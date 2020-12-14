@@ -1,10 +1,9 @@
-<?php include 'navbar.php'; ?>
 <?php
-require('config.php');
+require('php/config.php');
 $userID = $_POST["userID"];
 $favID = $_POST["favID"];
 $stmt=$con->prepare("SELECT favorite.category, product.name FROM favorite LEFT JOIN product ON favorite.product_product_id = product.product_id WHERE favorite.fav_id = ?");//Get favorite data from database
-    $stmt->bind_param("s", $favID);
+    $stmt->bind_param("i", $favID);
 	$res=$stmt->execute();
     $stmt->store_result();
     $stmt->bind_result($cat, $productName); //Bind the data from database
@@ -17,4 +16,3 @@ $stmt=$con->prepare("SELECT favorite.category, product.name FROM favorite LEFT J
 			}
     echo "</table>";
 ?>
-

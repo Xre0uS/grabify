@@ -32,10 +32,14 @@ session_regenerate_id(); //session_regenerate_id();
 
 include 'php/config.php';
 
+
+
+
 if(isset($_SESSION["username"]))
 {
     $username=$_SESSION["username"];
-    $pQuery="SELECT booking.booking_id, booking.start_time, booking.end_time, product.name FROM (( booking LEFT JOIN product ON booking.product_product_id = product.product_id ) LEFT JOIN users ON booking.users_user_id=users.user_id ) WHERE users.username='$username' GROUP BY booking.booking_id" ;
+    
+    $pQuery="SELECT booking.booking_id, booking.start_time, booking.end_time, product.name, product.product_id FROM (( booking LEFT JOIN product ON booking.product_product_id = product.product_id ) LEFT JOIN users ON booking.users_user_id=users.user_id ) WHERE users.username='$username' GROUP BY booking.booking_id" ;
     $pQuery = $con->prepare($pQuery); //Prepared statement
     $result=$pQuery->execute(); //execute the prepared statement
     $result=$pQuery->get_result(); //store the result of the query from prepared statement
@@ -47,7 +51,6 @@ if(isset($_SESSION["username"]))
     }
     
     $nrows=$result->num_rows; //store the number of rows from the results
-    
     if ($nrows>0) {
         echo "<h1 align='center'>Bookings</h1>";
         echo "<table>"; //Draw the table header
@@ -74,10 +77,14 @@ if(isset($_SESSION["username"]))
             echo $username;
             echo "</td>";
             echo "<td>";
-            echo $row['product_product_id'];
+            echo $row['name'];
             echo "</td>";
             echo "<td>";
-            echo "<a href='editbooking.php?Submit=GetUpdate&booking_id=".$row['booking_id']."'><button>Edit</button></a>"; //link to editbooking.php
+            echo "<form action='editbooking.php' method='post'>";
+            echo "<input type='hidden' name='product_id' value='" .$row['product_id']."'>";
+            echo "<input type='hidden' name='booking_id' value='" .$row['booking_id']."'>";
+            echo "<input type='submit' value='Edit '>";
+            echo "</form>";
             echo "</td>";
             echo "<td>";
             echo "<a href='deletebooking.php?Submit=Delete&booking_id=".$row['booking_id']."'><button>Delete</button></a>"; //link to deletebooking.php delete function
@@ -85,6 +92,8 @@ if(isset($_SESSION["username"]))
             echo "</tr>";
         }
         echo "</table>";
+    }else{
+        echo "no booking";
     }
     if(time()-$_SESSION["timeout"] >600)
     {
@@ -98,6 +107,7 @@ else
 {
    
 }
+
 
 
 

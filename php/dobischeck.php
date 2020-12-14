@@ -70,4 +70,3 @@ else
   echo "<a href='https://localhost/grabify/bislogin.php'>Go Back to Login Page? </a><br />";
 }
 ?>
-

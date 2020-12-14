@@ -54,4 +54,3 @@ header("location:https://localhost/grabify/bis.php");
 }else{
 }
 ?>
-

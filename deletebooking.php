@@ -6,7 +6,7 @@ session_regenerate_id(); //session_regenerate_id();
 <?php
 
 
-include 'config.php'; //Getting the connection via config.php
+include 'php/config.php'; //Getting the connection via config.php
 
 
 if(isset($_SESSION["username"]))

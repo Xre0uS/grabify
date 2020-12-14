@@ -1,16 +1,11 @@
 <?php
 
+include 'php/config.php'; //transferring the connection to another php file called config.php
 
 
-
-include 'config.php'; //transferring the connection to another php file called config.php
-
-
-//$bookingregex= "/^[a-zA-Z\d']+$/"; //regular expression for character and digits.
-$startregex= "^20[0-2][0-1]-((0[1-9])|(1[0-2]))-(0[1-9]|[1-2][0-9]|3[0-1])$^"; //regular expression for numbers and dashes.
-$endregex= "^20[0-2][0-1]-((0[1-9])|(1[0-2]))-(0[1-9]|[1-2][0-9]|3[0-1])$^"; //regular expression for numbers and dashes.
+$startregex= "/^(0[1-9]|[1-2][0-9]|3[0-1])+-(0[1-9]|1[0-2])+-([1-2][0-9]{3})$/";
+$endregex= "/^(0[1-9]|[1-2][0-9]|3[0-1])+-(0[1-9]|1[0-2])+-([1-2][0-9]{3})$/"; 
 $userregex= "/^[0-9]+$/"; //regular expression for numbers.
-$productregex= "/^[0-9]+$/"; // regular expression for numbers.
 
 
 
@@ -18,7 +13,9 @@ $productregex= "/^[0-9]+$/"; // regular expression for numbers.
 $startTime=$_POST['start_time'];
 $endtime=$_POST['end_time'];
 $usersID=$_POST['userID'];
-$product=$_POST['product_product_id'];
+$product=$_POST['proudctid'];
+
+
 //$bookingID=$_POST['booking_id'];
 
 if(preg_match($startregex,$startTime)){ //regex checking the name input to ensure only there are numbers and dashes present
@@ -41,14 +38,9 @@ else{
     echo "Please input the correct id <br>";
     die;
 }
-if(preg_match($productregex,$product)){ //regex checking the product input to make sure it is a valid product id.
-}
-else{
-    echo "Please input product id ";
-    die;
-}
 
-$stmt=$con->prepare("INSERT INTO booking (start_time,end_time,users_user_id,product_product_id) VALUES (?,?,?,?)"); //prepared statement
+
+$stmt=$con->prepare("INSERT INTO booking (start_time,end_time,users_user_id,product_product_id) VALUES (?,?,?,?) "); //prepared statement
 $stmt->bind_param("ssii",$startTime,$endtime, $usersID, $product); //bind the parameters that was inputted
 
 $res=$stmt->execute(); //excute the statement together with the data

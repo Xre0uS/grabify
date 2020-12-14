@@ -3,24 +3,53 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-        <?php include 'css/styles.css'; ?>
-    </style>
-    <title>Grabify - Home</title>
+  <style>
+    <?php include 'css/styles.css'; ?>
+    
+  
+    .carousel {
+      z-index: -99;
+    }
+
+    .carousel .one {
+      background: url(assets/img/slide3blur.jpg);
+      background-size: cover;
+      -moz-background-size: cover;
+    }
+
+    .carousel .two {
+      background: url(assets/img/slide2blur.jpg);
+      background-size: cover;
+      -moz-background-size: cover;
+    }
+
+    .carousel .three {
+      background: url(assets/img/slide1blur.jpg);
+      background-size: cover;
+      -moz-background-size: cover;
+    }
+
+    .carousel .active.left {
+      left: 0;
+      opacity: 0;
+      z-index: 2;
+    }
+  </style>
+  <title>Grabify - Home</title>
 </head>
 
 <body>
 
-    <?php include 'php/userloginfn.php'; ?>
+  <?php include 'php/userloginfn.php'; ?>
 
-    <div class="container">
+  <div class="container">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
       <ol style="margin: auto;" class="carousel-indicators">

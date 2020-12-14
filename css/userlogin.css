@@ -4,6 +4,7 @@
   z-index: 1;
   display: none;
   position: fixed;
+  overflow-y: initial !important;
 }
 
 .login-modal {
@@ -15,6 +16,8 @@
   background: #ffffff;
   box-shadow: 0 0 5px;
   text-align: center;
+  height: 80vh;
+  overflow-y: scroll;
 }
 
 .login-modal h1 {
