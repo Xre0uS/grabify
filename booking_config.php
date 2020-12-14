@@ -3,8 +3,8 @@
 include 'php/config.php'; //transferring the connection to another php file called config.php
 
 
-$startregex= "/^(0[1-9]|[1-2][0-9]|3[0-1])+-(0[1-9]|1[0-2])+-([1-2][0-9]{3})$/";
-$endregex= "/^(0[1-9]|[1-2][0-9]|3[0-1])+-(0[1-9]|1[0-2])+-([1-2][0-9]{3})$/"; 
+$startregex= "/^(0[1-9]|[1-2][0-9]|3[0-1])+-(0[1-9]|1[0-2])+-([1-2][0][2][0-1])$/";
+$endregex= "/^(0[1-9]|[1-2][0-9]|3[0-1])+-(0[1-9]|1[0-2])+-([1-2][0][2][0-1])$/"; 
 $userregex= "/^[0-9]+$/"; //regular expression for numbers.
 
 
