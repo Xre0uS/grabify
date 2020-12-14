@@ -43,9 +43,9 @@ $proudctid=$_POST['prodID'];
 echo "<form action='booking_config.php' method='post'>
 <h1 align='center'>Create your booking</h1>
 <table  class='center'>
-	 <tr><td>Please enter the start date in yyyy-mm-dd format</td></tr>
+	 <tr><td>Please enter the start date in dd-mm-yyyy format</td></tr>
 	<tr><td>Start Time: </td><td><input type='text' name='start_time'></td></tr>
-	 <tr><td>Please enter the end date in yyyy-mm-dd format</td></tr>
+	 <tr><td>Please enter the end date in dd-mm-yyyy format</td></tr>
     <tr><td>End Time: </td><td><input type='text' name='end_time'></td></tr>
     <tr><td><input type='hidden' value=".$userID." name='userID'/></td></tr>
     <tr><td><input type='hidden' value=".$proudctid." name='proudctid'/></td></tr>
