@@ -4,8 +4,6 @@ require('php/config.php');
 $prodID = $_POST["prodID"];
 $cat = $_POST["cat"];
 $userID = $_POST["userID"];
-echo $prodID;
-echo $cat;
 
 $stmt=$con->prepare("INSERT INTO favorite (category, users_user_id, product_product_id) VALUES (?,?,?)"); //Insert function
 $stmt->bind_param("sii", $cat, $userID, $prodID);
