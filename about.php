@@ -15,7 +15,7 @@
 
 <body>
 
-    <?php include 'php/navbar.php'; ?>
+    <?php include 'php/userloginfn.php'; ?>
 
     <div class="info">
         <h1>Grabify</h1>

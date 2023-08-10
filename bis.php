@@ -1,127 +1,98 @@
-<head>
-<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<?php include 'bisnav.php'; ?>
+<?php include 'php/config.php'; ?>
 <style>
-<?php include 'css/bispage.css'; ?>
-<?php include 'css/style.css'; ?>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
 
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.card button {
+  border: none;
+  outline: 0;
+  padding: 12px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+.button-container form,
+.button-container form div {
+    display: inline;
+}
+
+.button-container button {
+    display: inline;
+    vertical-align: middle;
+  
+}
+
+input[type="submit"] {
+  background: none;
+  border: none;
+  outline: none;
+  text-decoration: underline;
+  color: black
+}
+input[type="submit"]:hover {
+  color: red;
+}
 
 </style>
+<h1>Your Products:</h1>
 
-</head>
-
-<body>
-    <h2>Bussiness Page </h2>
-    <h2> Welcome XXX User </h2>
-    <h2><button style="font-size: 24px;"  onclick="window.location.href='editbisprofile.php'">Edit Profile</button></h2>
-
-    
-    <br>
-    <br>
-    <div class="line"></div>
-    <h2> Exisiting Products </h2>
-    <br>
-    <br>
-
-    <section class="sec-boxes" role="section">
-    <adrticle class="box">
-        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
-        <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
-        <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
-        <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
-        <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
-        <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
-        <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyDelete()>Delete</button>
-        <button style="float: right;font-size:20px" onclick="window.location.href='editbis.php'">Edit</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1 onclick="window.location.href='bisproduct.php'">Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px;" onclick=MyDelete()>Delete</button>
-        <button style="float: right;font-size:20px;" onclick="window.location.href='editbis.php'">Edit</button>
-      </adrticle>
-    </section>
-    <div class="line"></div>
-    <h2> Products Waiting for Approval </h2>
-    <br>
-    <br>
-    <section class="sec-boxes" role="section">
-    <adrticle class="box">
-        <h1>Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyApprove()>Approve</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1>Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px" onclick=MyApprove()>Approve</button>
-      </adrticle>
-      <adrticle class="box">
-        <h1>Product X</h1>
-        Image
-        <p>Basic Description</p>
-        <button style="float: right;font-size:20px;" onclick=MyApprove()>Approve</button>
-      </adrticle>
-      <adrticle class="box">
-      <h1> Add New Product </h1>
-      <button onclick="window.location.href='bisaddproduct.php'" style="font-size:40px;">Click Here</button>
-</section>
+<?php
+$business_id=$_SESSION['business_id'];
 
 
-<script>
-function MyDelete() {
-  alert("Successfully deleted your product");
-  window.location.href='bis.php';
+$rquery= $con->prepare("SELECT * FROM product WHERE business_business_id=$business_id");
+$result=$rquery->execute();
+$rquery->store_result();
+$rquery ->bind_result($product_id,$name,$price,$description,$location,$business_business_id);
+if($rquery->num_rows === 0) exit("Seems to be no product found");
+
+
+while($rquery->fetch()){
+  echo "<div class='card'>";
+  echo "<h1>$name</h1>";
+  echo "<p class='price'>$$price</p>";
+  echo "<p>$description</p>";
+  echo "<p>Location: $location</p>";
+  echo "<div class='button-container'>";
+  echo "<form action='bisviewmore.php' method='post' <br>";
+  echo "<div>";
+  echo "<input type='hidden' name='product_id' value='" .$product_id."'>";
+  echo "<input type='hidden' name='pname' value='" .$name."'>";
+  echo "<input type='submit' value='View More '>";
+  echo "</div>";
+  echo"</form>";
+  echo "<form action='biseditproduct.php' method='post'><br>";
+  echo "<div>";
+  echo "<input type='hidden' name='product_id' value='" .$product_id."'>";
+  echo "<input type='submit' value='Edit'>";
+  echo "</div>";
+  echo "</form>";
+  echo "<form action='php/dobisdeleteproduct.php' method='post'><br>";
+  echo "<div>";
+  echo "<input type='hidden' name='product_id' value='" .$product_id."'>";
+  echo "<input type='submit' value='Delete'>";
+  echo"</form>";  
+  echo " </div>";
+  echo " </div>";
+  echo " </div>";
 }
-function MyApprove() {
-  alert("The product has been approved and will be published to your store page");
-  window.location.href='bis.php';
 
-}
-</script>
 
-</body>
+
+
+
+?>
